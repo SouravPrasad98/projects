@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -44,7 +45,7 @@ import static android.widget.Toast.*;
 public class Wholeseller_register extends AppCompatActivity implements LocationListener {
     private ImageButton backbutt, gpssbutt;
     private Button signUpbt;
-    private EditText confirm_password, password1, delevid, wholid, emaillidddd,  addlll,
+    private EditText confirm_password, password1, delevid, wholid, emaillidddd, addlll,
             cityyid, stateid, countrid, busstyyp, PhoneNumber, bussnm, younm;
 
     private static final int Location_Request_code = 100;
@@ -53,7 +54,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
 
 
     private LocationManager locationManager;
-    private Double  latitude = 0.0, longitude = 0.0;
+    private Double latitude = 0.0, longitude = 0.0;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
 
@@ -87,8 +88,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
         progressDialog.setCanceledOnTouchOutside(false);
 
 
-
-        backbutt.setOnClickListener(new View.OnClickListener() {
+        backbutt.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -107,7 +107,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
             }
         });
 
-        signUpbt.setOnClickListener(new View.OnClickListener() {
+        signUpbt.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View v) {
                 String wholesellerId = wholid.getText().toString().trim();
@@ -171,11 +171,8 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
                     Toast.makeText(getApplicationContext(), "Password doesn't match", LENGTH_SHORT).show();
                     return;
                 }
-                if (TextUtils.isEmpty(address)) {
-                    Toast.makeText(getApplicationContext(), "Enter Address", LENGTH_SHORT).show();
-                    return;
-                }
-                if(TextUtils.isEmpty(wholesellerId)){
+
+                if (TextUtils.isEmpty(wholesellerId)) {
                     Toast.makeText(getApplicationContext(), "Enter WholesellerID", LENGTH_SHORT).show();
                     return;
                 }
@@ -200,7 +197,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 progressDialog.dismiss();
-                                Toast.makeText(Wholeseller_register.this, "Account Already Exists", LENGTH_SHORT).show();
+                                Toast.makeText(Wholeseller_register.this, ""+e.getMessage(), LENGTH_SHORT).show();
                             }
                         });
             }
@@ -218,18 +215,20 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
                 hashMap.put("phonenumber", "" + phonenumber);
                 hashMap.put("country", "" + country);
                 hashMap.put("state", "" + state);
-                hashMap.put("deliveryfree", "" + deliveryfee);
                 hashMap.put("city", "" + city);
+                hashMap.put("password", ""+password);
                 hashMap.put("address", "" + address);
+                hashMap.put("deliveryfree", "" + deliveryfee);
                 hashMap.put("latitude", "" + latitude);
                 hashMap.put("longitude", "" + longitude);
                 hashMap.put("accounttype", "wholeseller");
                 hashMap.put("online", "true");
+                hashMap.put("wholesellerid", ""+wholesellerId);
                 hashMap.put("shopopen", "true");
-                hashMap.put("timestamp", ""+timestamp);
+                hashMap.put("timestamp", "" + timestamp);
 
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Wholeseller");
-                ref.child(wholesellerId).setValue(hashMap)
+                ref.child("wholesellerid").setValue(hashMap)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -253,32 +252,39 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
         });
 
     }
+        private void detectlocation () {
+            Toast.makeText(this, "Please Wait...", LENGTH_LONG).show();
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        }
 
-    @SuppressLint("MissingPermission")
-    private void detectlocation() {
-        Toast.makeText(this, "Please Wait...", LENGTH_LONG).show();
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        private boolean checkLocationPermission () {
+            boolean result = ContextCompat.checkSelfPermission(getApplicationContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION) == (PackageManager.PERMISSION_GRANTED);
+            return result;
+        }
+    private void requestLocationPermission () {
+        ActivityCompat.requestPermissions(this, locationPermissions, Location_Request_code);
     }
-
-    private boolean checkLocationPermission(){
-        boolean result= ContextCompat.checkSelfPermission(getApplicationContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION) == (PackageManager.PERMISSION_GRANTED);
-        return result;
-    }
-
-
-    private void requestLocationPermission(){
-        ActivityCompat.requestPermissions(this, locationPermissions, Location_Request_code);}
 
     @Override
-    public void onLocationChanged(@NonNull Location location) {
+    public void onLocationChanged (@NonNull Location location){
         latitude = location.getLatitude();
         longitude = location.getLongitude();
         findAddress();
     }
 
-    private void findAddress() {
+    private void findAddress () {
         Geocoder geocoder;
         List<Address> addresses;
         geocoder = new Geocoder(this, Locale.getDefault());
@@ -302,29 +308,43 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
     }
 
     @Override
-    public void onProviderDisabled(@NonNull String provider) {
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(@NonNull String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled (@NonNull String provider){
         makeText(this, "Please Enable Location", LENGTH_SHORT).show();
     }
 
 
-        @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
-            case Location_Request_code: {
-                if(grantResults.length>0){
-                    boolean locationAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                    if(locationAccepted){
-                        detectlocation();
-                    }
-                    else {
-                        makeText(this,"Location permission neccessary", LENGTH_SHORT).show();
-                    }
+    @Override
+        public void onRequestPermissionsResult ( int requestCode, @NonNull String[] permissions,
+        @NonNull int[] grantResults){
+            switch (requestCode) {
+                case Location_Request_code: {
+                    if (grantResults.length > 0) {
+                        boolean locationAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                        if (locationAccepted) {
+                            detectlocation();
+                        } else {
+                            makeText(this, "Location permission neccessary", LENGTH_SHORT).show();
+                        }
 
+                    }
                 }
+                break;
             }
-            break;
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
 
-}
+
+
+
+
+    }

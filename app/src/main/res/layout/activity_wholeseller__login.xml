@@ -44,13 +44,13 @@
 
     <EditText
         android:layout_below="@+id/key"
-        android:id="@+id/wholid"
+        android:id="@+id/emaillidddd"
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:hint="@string/enter_shopid"
+        android:hint="Enter Email"
         android:importantForAutofill="no"
         android:inputType="textVisiblePassword"
         android:padding="10dp"
@@ -63,7 +63,7 @@
 
     <EditText
         android:id="@+id/password1"
-        android:layout_below="@+id/wholid"
+        android:layout_below="@+id/emaillidddd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
