@@ -1,0 +1,126 @@
+package com.example.mail;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+
+public class Wholeseller_LoginActivity extends AppCompatActivity {
+    private EditText password1;
+    private EditText wholid;
+    private Button login;
+    private TextView noacc,forgotT;
+    private FirebaseAuth firebaseAuth;
+    private ProgressDialog progressDialog;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_wholeseller__login);
+
+        wholid=findViewById(R.id.wholid);
+        password1=findViewById(R.id.password1);
+        login=findViewById(R.id.button);
+        noacc=findViewById(R.id.noacc);
+        forgotT=findViewById(R.id.forgotT);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Please Wait");
+        progressDialog.setCanceledOnTouchOutside(false);
+
+
+
+
+
+        noacc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Wholeseller_LoginActivity.this, Wholeseller_register.class));
+            }
+        });
+
+        forgotT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Wholeseller_LoginActivity.this, Wholeseller_forgotpassword.class));
+            }
+        });
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginwholeseller();
+            }
+        });
+    }
+    private String Wholesellerid, Password;
+    private void loginwholeseller() {
+        Wholesellerid = wholid.getText().toString().trim();
+
+        if(TextUtils.isEmpty(Wholesellerid)){
+            Toast.makeText(this, "Enter Bussiness Id", Toast.LENGTH_SHORT);
+            return;
+        }
+
+        if(TextUtils.isEmpty(Password)){
+            Toast.makeText(this, "Enter Password", Toast.LENGTH_SHORT);
+            return;
+        }
+        progressDialog.setMessage("Logging In...");
+        progressDialog.show();
+
+        firebaseAuth.signInWithEmailAndPassword(Wholesellerid, Password)
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        makeMeOnline();
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+    private void makeMeOnline(){
+        progressDialog.setMessage("Checking User...");
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("Online", "true");
+
+        DatabaseReference ref= FirebaseDatabase.getInstance().getReference("wholesellers");
+        ref.child(firebaseAuth.getUid()).updateChildren(hashMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                    }
+                });
+    }
+
+}
