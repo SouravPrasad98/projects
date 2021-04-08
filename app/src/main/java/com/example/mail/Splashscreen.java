@@ -17,19 +17,13 @@ public class Splashscreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_splashscreen);
-        firebaseAuth = FirebaseAuth.getInstance();
         new Handler().postDelayed(new Runnable() {
 
                                       @Override
                                       public void run() {
-
-                                          FirebaseUser user= firebaseAuth.getCurrentUser();
-                                          if(user ==null){
-                                              startActivity(new Intent(Splashscreen.this,Login.class));
-                                              finish();
-                                          }
-
+                                          Intent intent= new Intent(Splashscreen.this, MainActivity.class  );
+                                          startActivity(intent);
+                                          finish();
                                       }
                                   },
                 SPLASH_TIME_OUT);

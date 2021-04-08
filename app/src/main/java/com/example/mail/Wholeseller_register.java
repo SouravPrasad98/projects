@@ -4,29 +4,35 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
+import android.location.Location;
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
+import android.content.DialogInterface;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
+
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
+
+import android.widget.TextView;
 import android.widget.Toast;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,9 +51,8 @@ import static android.widget.Toast.*;
 public class Wholeseller_register extends AppCompatActivity implements LocationListener {
     private ImageButton backbutt, gpssbutt;
     private Button signUpbt;
-    private EditText confirm_password, password1, delevid, wholid, emaillidddd, addlll,
-            cityyid, stateid, countrid, busstyyp, PhoneNumber, bussnm, younm;
-
+    private EditText confirm_password, password1, delevid, wholid, emaillidddd,  busstyyp, PhoneNumber,
+            bussnm, younm,addlll, cityyid, stateid, countrid;
     private static final int Location_Request_code = 100;
 
     private String[] locationPermissions;
@@ -62,7 +67,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wholeseller_register);
-        addlll = findViewById(R.id.addlll);
+        addlll=findViewById(R.id.addlll);
         gpssbutt = findViewById(R.id.gpssbutt);
         backbutt = findViewById(R.id.backbutt);
         signUpbt = findViewById(R.id.signUpbt);
@@ -266,7 +271,8 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
                 return;
             }
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-        }
+              findAddress();
+    }
 
         private boolean checkLocationPermission () {
             boolean result = ContextCompat.checkSelfPermission(getApplicationContext(),
@@ -275,7 +281,8 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
         }
     private void requestLocationPermission () {
         ActivityCompat.requestPermissions(this, locationPermissions, Location_Request_code);
-    }
+            }
+
 
     @Override
     public void onLocationChanged (@NonNull Location location){
@@ -286,6 +293,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
 
     private void findAddress () {
         Geocoder geocoder;
+
         List<Address> addresses;
         geocoder = new Geocoder(this, Locale.getDefault());
         try {
@@ -300,6 +308,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
             stateid.setText(state);
             cityyid.setText(city);
             addlll.setText(address);
+            Log.d("success", "findAddress: ");
 
 
         } catch (Exception e) {
@@ -314,7 +323,6 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
 
     @Override
     public void onProviderEnabled(@NonNull String provider) {
-
     }
 
     @Override

@@ -131,7 +131,7 @@ public class Wholeseller_LoginActivity extends AppCompatActivity {
 
     private void gotoshop() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Wholeseller");
-        ref.orderByChild("wholesellerid").equalTo("wholesellerId")
+        ref.orderByChild("uid").equalTo(firebaseAuth.getUid())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

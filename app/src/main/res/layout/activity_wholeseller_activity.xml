@@ -2,28 +2,38 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Wholeseller_activity">
 
 
     <RelativeLayout
-        android:layout_width="380dp"
-        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
         android:background="@color/limegreen"
         android:padding="5dp"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp"
-        tools:ignore="MissingConstraints">
+        tools:layout_editor_absoluteY="16dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/GroceryClan"
             android:layout_centerHorizontal="true"
+            android:text="ShopName"
+            android:id="@+id/bussnm"
+            android:textColor="@color/white"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_baseline_power_settings_new_24"
+            android:id="@+id/logoutbt"
+            />
     </RelativeLayout>
 
     <ImageView
