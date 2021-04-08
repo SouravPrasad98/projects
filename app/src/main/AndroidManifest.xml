@@ -23,13 +23,14 @@
 
         </activity>
         <activity android:name=".Wholeseller_LoginActivity">
+        </activity>
+        <activity android:name=".Splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Splashscreen"></activity>
         <activity android:name=".ForgetPassword" />
         <activity android:name=".Choice_Role" />
         <activity android:name=".Registration" />
