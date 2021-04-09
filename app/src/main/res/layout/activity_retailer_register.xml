@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Retailer_register">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:background="@color/limegreen"
+        android:padding="5dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp">
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register Retailer"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/key"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/design" />
+    <ImageButton
+        android:id="@+id/backbutt"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/ic_baseline_chevron_left_24"
+        android:background="@color/limegreen"/>
+    <ImageButton
+        android:id="@+id/gpssbutt"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="340dp"
+        android:src="@drawable/ic_baseline_location_on_24"
+        android:background="@color/limegreen"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/key"
+        android:id="@+id/scroll">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.blogspot.atifsoftwares.circularimageview.CircularImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_below="@id/key"
+                app:c_border="true"
+                android:id="@+id/profileIv"
+                app:c_border_color="@color/Snow"
+                app:c_border_width="1dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_baseline_person_24"
+                android:layout_centerHorizontal="true"
+                tools:ignore="NotSibling" />
+
+            <EditText
+                android:id="@+id/younm"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profileIv"
+                android:hint="Your Name"
+                android:textColorHint="@color/black"
+                android:inputType="text"
+                android:layout_margin="5dp"/>
+
+            <EditText
+                android:id="@+id/bussnm"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/younm"
+                android:hint="Retailer Shop Name"
+                android:textColorHint="@color/black"
+                android:inputType="text"
+                android:layout_margin="5dp"/>
+
+            <EditText
+                android:id="@+id/busstyyp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bussnm"
+                android:hint="Shop Category"
+                android:textColorHint="@color/black"
+                android:inputType="text"
+                android:layout_margin="5dp"/>
+
+
+            <EditText
+                android:id="@+id/PhoneNumber"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/busstyyp"
+                android:hint="Phone Number"
+                android:textColorHint="@color/black"
+                android:inputType="numberDecimal"
+                android:layout_margin="5dp"/>
+
+            <LinearLayout
+                android:id="@+id/adddid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/PhoneNumber"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:id="@+id/countrid"
+                    android:drawablePadding="5dp"
+                    android:textColorHint="@color/black"
+                    android:hint="Country"
+                    android:inputType="textPostalAddress"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/black"
+                    android:padding="10dp"
+                    android:id="@+id/stateid"
+                    android:drawablePadding="5dp"
+                    android:hint="State"
+                    android:inputType="textPostalAddress"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"/>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:id="@+id/cityyid"
+                    android:drawablePadding="5dp"
+                    android:hint="City"
+                    android:inputType="textPostalAddress"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/addlll"
+                android:layout_width="match_parent"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/adddid"
+                android:padding="10dp"
+                android:inputType="textPostalAddress|textMultiLine"
+                android:layout_margin="5dp"
+                android:textColorHint="@color/black"
+                android:hint="Address"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/addlll"
+                android:id="@+id/emaillidddd"
+                android:hint="Email"
+                android:textColorHint="@color/black"
+                android:padding="10dp"
+                android:inputType="textEmailAddress"
+                android:layout_margin="5dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_below="@id/emaillidddd"
+                android:id="@+id/wholid"
+                android:hint="Shop ID"
+                android:textColorHint="@color/black"
+                android:padding="10dp"
+                android:inputType="textEmailAddress"
+                android:layout_margin="5dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_below="@id/wholid"
+                android:id="@+id/delevid"
+                android:hint="Delivery Fee"
+                android:textColorHint="@color/black"
+                android:padding="10dp"
+                android:inputType="textEmailAddress"
+                android:layout_margin="5dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/delevid"
+                android:textColor="@color/black"
+                android:id="@+id/password1"
+                android:hint="Password"
+                android:textColorHint="@color/black"
+                android:padding="10dp"
+                android:inputType="textPassword"
+                android:layout_margin="5dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_below="@id/password1"
+                android:id="@+id/confirm_password"
+                android:hint="Confirm Password"
+                android:textColorHint="@color/black"
+                android:padding="10dp"
+                android:inputType="textPassword"
+                android:layout_margin="5dp"
+                tools:ignore="UnknownId" />
+
+            <Button
+                android:id="@+id/signUpbt"
+                android:layout_margin="25dp"
+                android:backgroundTint="@color/tomatored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/confirm_password"
+                android:layout_centerHorizontal="true"
+                android:minWidth="120dp"
+                android:text="Sign Up"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/wholeSignUp"
+                android:textColor="@color/black"
+                android:layout_below="@id/signUpbt"
+                android:text="Sign up as Wholeseller"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:padding="10dp"
+
+                android:layout_margin="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/UserSignUp"
+                android:textColor="@color/black"
+                android:layout_below="@id/wholeSignUp"
+                android:text="Sign up as USER"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:padding="10dp"
+                android:layout_margin="5dp" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>
+
+
+
+
+
+

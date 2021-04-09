@@ -53,7 +53,7 @@ public class Wholeseller_LoginActivity extends AppCompatActivity {
         noacc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Wholeseller_LoginActivity.this, Wholeseller_register.class));
+                startActivity(new Intent(Wholeseller_LoginActivity.this, User_register.class));
             }
         });
 
@@ -79,7 +79,7 @@ public class Wholeseller_LoginActivity extends AppCompatActivity {
         Password = password1.getText().toString().trim();
 
         if (TextUtils.isEmpty(Email)) {
-            Toast.makeText(this, "Enter Bussiness Id", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "Enter Email Id", Toast.LENGTH_SHORT);
             return;
         }
 

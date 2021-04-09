@@ -24,7 +24,7 @@ public class Choice_Role extends AppCompatActivity {
      button6 = findViewById(R.id.button6);
      button7 = findViewById(R.id.button7);
 
-button5.setOnClickListener(new View.OnClickListener() {
+button7.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
 startActivity(new Intent(Choice_Role.this, Wholeseller_LoginActivity.class));
