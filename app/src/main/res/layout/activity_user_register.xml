@@ -107,7 +107,7 @@
                 android:layout_below="@id/PhoneNumber"
                 android:orientation="horizontal">
 
-                <TextView
+                <EditText
                     android:layout_width="match_parent"
                     android:textColor="@color/black"
                     android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
                     android:layout_weight="1"
                     android:layout_margin="5dp"/>
 
-                <TextView
+                <EditText
                     android:layout_width="match_parent"
                     android:textColor="@color/black"
                     android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
                     android:layout_margin="5dp"/>
 
 
-                <TextView
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
@@ -148,7 +148,7 @@
                     android:layout_margin="5dp"/>
             </LinearLayout>
 
-            <TextView
+            <EditText
                 android:id="@+id/addlll"
                 android:layout_width="match_parent"
                 android:textColor="@color/black"

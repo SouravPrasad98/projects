@@ -62,13 +62,13 @@ import io.grpc.okhttp.internal.framed.FrameReader;
 
 import static android.widget.Toast.*;
 
-public class User_register extends AppCompatActivity implements LocationListener{
+public class User_register extends AppCompatActivity implements LocationListener {
     private ImageButton backbutt, gpssbutt;
     private ImageView profileIv;
     private Button signUpbt;
     private EditText confirm_password, password1, emaillidddd, PhoneNumber,
-            younm;
-    private TextView addlll, cityyid, stateid, countrid, retailerSignUp, wholeSignUp;
+            younm,addlll, cityyid, stateid, countrid;
+    private TextView  retailerSignUp, wholeSignUp;
 
 
     private static final int Location_Request_code = 100;
@@ -76,7 +76,6 @@ public class User_register extends AppCompatActivity implements LocationListener
     private static final int Storage_Request_code = 300;
     private static final int IMAGE_PICK_GALLERY_CODE = 400;
     private static final int IMAGE_PICK_CAMERA_CODE = 500;
-
 
 
     private String[] locationPermissions;
@@ -107,7 +106,7 @@ public class User_register extends AppCompatActivity implements LocationListener
         cityyid = findViewById(R.id.cityyid);
         stateid = findViewById(R.id.stateid);
         countrid = findViewById(R.id.countrid);
-        profileIv= findViewById(R.id.profileIv);
+        profileIv = findViewById(R.id.profileIv);
 
         PhoneNumber = findViewById(R.id.PhoneNumber);
 
@@ -115,7 +114,6 @@ public class User_register extends AppCompatActivity implements LocationListener
         locationPermissions = new String[]{Manifest.permission.ACCESS_FINE_LOCATION};
         cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
-
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -159,16 +157,14 @@ public class User_register extends AppCompatActivity implements LocationListener
         gpssbutt.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkLocationPermission()){
+                if (checkLocationPermission()) {
                     detectLocation();
-                }
-                else {
+                } else {
                     requestLocationPermission();
                 }
 
             }
         });
-
 
 
         signUpbt.setOnClickListener(new OnClickListener() {
@@ -186,30 +182,27 @@ public class User_register extends AppCompatActivity implements LocationListener
 
 
     private void showImagePickDialog() {
-        String[] options = {"Camera" , "Gallery"};
+        String[] options = {"Camera", "Gallery"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Pick Image")
                 .setItems(options, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(which == 0){
+                        if (which == 0) {
                             //camera clicked
-                            if(checkCameraPermission()){
+                            if (checkCameraPermission()) {
                                 pickFromCamera();
 
-                            }
-                            else{
+                            } else {
                                 requestCameraPermission();
 
                             }
-                        }
-                        else{
+                        } else {
 
-                            if(checkStoragePermission()){
+                            if (checkStoragePermission()) {
                                 pickFromGallery();
 
-                            }
-                            else{
+                            } else {
                                 requestStoragePermission();
 
                             }
@@ -221,13 +214,13 @@ public class User_register extends AppCompatActivity implements LocationListener
                 .show();
     }
 
-    private void pickFromGallery(){
-        Intent intent= new Intent(Intent.ACTION_PICK);
+    private void pickFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, IMAGE_PICK_GALLERY_CODE);
     }
 
-    private void pickFromCamera(){
+    private void pickFromCamera() {
         ContentValues contentValues = new ContentValues();
         contentValues.put(MediaStore.Images.Media.TITLE, "Temp_Image Title");
         contentValues.put(MediaStore.Images.Media.DESCRIPTION, "Temp_Image Description");
@@ -241,7 +234,17 @@ public class User_register extends AppCompatActivity implements LocationListener
     private void detectLocation() {
         Toast.makeText(this, "Please wait...", LENGTH_LONG).show();
 
-        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
     }
     private void findAddress() {
@@ -262,7 +265,7 @@ public class User_register extends AppCompatActivity implements LocationListener
             stateid.setText(state);
             countrid.setText(country);
             addlll.setText(address);
-
+            Log.i("hua", "findAddress: ");
 
 
         }

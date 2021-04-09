@@ -69,15 +69,14 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
     private ImageView profileIv;
     private Button signUpbt;
     private EditText confirm_password, password1, delevid, wholid, emaillidddd, busstyyp, PhoneNumber,
-            bussnm, younm;
-    private TextView addlll, cityyid, stateid, countrid, UserSignUp, retailerSignUp;
+            bussnm, younm, addlll, cityyid, stateid, countrid;
+    private TextView  UserSignUp, retailerSignUp;
 
     private static final int Location_Request_code = 100;
     private static final int Camera_Request_code = 200;
     private static final int Storage_Request_code = 300;
     private static final int IMAGE_PICK_GALLERY_CODE = 400;
     private static final int IMAGE_PICK_CAMERA_CODE = 500;
-
 
 
     private String[] locationPermissions;
@@ -97,7 +96,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wholeseller_register);
         addlll = findViewById(R.id.addlll);
-       // profileIv = findViewById(R.id.profileIv);
+        // profileIv = findViewById(R.id.profileIv);
         gpssbutt = findViewById(R.id.gpssbutt);
         backbutt = findViewById(R.id.backbutt);
         signUpbt = findViewById(R.id.signUpbt);
@@ -113,7 +112,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
         PhoneNumber = findViewById(R.id.PhoneNumber);
         bussnm = findViewById(R.id.bussnm);
         younm = findViewById(R.id.younm);
-        profileIv= findViewById(R.id.profileIv);
+        profileIv = findViewById(R.id.profileIv);
         UserSignUp = findViewById(R.id.UserSignUp);
         retailerSignUp = findViewById(R.id.retailerSignUp);
 
@@ -163,10 +162,9 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
         gpssbutt.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkLocationPermission()){
+                if (checkLocationPermission()) {
                     detectLocation();
-                }
-                else {
+                } else {
                     requestLocationPermission();
                 }
 
@@ -186,30 +184,27 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
     }
 
     private void showImagePickDialog() {
-        String[] options = {"Camera" , "Gallery"};
+        String[] options = {"Camera", "Gallery"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Pick Image")
                 .setItems(options, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(which == 0){
+                        if (which == 0) {
                             //camera clicked
-                            if(checkCameraPermission()){
+                            if (checkCameraPermission()) {
                                 pickFromCamera();
 
-                            }
-                            else{
+                            } else {
                                 requestCameraPermission();
 
                             }
-                        }
-                        else{
+                        } else {
 
-                            if(checkStoragePermission()){
+                            if (checkStoragePermission()) {
                                 pickFromGallery();
 
-                            }
-                            else{
+                            } else {
                                 requestStoragePermission();
 
                             }
@@ -221,13 +216,13 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
                 .show();
     }
 
-    private void pickFromGallery(){
-        Intent intent= new Intent(Intent.ACTION_PICK);
+    private void pickFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, IMAGE_PICK_GALLERY_CODE);
     }
 
-    private void pickFromCamera(){
+    private void pickFromCamera() {
         ContentValues contentValues = new ContentValues();
         contentValues.put(MediaStore.Images.Media.TITLE, "Temp_Image Title");
         contentValues.put(MediaStore.Images.Media.DESCRIPTION, "Temp_Image Description");
@@ -241,8 +236,19 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
     private void detectLocation() {
         Toast.makeText(this, "Please wait...", LENGTH_LONG).show();
 
-        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        Log.i("hi", "detectLocation: ");
     }
     private void findAddress() {
 
@@ -262,7 +268,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
             stateid.setText(state);
             countrid.setText(country);
             addlll.setText(address);
-
+            Log.d("lol", "findAddress() called");
 
 
         }
