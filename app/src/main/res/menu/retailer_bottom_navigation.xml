@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/retailerBottomNavigationHome"
+        android:title="Home"
+        android:icon="@drawable/retailer_home_bottom_navigation"
+        app:cnb_backgroundColor="@color/white"
+        ></item>
+
+    <item
+        android:id="@+id/retailerBottomNavigationPlus"
+        android:title="Add"
+        android:icon="@drawable/retailer_plus_bottom_navigation"
+        app:cnb_backgroundColor="@color/white"
+        ></item>
+
+    <item
+        android:id="@+id/retailerBottomNavigationAcceptOrders"
+        android:title="Orders"
+        android:icon="@drawable/retailer_orders_bottom_navigation"
+        app:cnb_backgroundColor="@color/white"
+        ></item>
+    <item
+        android:id="@+id/retailerBottomNavigationAccount"
+        android:title="Account"
+        android:icon="@drawable/retailer_account_bottom_navigation"
+        app:cnb_backgroundColor="@color/white"
+        ></item>
+
+</menu>

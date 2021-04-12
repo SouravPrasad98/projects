@@ -20,7 +20,7 @@
             android:layout_margin="10dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Email Address"
+            android:hint="Email Address"
             tools:ignore="MissingConstraints" />
 
         <EditText
@@ -30,7 +30,7 @@
             android:layout_margin="10dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Password"
+            android:hint="Password"
             tools:ignore="MissingConstraints" />
 
         <Button
