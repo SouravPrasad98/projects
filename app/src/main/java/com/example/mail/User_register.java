@@ -440,10 +440,7 @@ public class User_register extends AppCompatActivity implements LocationListener
                     return;
 
                 }
-                if (!(password.equals(confirmpssd))) {
-                    Toast.makeText(getApplicationContext(), "Password doesn't match", LENGTH_SHORT).show();
-                    return;
-                }
+
 
                 createAccount();
 

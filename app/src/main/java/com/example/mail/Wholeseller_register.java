@@ -454,15 +454,9 @@ Toast.makeText(this, "Please enable Location",LENGTH_SHORT).show();
             return;
 
         }
-        if (!(password.equals(confirmpssd))) {
-            Toast.makeText(getApplicationContext(), "Password doesn't match", LENGTH_SHORT).show();
-            return;
-        }
 
-        if (TextUtils.isEmpty(wholesellerId)) {
-            Toast.makeText(getApplicationContext(), "Enter WholesellerID", LENGTH_SHORT).show();
-            return;
-        }
+
+
         createAccount();
 
 
