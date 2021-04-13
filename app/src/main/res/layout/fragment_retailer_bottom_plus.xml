@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Retailer.RetailerBottomPlus">
+    >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/categories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:fontFamily="@font/montserrat"
+                android:padding="1dp"
+                android:text="Categories"
+                android:textColor="@color/black"
+                android:textAllCaps="true"
+                android:textColorHighlight="@color/black"
+                android:elevation="10dp"
+                android:textSize="40sp"></TextView>
+
+            <RelativeLayout
+                android:id="@+id/retailerPulses"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:clickable="true"
+                android:padding="5dp"
+                android:background="@drawable/categories_button"
+                android:layout_margin="5dp"
+                >
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:background="@drawable/retailer_pulses"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Pulses"
+                    android:textSize="30sp"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/black"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/retailerVegetables"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:clickable="true"
+                android:padding="5dp"
+                android:background="@drawable/categories_button"
+                android:layout_margin="5dp"
+                >
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:background="@drawable/retailer_vegetables"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Vegetables"
+                    android:textColor="@color/black"
+                    android:textSize="30sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/retailerFruits"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:clickable="true"
+                android:padding="5dp"
+                android:background="@drawable/categories_button"
+                android:layout_margin="5dp"
+                >
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:background="@drawable/retailer_fruits"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Fruits"
+                    android:textColor="@color/black"
+                    android:textSize="30sp" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/retailerSoaps"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:clickable="true"
+                android:padding="5dp"
+                android:background="@drawable/categories_button"
+                android:layout_margin="5dp"
+                >
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:background="@drawable/retailer_soaps"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Soaps"
+                    android:textColor="@color/black"
+                    android:textSize="30sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/retailerFlour"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:clickable="true"
+                android:padding="5dp"
+                android:background="@drawable/categories_button"
+                android:layout_margin="5dp"
+                >
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:background="@drawable/retailer_flour"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Flour"
+                    android:textSize="30sp"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/black"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/retailerSpices"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:clickable="true"
+                android:padding="5dp"
+                android:background="@drawable/categories_button"
+                android:layout_margin="5dp"
+                >
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:background="@drawable/retailer_spices"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Spices"
+                    android:textSize="30sp"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/black"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/retailerBiscuits"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:clickable="true"
+                android:padding="5dp"
+                android:background="@drawable/categories_button"
+                android:layout_margin="5dp"
+                >
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:background="@drawable/retailer_biscuits"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Biscuits"
+                    android:textColor="@color/black"
+                    android:textSize="30sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/retailerSnacks"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:clickable="true"
+                android:padding="5dp"
+                android:background="@drawable/categories_button"
+                android:layout_margin="5dp"
+                >
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:background="@drawable/retailer_snacks"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Snacks"
+                    android:textSize="30sp"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/black"
+                    />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</FrameLayout>

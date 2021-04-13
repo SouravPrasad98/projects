@@ -22,7 +22,7 @@ public class Wholeseller_forgotpassword extends AppCompatActivity {
     private EditText emailliddd;
     private Button login;
     private FirebaseAuth firebaseAuth;
-    private ProgressDialog progressDialog;
+    private ProgressDialog progressDialog = new ProgressDialog(this);
 
 
     @Override
@@ -35,7 +35,6 @@ public class Wholeseller_forgotpassword extends AppCompatActivity {
         login = findViewById(R.id.login);
 
         firebaseAuth= FirebaseAuth.getInstance();
-        progressDialog= new ProgressDialog(this);
         progressDialog.setTitle("Please Wait");
         progressDialog.setCanceledOnTouchOutside(false);
 
@@ -50,7 +49,9 @@ public class Wholeseller_forgotpassword extends AppCompatActivity {
 
         }
 
-        private   String email;
+
+
+    private   String email;
     private void recoverpassword() {
         email= emailliddd.getText().toString().trim();
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){

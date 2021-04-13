@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.mail"
-        minSdkVersion 16
+        minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -45,9 +45,29 @@ dependencies {
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
     implementation 'com.google.firebase:firebase-inappmessaging-display:19.1.5'
     implementation 'com.google.firebase:firebase-storage:19.2.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.wear:wear:1.1.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.hbb20:ccp:2.3.1'
     implementation 'androidx.multidex:multidex:2.0.1'
+
+    //for getting data in recycler view from firebase
+    implementation 'com.firebaseui:firebase-ui-database:7.1.1'
+
+    //Dependency for the bottom navigation bar
+    implementation 'com.ismaeldivita.chipnavigation:chip-navigation-bar:1.3.4'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.10'
+    compileOnly 'com.google.android.wearable:wearable:2.6.0'
+    //recycler view
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    //cardview
+    implementation "androidx.cardview:cardview:1.0.0"
+    //elegant number
+    implementation 'com.cepheuen.elegant-number-button:lib:1.0.3'
+    //swipe button
+    implementation 'com.ebanx:swipe-button:0.8.3'
+
+
 }

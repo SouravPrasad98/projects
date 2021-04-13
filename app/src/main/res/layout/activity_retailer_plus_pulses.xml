@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Retailer.RetailerPlusPulses">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+            <TextView
+                android:id="@+id/categories_pulses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pulses"
+                android:fontFamily="@font/montserrat"
+                android:textSize="40sp"
+                android:textColor="@color/black"
+                android:textAllCaps="true"
+                android:textColorHighlight="@color/black"
+                android:padding="1dp"
+
+                />
+             <TextView
+                 android:id="@+id/retailerPulsesBack"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentRight="true"
+                 android:textColor="@color/greenyellow"
+                 android:text="Back"
+                 android:textSize="25dp"
+                 android:layout_alignParentBottom="true"
+                 android:padding="10dp"
+                 />
+            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Quantity and Price per Kg"
+                android:textSize="20sp"
+                android:padding="10dp"
+                android:textColor="@color/forestgreen"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/categories_button"
+                android:layout_margin="5dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Moong"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                   android:padding="5dp"
+                    />
+
+                <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                    android:id="@+id/moongRetailerPulse"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    app:backGroundColor="@color/lightgreen"
+                    app:textColor="@color/black"
+                    app:textSize="8sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="10dp"
+                    ></com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
+
+                <EditText
+                    android:id="@+id/moongRetailerPulsePrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/moongRetailerPulse"
+                    android:layout_centerInParent="true"
+                    android:hint="Enter Price in Rs"
+                    android:inputType="number"
+                    android:textSize="25sp"
+                    android:textAlignment="center"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/categories_button"
+                android:layout_margin="5dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rajma"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="30sp"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    />
+
+                <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                    android:id="@+id/rajmaRetailerPulse"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    app:backGroundColor="@color/lightgreen"
+                    app:textColor="@color/black"
+                    app:textSize="8sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="10dp"
+                    ></com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
+                <EditText
+                    android:id="@+id/rajmaRetailerPulsePrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rajmaRetailerPulse"
+                    android:layout_centerInParent="true"
+                    android:hint="Enter Price in Rs"
+                    android:inputType="number"
+                    android:textSize="25sp"
+                    android:textAlignment="center"
+                    />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/categories_button"
+                android:layout_margin="5dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chole"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:padding="5dp"
+                   />
+
+                <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                    android:id="@+id/choleRetailerPulse"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    app:backGroundColor="@color/lightgreen"
+                    app:textColor="@color/black"
+                    app:textSize="8sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="10dp"
+                    ></com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
+                <EditText
+                    android:id="@+id/choleRetailerPulsePrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/choleRetailerPulse"
+                    android:layout_centerInParent="true"
+                    android:hint="Enter Price in Rs"
+                    android:inputType="number"
+                    android:textSize="25sp"
+                    android:textAlignment="center"
+                    />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/categories_button"
+                android:layout_margin="5dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Arhar"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="30sp"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    />
+
+                <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                    android:id="@+id/arharRetailerPulse"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    app:backGroundColor="@color/lightgreen"
+                    app:textColor="@color/black"
+                    app:textSize="8sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="10dp"
+                    android:layout_marginBottom="20dp"
+                    ></com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
+                <EditText
+                    android:id="@+id/arharRetailerPulsePrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/arharRetailerPulse"
+                    android:layout_centerInParent="true"
+                    android:hint="Enter Price in Rs"
+                    android:inputType="number"
+                    android:textSize="25sp"
+                    android:textAlignment="center"
+                    />
+
+            </RelativeLayout>
+            <com.ebanx.swipebtn.SwipeButton
+                android:id="@+id/buttonRetailerPulses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:inner_text="Swipe to add"
+                app:inner_text_color="@android:color/white"
+                app:inner_text_size="16sp"
+                android:layout_marginTop="20dp"
+                app:inner_text_top_padding="18dp"
+                app:inner_text_bottom_padding="18dp"
+                app:inner_text_background="@drawable/shape_rounded"
+                app:button_image_height="60dp"
+                app:button_image_width="100dp"
+                app:button_image_disabled="@drawable/categories_button"
+                app:button_image_enabled="@drawable/retailer_plus_bottom_navigation"
+                app:button_left_padding="20dp"
+                app:button_right_padding="20dp"
+                app:button_top_padding="20dp"
+                app:button_bottom_padding="20dp"
+                app:button_background="@drawable/shape_button"
+                app:initial_state="disabled"
+                app:has_activate_state="true"
+                />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</FrameLayout>
