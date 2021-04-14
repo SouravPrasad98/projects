@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.mail"
     android:installLocation="auto">
-    g
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -22,7 +21,7 @@
         android:theme="@style/Theme.MAil"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
-
+        <activity android:name=".Wholeseller_addproduct"></activity>
         <activity android:name=".Retailer.retailerItemsIHave" />
         <activity android:name=".Retailer.RetailerPlusVegetables" />
         <activity android:name=".Retailer.RetailerPlusPulses" />

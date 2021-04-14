@@ -32,6 +32,7 @@ public class Wholeseller_LoginActivity extends AppCompatActivity {
     private TextView noacc, forgotT;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
+    private DataSnapshot dataSnapshot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,11 +114,11 @@ public class Wholeseller_LoginActivity extends AppCompatActivity {
         hashMap.put("Online", "true");
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Wholeseller");
-        ref.child("Email").updateChildren(hashMap)
+        ref.child(firebaseAuth.getUid()).updateChildren(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        gotoshop();
+                        checkusertype();
 
                     }
                 })
@@ -129,23 +130,32 @@ public class Wholeseller_LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void gotoshop() {
+    private void checkusertype() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Wholeseller");
         ref.orderByChild("uid").equalTo(firebaseAuth.getUid())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        startActivity(new Intent(Wholeseller_LoginActivity.this, Wholeseller_activity.class));
-                        finish();
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            String accounttype = "" + ds.child("accounttype").getValue();
+                            if (accounttype.equals("wholeseller")) {
+                                progressDialog.dismiss();
+                                startActivity(new Intent(Wholeseller_LoginActivity.this, Wholeseller_activity.class));
+                                finish();
+                            } else {
+
+                                progressDialog.dismiss();
+                                startActivity(new Intent(Wholeseller_LoginActivity.this, Wholeseller_activity.class));
+                                finish();
+                            }
+                        }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        startActivity(new Intent(Wholeseller_LoginActivity.this, Wholeseller_register.class));
-                        finish();
+
+
                     }
-
-
                 });
 
 

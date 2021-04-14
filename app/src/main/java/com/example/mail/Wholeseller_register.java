@@ -50,10 +50,14 @@ import com.google.android.gms.location.LocationServices;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 import java.util.List;
@@ -70,7 +74,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
     private Button signUpbt;
     private EditText confirm_password, password1, delevid, wholid, emaillidddd, busstyyp, PhoneNumber,
             bussnm, younm, addlll, cityyid, stateid, countrid;
-    private TextView  UserSignUp, retailerSignUp;
+    private TextView UserSignUp, retailerSignUp;
 
     private static final int Location_Request_code = 100;
     private static final int Camera_Request_code = 200;
@@ -90,6 +94,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
 
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
+    private String timestamp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -250,13 +255,14 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         Log.i("hi", "detectLocation: ");
     }
+
     private void findAddress() {
 
         Geocoder geocoder;
         List<Address> addresses;
         geocoder = new Geocoder(this, Locale.getDefault());
 
-        try{
+        try {
             addresses = geocoder.getFromLocation(latitude, longitude, 1);
 
             String address = addresses.get(0).getAddressLine(0);
@@ -271,55 +277,53 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
             Log.d("lol", "findAddress() called");
 
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             Toast.makeText(this, "error", LENGTH_SHORT).show();
         }
     }
-    private boolean checkLocationPermission(){
+
+    private boolean checkLocationPermission() {
         boolean result = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) == (PackageManager.PERMISSION_GRANTED);
         return result;
     }
 
-    private void requestLocationPermission(){
+    private void requestLocationPermission() {
         ActivityCompat.requestPermissions(this, locationPermissions, Location_Request_code);
 
     }
 
-    private boolean checkStoragePermission(){
+    private boolean checkStoragePermission() {
         boolean result = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
         return result;
     }
 
-    private void requestStoragePermission(){
+    private void requestStoragePermission() {
         ActivityCompat.requestPermissions(this, storagePermissions, Storage_Request_code);
     }
 
-    private boolean checkCameraPermission(){
+    private boolean checkCameraPermission() {
         boolean result = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA) == (PackageManager.PERMISSION_GRANTED);
         boolean result1 = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
         return result && result1;
     }
-    private void requestCameraPermission(){
+
+    private void requestCameraPermission() {
         ActivityCompat.requestPermissions(this, cameraPermissions, Camera_Request_code);
     }
 
 
-
-
     @Override
     public void onLocationChanged(@NonNull Location location) {
-    latitude = location.getLatitude();
-    longitude = location.getLongitude();
+        latitude = location.getLatitude();
+        longitude = location.getLongitude();
 
-    findAddress();
+        findAddress();
 
     }
-
 
 
     @Override
@@ -334,49 +338,46 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
 
     @Override
     public void onProviderDisabled(@NonNull String provider) {
-Toast.makeText(this, "Please enable Location",LENGTH_SHORT).show();
+        Toast.makeText(this, "Please enable Location", LENGTH_SHORT).show();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
-            case Location_Request_code:{
-                if(grantResults.length > 0){
+        switch (requestCode) {
+            case Location_Request_code: {
+                if (grantResults.length > 0) {
                     boolean locationAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                    if(locationAccepted){
+                    if (locationAccepted) {
                         detectLocation();
 
-                    }
-                    else{
+                    } else {
                         Toast.makeText(this, "Location permission necessary", LENGTH_SHORT).show();
 
                     }
                 }
             }
             break;
-            case Camera_Request_code:{
-                if(grantResults.length > 0){
+            case Camera_Request_code: {
+                if (grantResults.length > 0) {
                     boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     boolean storageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-                    if(cameraAccepted && storageAccepted){
+                    if (cameraAccepted && storageAccepted) {
                         pickFromCamera();
 
-                    }
-                    else{
+                    } else {
                         Toast.makeText(this, "Camera permission necessary", LENGTH_SHORT).show();
 
                     }
                 }
             }
             break;
-            case Storage_Request_code:{
-                if(grantResults.length > 0){
+            case Storage_Request_code: {
+                if (grantResults.length > 0) {
                     boolean storageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                    if(storageAccepted){
+                    if (storageAccepted) {
                         pickFromGallery();
 
-                    }
-                    else{
+                    } else {
                         Toast.makeText(this, "Storage permission necessary", LENGTH_SHORT).show();
 
                     }
@@ -392,15 +393,14 @@ Toast.makeText(this, "Please enable Location",LENGTH_SHORT).show();
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-     if(resultCode==RESULT_OK){
-         if(requestCode == IMAGE_PICK_GALLERY_CODE){
-             image_uri = data.getData();
-             profileIv.setImageURI(image_uri);
-         }
-         else if (requestCode == IMAGE_PICK_CAMERA_CODE){
-             profileIv.setImageURI(image_uri);
-         }
-     }
+        if (resultCode == RESULT_OK) {
+            if (requestCode == IMAGE_PICK_GALLERY_CODE) {
+                image_uri = data.getData();
+                profileIv.setImageURI(image_uri);
+            } else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
+                profileIv.setImageURI(image_uri);
+            }
+        }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -454,8 +454,11 @@ Toast.makeText(this, "Please enable Location",LENGTH_SHORT).show();
             return;
 
         }
+        if (!password.equals(confirmpssd)) {
+            Toast.makeText(getApplicationContext(), "Password must be same", LENGTH_SHORT).show();
+            return;
 
-
+        }
 
         createAccount();
 
@@ -486,51 +489,124 @@ Toast.makeText(this, "Please enable Location",LENGTH_SHORT).show();
     private void saverFirebaseData() {
         progressDialog.setMessage("Saving Account Info");
         String timestamp = "" + System.currentTimeMillis();
-        HashMap<String, Object> hashMap = new HashMap<>();
-        String uid = firebaseAuth.getUid();
-        hashMap.put("uid", "" + uid);
-        hashMap.put("email", "" + email);
-        hashMap.put("name", "" + fullname);
-        hashMap.put("bussinessname", "" + bussinessname);
-        hashMap.put("bussinesscategory", "" + bussinesscategory);
-        hashMap.put("phonenumber", "" + phonenumber);
-        hashMap.put("country", "" + country);
-        hashMap.put("state", "" + state);
-        hashMap.put("city", "" + city);
-        hashMap.put("password", "" + password);
-        hashMap.put("address", "" + address);
-        hashMap.put("deliveryfree", "" + deliveryfee);
-        hashMap.put("latitude", "" + latitude);
-        hashMap.put("longitude", "" + longitude);
-        hashMap.put("accounttype", "wholeseller");
-        hashMap.put("online", "true");
-        hashMap.put("wholesellerid", "" + wholesellerId);
-        hashMap.put("shopopen", "true");
-        hashMap.put("timestamp", "" + timestamp);
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Wholeseller");
-        ref.child("wholesellerid").setValue(hashMap)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        progressDialog.dismiss();
-                        startActivity(new Intent(Wholeseller_register.this, Wholeseller_activity.class));
-                        finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        startActivity(new Intent(Wholeseller_register.this, Wholeseller_activity.class));
-                        finish();
+        if (image_uri == null) {
+            HashMap<String, Object> hashMap = new HashMap<>();
+            String uid = firebaseAuth.getUid();
+            hashMap.put("uid", "" + uid);
+            hashMap.put("email", "" + email);
+            hashMap.put("name", "" + fullname);
+            hashMap.put("bussinessname", "" + bussinessname);
+            hashMap.put("bussinesscategory", "" + bussinesscategory);
+            hashMap.put("phonenumber", "" + phonenumber);
+            hashMap.put("country", "" + country);
+            hashMap.put("state", "" + state);
+            hashMap.put("city", "" + city);
+            hashMap.put("address", "" + address);
+            hashMap.put("deliveryfree", "" + deliveryfee);
+            hashMap.put("latitude", "" + latitude);
+            hashMap.put("longitude", "" + longitude);
+            hashMap.put("accounttype", "wholeseller");
+            hashMap.put("online", "true");
+            hashMap.put("wholesellerid", "" + wholesellerId);
+            hashMap.put("shopopen", "true");
+            hashMap.put("timestamp", "" + timestamp);
+            hashMap.put("profileimage", "");
 
-                    }
-                });
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Wholeseller");
+            ref.child("wholesellerid").setValue(hashMap)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            progressDialog.dismiss();
+                            startActivity(new Intent(Wholeseller_register.this, Wholeseller_activity.class));
+                            finish();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            startActivity(new Intent(Wholeseller_register.this, Wholeseller_activity.class));
+                            finish();
+
+                        }
+                    });
+
+        } else {
+            String filepathandname = "profile_images/" + "" + firebaseAuth.getUid();
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference(filepathandname);
+            storageReference.putFile(image_uri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                            while (!uriTask.isSuccessful()) ;
+
+                            Uri downloadimageuri = uriTask.getResult();
+                            if (uriTask.isSuccessful()) {
+                                HashMap<String, Object> hashMap = new HashMap<>();
+                                String uid = firebaseAuth.getUid();
+                                hashMap.put("uid", "" + uid);
+                                hashMap.put("email", "" + email);
+                                hashMap.put("name", "" + fullname);
+                                hashMap.put("bussinessname", "" + bussinessname);
+                                hashMap.put("bussinesscategory", "" + bussinesscategory);
+                                hashMap.put("phonenumber", "" + phonenumber);
+                                hashMap.put("country", "" + country);
+                                hashMap.put("state", "" + state);
+                                hashMap.put("city", "" + city);
+                                hashMap.put("password", "" + password);
+                                hashMap.put("address", "" + address);
+                                hashMap.put("deliveryfree", "" + deliveryfee);
+                                hashMap.put("latitude", "" + latitude);
+                                hashMap.put("longitude", "" + longitude);
+                                hashMap.put("accounttype", "wholeseller");
+                                hashMap.put("online", "true");
+                                hashMap.put("wholesellerid", "" + wholesellerId);
+                                hashMap.put("shopopen", "true");
+                                hashMap.put("timestamp", "" + timestamp);
+                                hashMap.put("profileimage", "");
+
+                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Wholeseller");
+                                ref.child("wholesellerid").setValue(hashMap)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                progressDialog.dismiss();
+                                                startActivity(new Intent(Wholeseller_register.this, Wholeseller_activity.class));
+                                                finish();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                progressDialog.dismiss();
+                                                startActivity(new Intent(Wholeseller_register.this, Wholeseller_activity.class));
+                                                finish();
+
+                                            }
+                                        });
+
+                            }
+
+
+                        }
+
+
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            startActivity(new Intent(Wholeseller_register.this, Wholeseller_activity.class));
+                            finish();
+                        }
+                    });
+        }
+
 
     }
-
-
 }
 
 
