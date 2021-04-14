@@ -98,24 +98,13 @@
                 android:inputType="text"
                 android:layout_margin="5dp"/>
 
-            <EditText
-                android:id="@+id/busstyyp"
-                android:textColor="@color/black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/bussnm"
-                android:hint="Bussiness Category"
-                android:textColorHint="@color/black"
-                android:inputType="text"
-                android:layout_margin="5dp"/>
-
 
             <EditText
                 android:id="@+id/PhoneNumber"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/busstyyp"
+                android:layout_below="@id/bussnm"
                 android:hint="Phone Number"
                 android:textColorHint="@color/black"
                 android:inputType="numberDecimal"
@@ -198,18 +187,6 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:layout_below="@id/emaillidddd"
-                android:id="@+id/wholid"
-                android:hint="Shop ID"
-                android:textColorHint="@color/black"
-                android:padding="10dp"
-                android:inputType="textEmailAddress"
-                android:layout_margin="5dp"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:layout_below="@id/wholid"
                 android:id="@+id/delevid"
                 android:hint="Delivery Fee"
                 android:textColorHint="@color/black"

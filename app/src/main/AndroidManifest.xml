@@ -29,7 +29,10 @@
         <activity android:name=".User_activity" />
         <activity android:name=".Retailer_register" />
         <activity android:name=".User_register" />
-        <activity android:name=".Wholeseller_activity" />
+        <activity android:name=".Wholeseller_activity" >
+
+
+        </activity>
         <activity android:name=".Wholeseller_forgotpassword" />
         <activity android:name=".Wholeseller_register" />
         <activity android:name=".Wholeseller_LoginActivity" />

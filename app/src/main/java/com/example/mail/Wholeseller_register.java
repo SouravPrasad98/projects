@@ -72,7 +72,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
     private ImageButton backbutt, gpssbutt;
     private ImageView profileIv;
     private Button signUpbt;
-    private EditText confirm_password, password1, delevid, wholid, emaillidddd, busstyyp, PhoneNumber,
+    private EditText confirm_password, password1, delevid,  emaillidddd,  PhoneNumber,
             bussnm, younm, addlll, cityyid, stateid, countrid;
     private TextView UserSignUp, retailerSignUp;
 
@@ -101,19 +101,19 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wholeseller_register);
         addlll = findViewById(R.id.addlll);
-        // profileIv = findViewById(R.id.profileIv);
+        profileIv = findViewById(R.id.profileIv);
         gpssbutt = findViewById(R.id.gpssbutt);
         backbutt = findViewById(R.id.backbutt);
         signUpbt = findViewById(R.id.signUpbt);
         confirm_password = findViewById(R.id.confirm_password);
         password1 = findViewById(R.id.password1);
         delevid = findViewById(R.id.delevid);
-        wholid = findViewById(R.id.wholid);
+
         emaillidddd = findViewById(R.id.emaillidddd);
         cityyid = findViewById(R.id.cityyid);
         stateid = findViewById(R.id.stateid);
         countrid = findViewById(R.id.countrid);
-        busstyyp = findViewById(R.id.busstyyp);
+
         PhoneNumber = findViewById(R.id.PhoneNumber);
         bussnm = findViewById(R.id.bussnm);
         younm = findViewById(R.id.younm);
@@ -179,7 +179,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
         signUpbt.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                String wholesellerId = wholid.getText().toString().trim();
+                String email = emaillidddd.getText().toString().trim();
                 String password = password1.getText().toString().trim();
                 inputData();
 
@@ -410,7 +410,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
     private void inputData() {
         fullname = younm.getText().toString().trim();
         bussinessname = bussnm.getText().toString().trim();
-        bussinesscategory = busstyyp.getText().toString().trim();
+
         phonenumber = PhoneNumber.getText().toString().trim();
         country = countrid.getText().toString().trim();
         state = stateid.getText().toString().trim();
@@ -419,7 +419,6 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
         email = emaillidddd.getText().toString().trim();
         password = password1.toString().trim();
         confirmpssd = confirm_password.getText().toString().trim();
-        wholesellerId = wholid.getText().toString().trim();
         deliveryfee = delevid.getText().toString().trim();
 
         if (TextUtils.isEmpty(fullname)) {
@@ -430,10 +429,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
             Toast.makeText(getApplicationContext(), "Enter Bussiness Name", LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(bussinesscategory)) {
-            Toast.makeText(getApplicationContext(), "Enter Bussiness Category", LENGTH_SHORT).show();
-            return;
-        }
+
         if (TextUtils.isEmpty(phonenumber)) {
             Toast.makeText(getApplicationContext(), "Enter Phone Number", LENGTH_SHORT).show();
             return;
@@ -454,11 +450,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
             return;
 
         }
-        if (!password.equals(confirmpssd)) {
-            Toast.makeText(getApplicationContext(), "Password must be same", LENGTH_SHORT).show();
-            return;
 
-        }
 
         createAccount();
 
@@ -494,10 +486,10 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
             HashMap<String, Object> hashMap = new HashMap<>();
             String uid = firebaseAuth.getUid();
             hashMap.put("uid", "" + uid);
+            hashMap.put("password", ""+password);
             hashMap.put("email", "" + email);
             hashMap.put("name", "" + fullname);
             hashMap.put("bussinessname", "" + bussinessname);
-            hashMap.put("bussinesscategory", "" + bussinesscategory);
             hashMap.put("phonenumber", "" + phonenumber);
             hashMap.put("country", "" + country);
             hashMap.put("state", "" + state);
@@ -508,13 +500,12 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
             hashMap.put("longitude", "" + longitude);
             hashMap.put("accounttype", "wholeseller");
             hashMap.put("online", "true");
-            hashMap.put("wholesellerid", "" + wholesellerId);
             hashMap.put("shopopen", "true");
             hashMap.put("timestamp", "" + timestamp);
             hashMap.put("profileimage", "");
 
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Wholeseller");
-            ref.child("wholesellerid").setValue(hashMap)
+            ref.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(hashMap)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -551,25 +542,25 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
                                 hashMap.put("email", "" + email);
                                 hashMap.put("name", "" + fullname);
                                 hashMap.put("bussinessname", "" + bussinessname);
-                                hashMap.put("bussinesscategory", "" + bussinesscategory);
+
                                 hashMap.put("phonenumber", "" + phonenumber);
                                 hashMap.put("country", "" + country);
                                 hashMap.put("state", "" + state);
                                 hashMap.put("city", "" + city);
-                                hashMap.put("password", "" + password);
+
                                 hashMap.put("address", "" + address);
                                 hashMap.put("deliveryfree", "" + deliveryfee);
                                 hashMap.put("latitude", "" + latitude);
                                 hashMap.put("longitude", "" + longitude);
                                 hashMap.put("accounttype", "wholeseller");
                                 hashMap.put("online", "true");
-                                hashMap.put("wholesellerid", "" + wholesellerId);
+
                                 hashMap.put("shopopen", "true");
                                 hashMap.put("timestamp", "" + timestamp);
-                                hashMap.put("profileimage", "");
+                                hashMap.put("profileimage", ""+downloadimageuri);
 
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Wholeseller");
-                                ref.child("wholesellerid").setValue(hashMap)
+                                ref.child(firebaseAuth.getUid()).setValue(hashMap)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {

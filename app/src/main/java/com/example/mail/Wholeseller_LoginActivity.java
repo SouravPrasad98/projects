@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,12 +33,12 @@ public class Wholeseller_LoginActivity extends AppCompatActivity {
     private TextView noacc, forgotT;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
-    private DataSnapshot dataSnapshot;
+//    private DataSnapshot dataSnapshot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wholeseller__login);
+        setContentView(R.layout.activity_wholeseller_login);
 
         emailliddd = findViewById(R.id.emaillidddd);
         password1 = findViewById(R.id.password1);
@@ -54,7 +55,7 @@ public class Wholeseller_LoginActivity extends AppCompatActivity {
         noacc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Wholeseller_LoginActivity.this, User_register.class));
+                startActivity(new Intent(Wholeseller_LoginActivity.this, Wholeseller_register.class));
             }
         });
 
@@ -95,6 +96,7 @@ public class Wholeseller_LoginActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
+
                         makeMeOnline();
 
                     }
@@ -126,6 +128,7 @@ public class Wholeseller_LoginActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressDialog.dismiss();
+                        Toast.makeText(Wholeseller_LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -136,9 +139,9 @@ public class Wholeseller_LoginActivity extends AppCompatActivity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                            String accounttype = "" + ds.child("accounttype").getValue();
-                            if (accounttype.equals("wholeseller")) {
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            String account_type = "" + ds.child("accounttype").getValue();
+                            if (account_type.equals("wholeseller")) {
                                 progressDialog.dismiss();
                                 startActivity(new Intent(Wholeseller_LoginActivity.this, Wholeseller_activity.class));
                                 finish();

@@ -25,6 +25,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -44,9 +45,10 @@ import static android.widget.Toast.LENGTH_SHORT;
 public class Wholeseller_addproduct extends AppCompatActivity {
 
     private ImageButton backbutt;
+    private TextView productcate;
     private ImageView cartadd;
     private EditText discountnote,discountpriceEt,productprice,
-            productquantity,productcate,productdes,productname;
+            productquantity,productdes,productname;
     private SwitchCompat discountswipe;
     private Button addbutt;
 
@@ -105,6 +107,13 @@ public class Wholeseller_addproduct extends AppCompatActivity {
             }
         });
 
+        productcate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                categoryDialog();
+            }
+        });
+
         backbutt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,12 +129,6 @@ public class Wholeseller_addproduct extends AppCompatActivity {
             }
         });
 
-        productprice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                categoryDialog();
-            }
-        });
 
         addbutt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,7 +137,7 @@ public class Wholeseller_addproduct extends AppCompatActivity {
             }
         });
     }
-     private  String product_name,product_des,product_price,product_cate,discount_note,discount_priceEt,
+     private String product_name,product_des,product_price,product_cate,discount_note,discount_priceEt,
              product_quantity;
     private boolean discountAvailbale=false;
 
@@ -178,14 +181,14 @@ public class Wholeseller_addproduct extends AppCompatActivity {
         if(image_uri== null){
             HashMap<String,Object> hashMap = new HashMap<>();
             hashMap.put("productId",""+timestamp);
-            hashMap.put("productTitle",""+productname);
-            hashMap.put("productdescription",""+productdes);
-            hashMap.put("productcategory",""+productcate);
+            hashMap.put("productTitle",""+product_name);
+            hashMap.put("productdescription",""+product_des);
+            hashMap.put("productcategory",""+product_cate);
             hashMap.put("discountAvailable",""+discountAvailbale);
-            hashMap.put("discountnote",""+discountnote);
-            hashMap.put("productprice",""+productprice);
-            hashMap.put("discountprice",""+discountpriceEt);
-            hashMap.put("productquantity",""+productquantity);
+            hashMap.put("discountnote",""+discount_note);
+            hashMap.put("productprice",""+product_price);
+            hashMap.put("discountprice",""+discount_priceEt);
+            hashMap.put("productquantity",""+product_quantity);
             hashMap.put("productIcon","");
             hashMap.put("timestamp",""+timestamp);
             hashMap.put("uid",""+firebaseAuth.getUid());

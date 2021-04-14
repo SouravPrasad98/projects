@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -61,6 +62,7 @@ public class Wholeseller_activity extends AppCompatActivity {
 
     private void checkuser(){
         FirebaseUser user = firebaseAuth.getCurrentUser();
+        Log.d("checkuserAyush", "checkuser: " + user.toString());
         if(user==null){
             startActivity(new Intent(Wholeseller_activity.this, Choice_Role.class));
             finish();

@@ -76,7 +76,7 @@
             android:inputType="textPersonName|textCapWords"
             android:padding="10dp"
             android:layout_below="@id/productname"/>
-        <EditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -104,7 +104,7 @@
             android:layout_margin="5dp"
             android:drawablePadding="10dp"
             android:id="@+id/productprice"
-            android:hint="Quantity"
+            android:hint="Price"
             android:inputType="numberDecimal"
             android:padding="10dp"
             android:layout_below="@id/productquantity"/>
@@ -133,7 +133,7 @@
             android:drawablePadding="10dp"
             android:id="@+id/discountnote"
             android:hint="Discount note eg:10% off"
-            android:inputType="numberDecimal"
+            android:inputType="textCapSentences"
             android:padding="10dp"
             android:layout_below="@id/discountedpriceEt"/>
         <Button
