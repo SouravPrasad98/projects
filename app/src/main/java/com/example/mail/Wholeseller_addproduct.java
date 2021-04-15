@@ -226,14 +226,14 @@ public class Wholeseller_addproduct extends AppCompatActivity {
                             if(uriTask.isSuccessful()){
                                 HashMap<String,Object> hashMap = new HashMap<>();
                                 hashMap.put("productId",""+timestamp);
-                                hashMap.put("productTitle",""+productname);
-                                hashMap.put("productdescription",""+productdes);
-                                hashMap.put("productcategory",""+productcate);
+                                hashMap.put("productTitle",""+product_name);
+                                hashMap.put("productdescription",""+product_des);
+                                hashMap.put("productcategory",""+product_cate);
                                 hashMap.put("discountAvailable",""+discountAvailbale);
-                                hashMap.put("discountnote",""+discountnote);
-                                hashMap.put("productprice",""+productprice);
-                                hashMap.put("discountprice",""+discountpriceEt);
-                                hashMap.put("productquantity",""+productquantity);
+                                hashMap.put("discountnote",""+discount_note);
+                                hashMap.put("productprice",""+product_price);
+                                hashMap.put("discountprice",""+discount_priceEt);
+                                hashMap.put("productquantity",""+product_quantity);
                                 hashMap.put("productIcon",""+ downloadImageUri);
                                 hashMap.put("timestamp",""+timestamp);
                                 hashMap.put("uid",""+firebaseAuth.getUid());

@@ -18,5 +18,9 @@
     <color name="forestgreen">#228b22</color>
     <color name="olive">#6b8e23</color>
     <color name="limegreen">#32cd32</color>
+    <color name="whitishgreen">#f2f5df</color>
+    <color name="discountgreen">#43A047</color>
+    <color name="grey">#cdc9c9</color>
+
 
 </resources>
