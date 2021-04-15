@@ -43,6 +43,7 @@ public class Wholeseller_activity extends AppCompatActivity {
     private ArrayList<ModelProduct> productList;
     private FirebaseAuth firebaseAuth;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -183,7 +184,7 @@ public class Wholeseller_activity extends AppCompatActivity {
                             ModelProduct modelProduct = ds.getValue(ModelProduct.class);
                             productList.add(modelProduct);
                         }
-                        AdapterProductWholeseller adapterProductWholeseller = new AdapterProductWholeseller(Wholeseller_activity.this, productList);
+                         adapterProductWholeseller = new AdapterProductWholeseller(Wholeseller_activity.this, productList);
                         productsRv.setAdapter(adapterProductWholeseller);
                     }
 
@@ -214,7 +215,7 @@ public class Wholeseller_activity extends AppCompatActivity {
 
     private void checkuser(){
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        Log.d("checkuserAyush", "checkuser: " + user.toString());
+
         if(user==null){
             startActivity(new Intent(Wholeseller_activity.this, Choice_Role.class));
             finish();

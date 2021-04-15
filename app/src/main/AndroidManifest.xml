@@ -21,7 +21,8 @@
         android:theme="@style/Theme.MAil"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
-        <activity android:name=".Wholeseller_addproduct"></activity>
+        <activity android:name=".EditProductActivity"></activity>
+        <activity android:name=".Wholeseller_addproduct" />
         <activity android:name=".Retailer.retailerItemsIHave" />
         <activity android:name=".Retailer.RetailerPlusVegetables" />
         <activity android:name=".Retailer.RetailerPlusPulses" />
@@ -29,19 +30,17 @@
         <activity android:name=".User_activity" />
         <activity android:name=".Retailer_register" />
         <activity android:name=".User_register" />
-        <activity android:name=".Wholeseller_activity" >
-
-
-        </activity>
-        <activity android:name=".Wholeseller_forgotpassword" />
-        <activity android:name=".Wholeseller_register" />
-        <activity android:name=".Wholeseller_LoginActivity" />
-        <activity android:name=".Splashscreen">
+        <activity android:name=".Wholeseller_activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".Wholeseller_forgotpassword" />
+        <activity android:name=".Wholeseller_register" />
+        <activity android:name=".Wholeseller_LoginActivity" />
+        <activity android:name=".Splashscreen">
 
         </activity>
         <activity
