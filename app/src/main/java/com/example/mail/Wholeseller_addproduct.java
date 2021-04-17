@@ -28,12 +28,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mail.common.Constants;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -209,6 +213,48 @@ public class Wholeseller_addproduct extends AppCompatActivity {
                             Toast.makeText(Wholeseller_addproduct.this, "error", LENGTH_SHORT).show();
                         }
                     });
+            DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("Products");
+            productRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (!snapshot.child(product_name).exists()){
+                        HashMap<String,Object> hashMap1 = new HashMap<>();
+                        hashMap1.put("productTitle",""+product_name);
+                        hashMap1.put("productdescription",""+product_des);
+                        hashMap1.put("productcategory",""+product_cate);
+                        //hashMap1.put("discountAvailable",""+discountAvailbale);
+                        // hashMap1.put("discountnote",""+discount_note);
+                        //hashMap1.put("productprice",""+product_price);
+                        //hashMap1.put("discountprice",""+discount_priceEt);
+                        //hashMap1.put("productquantity",""+product_quantity);
+                        //hashMap1.put("productIcon",""+ downloadImageUri);
+                        //hashMap1.put("timestamp",""+timestamp);
+                        hashMap1.put("uid",""+firebaseAuth.getUid());
+
+                        productRef.child(product_name).setValue(hashMap1);
+
+                    }
+                    HashMap<String,Object> wsd = new HashMap<>();
+                    wsd.put("price",""+product_price);
+                    wsd.put("quantity", ""+product_quantity);
+                    wsd.put("bussinessname", Constants.wbussinessname);
+                    wsd.put("uid", ""+ Constants.wuid);
+                    wsd.put("latitude", ""+Constants.wlatitude);
+                    wsd.put("longitude", ""+Constants.wlongitude);
+                    wsd.put("address", ""+ Constants.waddress);
+                    wsd.put("email", ""+Constants.wemail);
+                    wsd.put("phonenumber", ""+ Constants.wphonenumber);
+
+                    productRef.child(product_name).child("wholesellerList").child(Constants.wuid).setValue(wsd);
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
 
         }
         else{
@@ -224,21 +270,21 @@ public class Wholeseller_addproduct extends AppCompatActivity {
                             Uri downloadImageUri= uriTask.getResult();
 
                             if(uriTask.isSuccessful()){
-                                HashMap<String,Object> hashMap = new HashMap<>();
-                                hashMap.put("productId",""+timestamp);
-                                hashMap.put("productTitle",""+product_name);
-                                hashMap.put("productdescription",""+product_des);
-                                hashMap.put("productcategory",""+product_cate);
-                                hashMap.put("discountAvailable",""+discountAvailbale);
-                                hashMap.put("discountnote",""+discount_note);
-                                hashMap.put("productprice",""+product_price);
-                                hashMap.put("discountprice",""+discount_priceEt);
-                                hashMap.put("productquantity",""+product_quantity);
-                                hashMap.put("productIcon",""+ downloadImageUri);
-                                hashMap.put("timestamp",""+timestamp);
-                                hashMap.put("uid",""+firebaseAuth.getUid());
+                                HashMap<String,Object> hashMap1 = new HashMap<>();
+                                hashMap1.put("productId",""+timestamp);
+                                hashMap1.put("productTitle",""+product_name);
+                                hashMap1.put("productdescription",""+product_des);
+                                hashMap1.put("productcategory",""+product_cate);
+                                hashMap1.put("discountAvailable",""+discountAvailbale);
+                                hashMap1.put("discountnote",""+discount_note);
+                                hashMap1.put("productprice",""+product_price);
+                                hashMap1.put("discountprice",""+discount_priceEt);
+                                hashMap1.put("productquantity",""+product_quantity);
+                                hashMap1.put("productIcon",""+ downloadImageUri);
+                                hashMap1.put("timestamp",""+timestamp);
+                                hashMap1.put("uid",""+firebaseAuth.getUid());
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Wholeseller");
-                                ref.child(firebaseAuth.getUid()).child("Products").child(timestamp).setValue(hashMap)
+                                ref.child(firebaseAuth.getUid()).child("Products").child(timestamp).setValue(hashMap1)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
@@ -254,6 +300,47 @@ public class Wholeseller_addproduct extends AppCompatActivity {
                                                 Toast.makeText(Wholeseller_addproduct.this, "error", LENGTH_SHORT).show();
                                             }
                                         });
+                                DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("Products");
+                                productRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (!snapshot.child(product_name).exists()){
+                                            HashMap<String,Object> hashMap1 = new HashMap<>();
+                                            hashMap1.put("productTitle",""+product_name);
+                                            hashMap1.put("productdescription",""+product_des);
+                                            hashMap1.put("productcategory",""+product_cate);
+                                            //hashMap1.put("discountAvailable",""+discountAvailbale);
+                                           // hashMap1.put("discountnote",""+discount_note);
+                                            //hashMap1.put("productprice",""+product_price);
+                                            //hashMap1.put("discountprice",""+discount_priceEt);
+                                            //hashMap1.put("productquantity",""+product_quantity);
+                                            hashMap1.put("productIcon",""+ downloadImageUri);
+                                            //hashMap1.put("timestamp",""+timestamp);
+                                            hashMap1.put("uid",""+firebaseAuth.getUid());
+
+                                            productRef.child(product_name).setValue(hashMap1);
+
+                                        }
+                                        HashMap<String,Object> wsd = new HashMap<>();
+                                        wsd.put("price",""+product_price);
+                                        wsd.put("quantity", ""+product_quantity);
+                                        wsd.put("bussinessname", Constants.wbussinessname);
+                                        wsd.put("uid", ""+ Constants.wuid);
+                                        wsd.put("latitude", ""+Constants.wlatitude);
+                                        wsd.put("longitude", ""+Constants.wlongitude);
+                                        wsd.put("address", ""+ Constants.waddress);
+                                        wsd.put("email", ""+Constants.wemail);
+                                        wsd.put("phonenumber", ""+ Constants.wphonenumber);
+
+                                    productRef.child(product_name).child("wholesellerList").child(Constants.wuid).setValue(wsd);
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
 
 
                             }
@@ -269,6 +356,23 @@ public class Wholeseller_addproduct extends AppCompatActivity {
                         }
                     });
         }
+
+    DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("Product");
+        productRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.child(product_name).exists())
+                {
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     private void clearData(){

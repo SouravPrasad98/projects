@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mail.common.Constants;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -238,6 +239,22 @@ public class Wholeseller_activity extends AppCompatActivity {
                             String accountype = "" + ds.child("accounttype").getValue();
                             String profilename = ""+ ds.child("name").getValue();
                             String profileimage= "" + ds.child("profileimage").getValue();
+
+                            Constants.wname= "" + ds.child("name").getValue();
+                            Constants.waddress= ""+ ds.child("address").getValue();
+                            Constants.wemail= "" + ds.child("email").getValue();
+                            Constants.wphonenumber= "" + ds.child("phonenumber").getValue();
+                            Constants.wcountry= "" + ds.child("country").getValue();
+                            Constants.wcity= "" + ds.child("city").getValue();
+                            Constants.wlatitude= "" + ds.child("latitude").getValue();
+                            Constants.wlongitude= "" + ds.child("longitude").getValue();
+                            Constants.wdeliveryfee= "" + ds.child("deliveryfee").getValue();
+                            Constants.wbussinessname= "" + ds.child("bussinessname").getValue();
+                            Constants.wstate= "" + ds.child("state").getValue();
+                            Constants.wuid= "" + ds.child("uid").getValue();
+                            Constants.wprofileimage= "" + ds.child("profileimage").getValue();
+
+
 
                             bussnm.setText(name + "("+accountype+")");
                             profile_name.setText(profilename);

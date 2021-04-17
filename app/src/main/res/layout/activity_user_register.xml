@@ -26,7 +26,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register User"
+        android:text="Register"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:layout_centerHorizontal="true"
@@ -198,17 +198,8 @@
                 android:layout_margin="5dp"
                 tools:ignore="UnknownId" />
 
-            <Button
-                android:id="@+id/signUpbt"
-                android:layout_margin="25dp"
-                android:backgroundTint="@color/tomatored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/confirm_password"
-                android:layout_centerHorizontal="true"
-                android:minWidth="120dp"
-                android:text="Sign Up"
-                android:textColor="@color/white"/>
+
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -234,6 +225,90 @@
                 android:layout_alignParentLeft="true"
                 android:padding="10dp"
                 android:layout_margin="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/accounttype"
+                android:textColor="@color/black"
+                android:layout_below="@id/confirm_password"
+                android:text="Account Type"
+                android:padding="10dp"
+                android:textSize="18dp"
+                android:layout_margin="5dp" />
+            <LinearLayout
+                android:id="@+id/accountid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/accounttype"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/customer"
+                    android:textSize="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Customer" />
+
+                <CheckBox
+                    android:id="@+id/retailer"
+                    android:textSize="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Retailer" />
+
+                <CheckBox
+                    android:id="@+id/wholeseller"
+                    android:textSize="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Wholeseller" />
+            </LinearLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_below="@id/accountid"
+                android:id="@+id/shopid"
+                android:hint="Shop ID"
+                android:textColorHint="@color/black"
+                android:padding="10dp"
+                android:inputType="textPassword"
+                android:layout_margin="5dp"
+                tools:ignore="UnknownId" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_below="@id/shopid"
+                android:id="@+id/shopname"
+                android:hint="Shop Name"
+                android:textColorHint="@color/black"
+                android:padding="10dp"
+                android:inputType="textPassword"
+                android:layout_margin="5dp"
+                tools:ignore="UnknownId" />
+
+
+
+            <Button
+                android:id="@+id/signUpbt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/shopname"
+                android:layout_marginTop="112dp"
+                android:layout_marginBottom="25dp"
+                android:backgroundTint="@color/tomatored"
+                android:minWidth="120dp"
+                android:layout_centerHorizontal="true"
+                android:text="Sign Up"
+                android:textColor="@color/white" />
+
 
         </RelativeLayout>
     </ScrollView>

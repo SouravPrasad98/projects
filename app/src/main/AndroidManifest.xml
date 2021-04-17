@@ -31,17 +31,17 @@
         <activity android:name=".Retailer_register" />
         <activity android:name=".User_register" />
         <activity android:name=".Wholeseller_activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Wholeseller_forgotpassword" />
         <activity android:name=".Wholeseller_register" />
         <activity android:name=".Wholeseller_LoginActivity" />
         <activity android:name=".Splashscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"

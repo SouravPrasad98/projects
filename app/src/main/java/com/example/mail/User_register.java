@@ -33,10 +33,13 @@ import android.util.Patterns;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,9 +68,10 @@ import static android.widget.Toast.*;
 public class User_register extends AppCompatActivity implements LocationListener {
     private ImageButton backbutt, gpssbutt;
     private ImageView profileIv;
+    private CheckBox customer,retailer,wholeseller;
     private Button signUpbt;
     private EditText confirm_password, password1, emaillidddd, PhoneNumber,
-            younm,addlll, cityyid, stateid, countrid;
+            younm,addlll, cityyid, stateid, countrid,shopid,shopname;
     private TextView  retailerSignUp, wholeSignUp;
 
 
@@ -96,12 +100,16 @@ public class User_register extends AppCompatActivity implements LocationListener
         retailerSignUp = findViewById(R.id.retailerSignUp);
         wholeSignUp = findViewById(R.id.wholeSignUp);
         addlll = findViewById(R.id.addlll);
+        shopid = findViewById(R.id.shopid);
+        shopname = findViewById(R.id.shopname);
         gpssbutt = findViewById(R.id.gpssbutt);
         backbutt = findViewById(R.id.backbutt);
         signUpbt = findViewById(R.id.signUpbt);
         confirm_password = findViewById(R.id.confirm_password);
         password1 = findViewById(R.id.password1);
-
+        customer = findViewById(R.id.customer);
+        retailer = findViewById(R.id.retailer);
+        wholeseller = findViewById(R.id.wholeseller);
         emaillidddd = findViewById(R.id.emaillidddd);
         cityyid = findViewById(R.id.cityyid);
         stateid = findViewById(R.id.stateid);
@@ -120,6 +128,7 @@ public class User_register extends AppCompatActivity implements LocationListener
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please Wait");
         progressDialog.setCanceledOnTouchOutside(false);
+
 
 
         backbutt.setOnClickListener(new OnClickListener() {
@@ -178,6 +187,44 @@ public class User_register extends AppCompatActivity implements LocationListener
             }
         });
 
+    }
+
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.customer:
+                if (checked){
+                    shopid.setVisibility(View.GONE);
+                    shopname.setVisibility(View.GONE);
+
+                }
+                // Put some meat on the sandwich
+            else{
+
+                }
+                // Remove the meat
+                break;
+            case R.id.retailer:
+                if (checked){
+                    shopid.setVisibility(View.VISIBLE);
+                    shopname.setVisibility(View.VISIBLE);
+                }
+                // Cheese me
+            else{
+
+                }
+                // I'm lactose intolerant
+                break;
+            case R.id.wholeseller:
+                if(checked){
+                    shopid.setVisibility(View.VISIBLE);
+                    shopname.setVisibility(View.VISIBLE);
+                }
+            // TODO: Veggie sandwich
+        }
     }
 
 
