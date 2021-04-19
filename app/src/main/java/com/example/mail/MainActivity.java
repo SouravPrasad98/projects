@@ -5,9 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
-
-import com.google.gson.internal.$Gson$Preconditions;
 
 public class MainActivity extends AppCompatActivity {
     Button signup,signin;
@@ -21,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         phone = (Button) findViewById(R.id.SigninPhone);
         signin = findViewById(R.id.SigninMail);
 
-        signup.setOnClickListener(new View.OnClickListener() {
+        signup.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Registration.class);
@@ -29,17 +28,17 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-        phone.setOnClickListener(new View.OnClickListener() {
+        phone.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent1 = new Intent(getApplicationContext(),Identification.class);
                 startActivity(intent1);
             }
         });
-        signin.setOnClickListener(new View.OnClickListener() {
+        signin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(getApplicationContext(),Login.class);
+                Intent intent2 = new Intent(getApplicationContext(), Choice_Role.class);
                 startActivity(intent2);
             }
         });

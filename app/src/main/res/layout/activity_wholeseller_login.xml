@@ -11,7 +11,7 @@
     android:paddingBottom="16dp"
     android:background="@color/white"
 
-    tools:context=".Wholeseller_LoginActivity">
+    tools:context=".Wholeseller_login">
 
     <RelativeLayout
         android:layout_width="380dp"

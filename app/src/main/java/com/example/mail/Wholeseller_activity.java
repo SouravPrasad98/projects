@@ -66,7 +66,14 @@ public class Wholeseller_activity extends AppCompatActivity {
         checkuser();
         showProductsUi();
         loadAllProducts();
+        Bundle extras =   getIntent().getExtras();
+        if(extras!=null)
+        {
+            String category = extras.getString("Category");
+            loadFilteredProducts(category);
 
+
+        }
         searchProductEt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -6,10 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ContentValues;
-import android.location.Criteria;
 import android.location.Location;
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -24,10 +22,6 @@ import android.location.LocationManager;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.ResultReceiver;
-import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
@@ -42,19 +36,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -62,9 +53,6 @@ import com.google.firebase.storage.UploadTask;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.UUID;
-
-import io.grpc.okhttp.internal.framed.FrameReader;
 
 import static android.widget.Toast.*;
 
@@ -152,7 +140,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
 
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Wholeseller_register.this, User_register.class));
+                startActivity(new Intent(Wholeseller_register.this, Customer_register.class));
                 return;
             }
         });
@@ -404,7 +392,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private String fullname, phonenumber, deliveryfee, country, state, city, address, email, password, confirmpssd, bussinessname,
+    private String fullname, phonenumber, deliveryfee, country, state, city, address, email, passwordd, confirmpssd, bussinessname,
             bussinesscategory, wholesellerId;
 
     private void inputData() {
@@ -417,7 +405,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
         city = cityyid.getText().toString().trim();
         address = addlll.getText().toString().trim();
         email = emaillidddd.getText().toString().trim();
-        password = password1.toString().trim();
+        passwordd = password1.getText().toString().trim();
         confirmpssd = confirm_password.getText().toString().trim();
         deliveryfee = delevid.getText().toString().trim();
 
@@ -445,7 +433,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
             return;
         }
 
-        if (password.length() < 6) {
+        if (passwordd.length() < 6) {
             Toast.makeText(getApplicationContext(), "Password must be atleast 6 characters long", LENGTH_SHORT).show();
             return;
 
@@ -461,7 +449,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
 
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
+        firebaseAuth.createUserWithEmailAndPassword(email, passwordd)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
@@ -486,7 +474,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
             HashMap<String, Object> hashMap = new HashMap<>();
             String uid = firebaseAuth.getUid();
             hashMap.put("uid", "" + uid);
-            hashMap.put("password", ""+password);
+            hashMap.put("password", ""+passwordd);
             hashMap.put("email", "" + email);
             hashMap.put("name", "" + fullname);
             hashMap.put("bussinessname", "" + bussinessname);
@@ -524,6 +512,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
                         }
                     });
 
+
         } else {
             String filepathandname = "profile_images/" + "" + firebaseAuth.getUid();
             StorageReference storageReference = FirebaseStorage.getInstance().getReference(filepathandname);
@@ -542,7 +531,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
                                 hashMap.put("email", "" + email);
                                 hashMap.put("name", "" + fullname);
                                 hashMap.put("bussinessname", "" + bussinessname);
-
+                                hashMap.put("password", ""+passwordd);
                                 hashMap.put("phonenumber", "" + phonenumber);
                                 hashMap.put("country", "" + country);
                                 hashMap.put("state", "" + state);
@@ -578,6 +567,8 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
 
                                             }
                                         });
+
+
 
                             }
 

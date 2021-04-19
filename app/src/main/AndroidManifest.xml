@@ -21,21 +21,24 @@
         android:theme="@style/Theme.MAil"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
-        <activity android:name=".EditProductActivity"></activity>
+        <activity android:name=".Wholeseller_login"></activity>
+        <activity android:name=".Retailer_activity" />
+        <activity android:name=".Customer_login" />
+        <activity android:name=".Retailer_login" />
+        <activity android:name=".Showall_products" />
+        <activity android:name=".Wholeseller_main_activity1" />
+        <activity android:name=".EditProductActivity" />
         <activity android:name=".Wholeseller_addproduct" />
         <activity android:name=".Retailer.retailerItemsIHave" />
         <activity android:name=".Retailer.RetailerPlusVegetables" />
         <activity android:name=".Retailer.RetailerPlusPulses" />
         <activity android:name=".Retailer.Retailer_dashboard" />
-        <activity android:name=".User_activity" />
+        <activity android:name=".Customer_activity" />
         <activity android:name=".Retailer_register" />
-        <activity android:name=".User_register" />
-        <activity android:name=".Wholeseller_activity">
-
-        </activity>
+        <activity android:name=".Customer_register" />
+        <activity android:name=".Wholeseller_activity" />
         <activity android:name=".Wholeseller_forgotpassword" />
         <activity android:name=".Wholeseller_register" />
-        <activity android:name=".Wholeseller_LoginActivity" />
         <activity android:name=".Splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

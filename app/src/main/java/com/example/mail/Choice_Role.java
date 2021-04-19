@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.mail.Retailer.Retailer_dashboard;
-
 public class Choice_Role extends AppCompatActivity {
     private TextView textView4;
     private Button button5, button6, button7;
@@ -26,10 +24,18 @@ public class Choice_Role extends AppCompatActivity {
      button6 = findViewById(R.id.button6);
      button7 = findViewById(R.id.button7);
 
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),Customer_login.class);
+                startActivity(intent);
+            }
+        });
+
      button6.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-             Intent intent = new Intent(getApplicationContext(),Retailer_dashboard.class);
+             Intent intent = new Intent(getApplicationContext(),Retailer_login.class);
              startActivity(intent);
          }
      });
@@ -37,7 +43,7 @@ public class Choice_Role extends AppCompatActivity {
     button7.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-startActivity(new Intent(Choice_Role.this, Wholeseller_LoginActivity.class));
+startActivity(new Intent(Choice_Role.this, Wholeseller_login.class));
     }
 });
     }

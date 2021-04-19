@@ -23,6 +23,8 @@
 
         <Button
             android:id="@+id/button5"
+            android:backgroundTint="@color/tomatored"
+            android:textColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
@@ -30,6 +32,8 @@
 
         <Button
             android:id="@+id/button6"
+            android:backgroundTint="@color/tomatored"
+            android:textColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
@@ -37,6 +41,8 @@
 
         <Button
             android:id="@+id/button7"
+            android:backgroundTint="@color/tomatored"
+            android:textColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"

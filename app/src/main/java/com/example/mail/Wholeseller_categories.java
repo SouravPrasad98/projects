@@ -5,10 +5,10 @@ public class Wholeseller_categories {
    public static final String options []= {
 
             "Beverages",
-            "Fuits & Vegetables",
-            "Foodgrains, Oil & Masala",
+            "Fuits and Vegetables",
+            "Foodgrains, Oil and Masala",
             "Frozen Food",
-            "Biscuits Snacks & Chocolates",
+            "Biscuits Snacks and Chocolates",
             "Breakfast and Dairy",
             "Eggs,Meat,Fish",
             "Others"
@@ -18,10 +18,10 @@ public class Wholeseller_categories {
     public static final String options1 []= {
             "All",
             "Beverages",
-            "Fuits & Vegetables",
-            "Foodgrains, Oil & Masala",
+            "Fuits and Vegetables",
+            "Foodgrains, Oil and Masala",
             "Frozen Food",
-            "Biscuits Snacks & Chocolates",
+            "Biscuits Snacks and Chocolates",
             "Breakfast and Dairy",
             "Eggs,Meat,Fish",
             "Others"
