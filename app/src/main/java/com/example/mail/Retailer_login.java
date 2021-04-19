@@ -29,7 +29,8 @@ public class Retailer_login extends AppCompatActivity {
     private EditText password1;
     private EditText emailliddd;
     private Button login;
-
+    private static final int TIME_DELAY= 2000;
+    private static long back_pressed;
     private TextView noacc, forgotT;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
@@ -73,6 +74,21 @@ public class Retailer_login extends AppCompatActivity {
             }
         });
     }
+
+  /*  @Override
+    public void onBackPressed() {
+        if(back_pressed + TIME_DELAY > System.currentTimeMillis()){
+            Intent intent = new Intent(Retailer_login.this,Choice_Role.class);
+            startActivity(intent);
+
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), "Please back press once more", Toast.LENGTH_SHORT).show();
+        }
+
+    }*/
+
 
     private String Email, Password;
 
@@ -138,18 +154,17 @@ public class Retailer_login extends AppCompatActivity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        for (DataSnapshot ds : snapshot.getChildren()) {
                             String accounttype = "" + ds.child("accounttype").getValue();
                             if (accounttype.equals("retailer")) {
                                 progressDialog.dismiss();
-                                startActivity(new Intent(Retailer_login.this, Retailer_activity.class));
+                                startActivity(new Intent(Retailer_login.this, Retailer_main_activity1.class));
                                 finish();
                             } else {
 
                                 progressDialog.dismiss();
-                                Toast.makeText(getApplicationContext(), "No account with this email", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(Retailer_login.this, Choice_Role.class));
-                                finish();
+                                Toast.makeText(getApplicationContext(), "Email not registered with this account Please Back press ", Toast.LENGTH_SHORT).show();
+
                             }
                         }
                     }

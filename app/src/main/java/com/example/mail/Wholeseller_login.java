@@ -29,7 +29,8 @@ public class Wholeseller_login extends AppCompatActivity {
     private EditText password1;
     private EditText emailliddd;
     private Button login;
-
+    private static final int TIME_DELAY= 2000;
+    private static long back_pressed;
     private TextView noacc, forgotT;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
@@ -38,7 +39,7 @@ public class Wholeseller_login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_retailer_login);
+        setContentView(R.layout.activity_wholeseller_login);
 
         emailliddd = findViewById(R.id.emaillidddd);
         password1 = findViewById(R.id.password1);
@@ -73,7 +74,19 @@ public class Wholeseller_login extends AppCompatActivity {
             }
         });
     }
+   /* @Override
+    public void onBackPressed() {
+        if(back_pressed + TIME_DELAY > System.currentTimeMillis()){
+            Intent intent = new Intent(Wholeseller_login.this,Choice_Role.class);
+            startActivity(intent);
 
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), "Please back press once more", Toast.LENGTH_SHORT).show();
+        }
+
+    }*/
     private String Email, Password;
 
     private void loginwholeseller() {
@@ -112,7 +125,7 @@ public class Wholeseller_login extends AppCompatActivity {
     private void makeMeOnline() {
         progressDialog.setMessage("Checking User...");
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("Online", "true");
+        hashMap.put("online", "true");
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Wholeseller");
         ref.child(firebaseAuth.getUid()).updateChildren(hashMap)
@@ -138,26 +151,24 @@ public class Wholeseller_login extends AppCompatActivity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        for (DataSnapshot ds : snapshot.getChildren()) {
                             String accounttype = "" + ds.child("accounttype").getValue();
                             if (accounttype.equals("wholeseller")) {
                                 progressDialog.dismiss();
-                                startActivity(new Intent(Wholeseller_login.this, Wholeseller_activity.class));
+                                startActivity(new Intent(Wholeseller_login.this, Wholeseller_main_activity1.class));
                                 finish();
                             } else {
 
                                 progressDialog.dismiss();
-                                Toast.makeText(getApplicationContext(), "No account with this email", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(Wholeseller_login.this, Choice_Role.class));
-                                finish();
+                                Toast.makeText(getApplicationContext(), "Email not registered with this account Please Back press ", Toast.LENGTH_SHORT).show();
+
                             }
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
-
+                        Toast.makeText(getApplicationContext(), "hu", Toast.LENGTH_SHORT).show();
                     }
                 });
 

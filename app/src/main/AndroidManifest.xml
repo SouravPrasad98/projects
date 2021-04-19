@@ -21,7 +21,11 @@
         android:theme="@style/Theme.MAil"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
-        <activity android:name=".Wholeseller_login"></activity>
+        <activity android:name=".EditRetailerProductActivity"></activity>
+        <activity android:name=".Showall_Retailerproducts" />
+        <activity android:name=".Retailer_main_activity1" />
+        <activity android:name=".Retailer_addproduct" />
+        <activity android:name=".Wholeseller_login" />
         <activity android:name=".Retailer_activity" />
         <activity android:name=".Customer_login" />
         <activity android:name=".Retailer_login" />

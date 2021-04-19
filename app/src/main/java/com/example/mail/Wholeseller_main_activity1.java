@@ -3,6 +3,7 @@ package com.example.mail;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mail.common.Constants;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+
 public class Wholeseller_main_activity1 extends AppCompatActivity {
 
     private TextView bussnm,profile_name,productstab,orderstab;
@@ -31,7 +36,7 @@ public class Wholeseller_main_activity1 extends AppCompatActivity {
     private long backpressedTime;
     private Button showproducts;
     private RelativeLayout productsRl, ordersRl;
-
+    private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
 
     private TextView others,Biscuits,beverages,breakfastdairy,eggmeat,frozenfood,
@@ -48,7 +53,9 @@ public class Wholeseller_main_activity1 extends AppCompatActivity {
         logoutbt = findViewById(R.id.logoutbt);
         productsRl = findViewById(R.id.productsRl);
         ordersRl = findViewById(R.id.ordersRl);
-
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Please wait");
+        progressDialog.setCanceledOnTouchOutside(false);
         addproduct = findViewById(R.id.addproduct);
         profile_name = findViewById(R.id.profile_name);
        profileIv = findViewById(R.id.profileIv);
@@ -97,8 +104,8 @@ public class Wholeseller_main_activity1 extends AppCompatActivity {
         logoutbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firebaseAuth.signOut();
-                checkuser();
+                makemeOffline();
+
             }
         });
 
@@ -177,6 +184,33 @@ public class Wholeseller_main_activity1 extends AppCompatActivity {
 
 
     }
+
+    private void makemeOffline() {
+        progressDialog.setMessage("Logging Out...");
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("online", "false");
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Wholeseller");
+        ref.child(firebaseAuth.getUid()).updateChildren(hashMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        firebaseAuth.signOut();
+                        checkuser();
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(Wholeseller_main_activity1.this, "error", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+    }
+
+
 
 
     private void showOrdersUi() {

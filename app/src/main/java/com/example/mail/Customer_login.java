@@ -33,6 +33,8 @@ public class Customer_login extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
     private DataSnapshot dataSnapshot;
+    private static final int TIME_DELAY= 2000;
+    private static long back_pressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,22 @@ public class Customer_login extends AppCompatActivity {
                 loginwholeseller();
             }
         });
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(back_pressed + TIME_DELAY > System.currentTimeMillis()){
+            Intent intent = new Intent(Customer_login.this,Choice_Role.class);
+            startActivity(intent);
+
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), "Please back press once more", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private String Email, Password;
@@ -136,7 +154,7 @@ public class Customer_login extends AppCompatActivity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        for (DataSnapshot ds : snapshot.getChildren()) {
                             String accounttype = "" + ds.child("accounttype").getValue();
                             if (accounttype.equals("customer")) {
                                 progressDialog.dismiss();
@@ -145,8 +163,9 @@ public class Customer_login extends AppCompatActivity {
                             } else {
 
                                 progressDialog.dismiss();
-                                startActivity(new Intent(Customer_login.this, Customer_activity.class));
-                                finish();
+
+                                Toast.makeText(getApplicationContext(), "Email not registered with this account Please Back press ", Toast.LENGTH_SHORT).show();
+
                             }
                         }
                     }
@@ -160,4 +179,5 @@ public class Customer_login extends AppCompatActivity {
 
 
     }
+
 }
