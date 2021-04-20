@@ -41,7 +41,7 @@ public class Retailer_activity extends AppCompatActivity {
     private EditText searchProductEt;
     private RelativeLayout productsRl, ordersRl;
     private RecyclerView productsRv;
-    private ArrayList<ModelProduct> productList;
+    private ArrayList<RetailerProductModel> productList;
     private FirebaseAuth firebaseAuth;
 
 
@@ -65,14 +65,12 @@ public class Retailer_activity extends AppCompatActivity {
         ordersRl = findViewById(R.id.ordersRl);
         checkuser();
         showProductsUi();
-        loadAllProducts();
+//        loadAllProducts();
         Bundle extras =   getIntent().getExtras();
         if(extras!=null)
         {
             String category = extras.getString("Category");
             loadFilteredProducts(category);
-
-
         }
         searchProductEt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -114,7 +112,7 @@ public class Retailer_activity extends AppCompatActivity {
                                 String selected = Wholeseller_categories.options1[which];
                                 filteredproductsTv.setText(selected);
                                 if (selected.equals("All")){
-                                    loadAllProducts();
+//                                    loadAllProducts();
                                 }
                                 else{
                                     loadFilteredProducts(selected);
@@ -154,46 +152,17 @@ public class Retailer_activity extends AppCompatActivity {
 
     private void loadFilteredProducts(String selected) {
         productList =new ArrayList<>();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Retailer");
-        reference.child(firebaseAuth.getUid()).child("RetailerProducts")
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Products");
+        reference.orderByChild("productcategory").equalTo(selected)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         productList.clear();
-                        for(DataSnapshot ds: snapshot.getChildren()){
-                            String productCategory = "" + ds.child("productcategory").getValue();
-                            if(selected.equals(productCategory)){
-                                ModelProduct modelProduct = ds.getValue(ModelProduct.class);
-                                productList.add(modelProduct);
-
-                            }
-
-                        }
-                        adapterProductWholeseller = new AdapterProductWholeseller(Retailer_activity.this, productList);
-                        productsRv.setAdapter(adapterProductWholeseller);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-    }
-
-    private void loadAllProducts() {
-        productList =new ArrayList<>();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Retailer");
-        reference.child(firebaseAuth.getUid()).child("RetailerProducts")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        productList.clear();
-                        for(DataSnapshot ds: snapshot.getChildren()){
-                            ModelProduct modelProduct = ds.getValue(ModelProduct.class);
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            RetailerProductModel modelProduct = ds.getValue(RetailerProductModel.class);
                             productList.add(modelProduct);
+
                         }
-                        adapterProductWholeseller = new AdapterProductWholeseller(Retailer_activity.this, productList);
-                        productsRv.setAdapter(adapterProductWholeseller);
                     }
 
                     @Override
@@ -202,6 +171,29 @@ public class Retailer_activity extends AppCompatActivity {
                     }
                 });
     }
+
+//    private void loadAllProducts() {
+//        productList =new ArrayList<>();
+//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Retailer");
+//        reference.child(firebaseAuth.getUid()).child("RetailerProducts")
+//                .addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        productList.clear();
+//                        for(DataSnapshot ds: snapshot.getChildren()){
+//                            ModelProduct modelProduct = ds.getValue(ModelProduct.class);
+//                            productList.add(modelProduct);
+//                        }
+//                        adapterProductWholeseller = new AdapterProductWholeseller(Retailer_activity.this, productList);
+//                        productsRv.setAdapter(adapterProductWholeseller);
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+//    }
 
     private void showProductsUi() {
         productsRl.setVisibility(View.VISIBLE);

@@ -169,7 +169,7 @@ public class Wholeseller_activity extends AppCompatActivity {
                             }
 
                         }
-                         adapterProductWholeseller = new AdapterProductWholeseller(Wholeseller_activity.this, productList);
+                        adapterProductWholeseller = new AdapterProductWholeseller(Wholeseller_activity.this, productList);
                         productsRv.setAdapter(adapterProductWholeseller);
                     }
 
@@ -192,7 +192,7 @@ public class Wholeseller_activity extends AppCompatActivity {
                             ModelProduct modelProduct = ds.getValue(ModelProduct.class);
                             productList.add(modelProduct);
                         }
-                         adapterProductWholeseller = new AdapterProductWholeseller(Wholeseller_activity.this, productList);
+                        adapterProductWholeseller = new AdapterProductWholeseller(Wholeseller_activity.this, productList);
                         productsRv.setAdapter(adapterProductWholeseller);
                     }
 
