@@ -72,7 +72,7 @@ public class Retailer_showshops extends AppCompatActivity {
            // wholesellerListItems =(List<WholesellerListItem>) extras.get("WholesellerList");
             wholesellerListItems = (Map<String, WholesellerListItem>)extras.getSerializable("WholesellerList");
 
-            wholesellerList = (List<WholesellerListItem>)wholesellerListItems.values();
+            wholesellerList = new ArrayList<>(wholesellerListItems.values());
             System.out.println(wholesellerList);
         }
         showShopUi();
