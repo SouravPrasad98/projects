@@ -33,7 +33,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Retailer_showshops extends AppCompatActivity {
     private AdapterWholesellerShops adapterWholesellerShops;
@@ -65,9 +67,9 @@ public class Retailer_showshops extends AppCompatActivity {
         Bundle extras =   getIntent().getExtras();
         if(extras!=null)
         {
-            List<WholesellerListItem> wholesellerListItems = new ArrayList<>();
+            Map<String, WholesellerListItem> wholesellerListItems = new HashMap<>();
            // wholesellerListItems =(List<WholesellerListItem>) extras.get("WholesellerList");
-         // wholesellerListItems = extras.
+            wholesellerListItems = (Map<String, WholesellerListItem>)extras.getSerializable("WholesellerList");
         }
         showShopUi();
         loadAllShops();

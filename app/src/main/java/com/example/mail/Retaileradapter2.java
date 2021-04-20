@@ -60,7 +60,7 @@ public class Retaileradapter2 extends RecyclerView.Adapter<Retaileradapter2.Hold
 
                 Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, Retailer_showshops.class);
-               intent.putExtra("WholesellerList", (Serializable) retailerProductModel.getWholesellerList().values());
+               intent.putExtra("WholesellerList", (Serializable) retailerProductModel.getWholesellerList());
             //intent.putExtra("name", "shifa is pagal");
             context.startActivity(intent);
 
