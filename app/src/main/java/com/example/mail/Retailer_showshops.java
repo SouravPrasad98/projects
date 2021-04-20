@@ -48,6 +48,7 @@ public class Retailer_showshops extends AppCompatActivity {
     private ArrayList<RetailerProductModel> productList;
     private FirebaseAuth firebaseAuth;
 
+    private List<WholesellerListItem> wholesellerList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,8 @@ public class Retailer_showshops extends AppCompatActivity {
            // wholesellerListItems =(List<WholesellerListItem>) extras.get("WholesellerList");
             wholesellerListItems = (Map<String, WholesellerListItem>)extras.getSerializable("WholesellerList");
 
-            List<WholesellerListItem> wholesellerList = (List<WholesellerListItem>)wholesellerListItems.values();
+            wholesellerList = (List<WholesellerListItem>)wholesellerListItems.values();
+            System.out.println(wholesellerList);
         }
         showShopUi();
         loadAllShops();
