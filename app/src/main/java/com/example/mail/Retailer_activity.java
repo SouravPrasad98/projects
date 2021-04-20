@@ -34,7 +34,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class Retailer_activity extends AppCompatActivity {
-    private AdapterProductWholeseller adapterProductWholeseller;
+    private Retaileradapter2 retaileradapter2;
     private TextView bussnm,profile_name,productstab,orderstab,filteredproductsTv;
     private ImageButton logoutbt, addproduct,filterProductbtn;
     private ImageView profileIv;
@@ -49,7 +49,7 @@ public class Retailer_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retailer_activity);
-        productstab= findViewById(R.id.productstab);
+        productstab = findViewById(R.id.productstab);
         bussnm = findViewById(R.id.bussnm);
         filteredproductsTv = findViewById(R.id.filteredproductsTv);
         filterProductbtn = findViewById(R.id.filterProductbtn);
@@ -66,26 +66,25 @@ public class Retailer_activity extends AppCompatActivity {
         checkuser();
         showProductsUi();
 //        loadAllProducts();
-        Bundle extras =   getIntent().getExtras();
-        if(extras!=null)
-        {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
             String category = extras.getString("Category");
             loadFilteredProducts(category);
         }
-        searchProductEt.addTextChangedListener(new TextWatcher() {
+     searchProductEt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
 
-            @Override
+           @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                try{
-                    adapterProductWholeseller.getFilter().filter(s);
+               /* try{
+                    retaileradapter2.getFilter().filter(s);
                 }
                 catch (Exception e){
                     e.printStackTrace();
-                }
+                }*/
             }
 
             @Override
@@ -163,6 +162,8 @@ public class Retailer_activity extends AppCompatActivity {
                             productList.add(modelProduct);
 
                         }
+                        retaileradapter2 = new Retaileradapter2(Retailer_activity.this, productList);
+                     productsRv.setAdapter(retaileradapter2);
                     }
 
                     @Override
