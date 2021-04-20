@@ -1,6 +1,8 @@
 package com.example.mail.Retailer;
 
-public class WholesellerListItem {
+import java.io.Serializable;
+
+public class WholesellerListItem implements Serializable {
     String address, bussinessname, email, latitude, longitude, phoneNumber, price, quantity, uid;
 
     public WholesellerListItem() {

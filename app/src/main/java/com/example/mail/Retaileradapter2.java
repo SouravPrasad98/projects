@@ -10,12 +10,14 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Retaileradapter2 extends RecyclerView.Adapter<Retaileradapter2.HolderRetailer> {
@@ -55,8 +57,12 @@ public class Retaileradapter2 extends RecyclerView.Adapter<Retaileradapter2.Hold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, Retailer_showshops.class);
-                intent.putExtra("WholesellerList", (Parcelable) retailerProductModel.getWholesellerList().get("wholesellerList"));
+               intent.putExtra("WholesellerList", (Serializable) retailerProductModel.getWholesellerList().values());
+            //intent.putExtra("name", "shifa is pagal");
+            context.startActivity(intent);
 
             }
         });

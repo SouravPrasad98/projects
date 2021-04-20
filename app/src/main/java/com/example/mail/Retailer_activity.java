@@ -102,13 +102,7 @@ public class Retailer_activity extends AppCompatActivity {
             }
         });
 
-        nextIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Retailer_activity.this, Showall_Retailerproducts.class);
-                startActivity(intent);
-            }
-        });
+
         filterProductbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

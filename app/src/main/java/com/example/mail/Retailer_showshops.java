@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mail.Retailer.WholesellerListItem;
 import com.example.mail.common.Constants;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Retailer_showshops extends AppCompatActivity {
     private AdapterWholesellerShops adapterWholesellerShops;
@@ -60,7 +62,13 @@ public class Retailer_showshops extends AppCompatActivity {
         orderstab = findViewById(R.id.orderstab);
         productsRl = findViewById(R.id.productsRl);
         ordersRl = findViewById(R.id.ordersRl);
-
+        Bundle extras =   getIntent().getExtras();
+        if(extras!=null)
+        {
+            List<WholesellerListItem> wholesellerListItems = new ArrayList<>();
+           // wholesellerListItems =(List<WholesellerListItem>) extras.get("WholesellerList");
+         // wholesellerListItems = extras.
+        }
         showShopUi();
         loadAllShops();
 

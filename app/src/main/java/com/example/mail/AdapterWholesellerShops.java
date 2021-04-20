@@ -32,6 +32,7 @@ public class AdapterWholesellerShops extends RecyclerView.Adapter<AdapterWholese
     public void onBindViewHolder(@NonNull AdapterWholesellerShops.HolderWholesellerShops holder, int position) {
         RetailerProductModel retailerProductModel = productList.get(position);
 
+
     }
 
     @Override
