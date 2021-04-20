@@ -17,69 +17,22 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="16dp">
-
-
-        <com.blogspot.atifsoftwares.circularimageview.CircularImageView
-            android:id="@+id/profileIv"
-            android:layout_width="30dp"
-            android:layout_height="36dp"
-            android:layout_below="@id/key"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/ic_baseline_person_24"
-            app:c_border="true"
-            app:c_border_color="@color/Snow"
-            app:c_border_width="1dp"
-
-            tools:ignore="NotSibling" />
-
         <TextView
-            android:id="@+id/bussnm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:layout_toRightOf="@id/profileIv"
-            android:text="ShopName"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:text="Shops Near Me"
+            android:textSize="30dp"
+            android:id="@+id/shopnear">
 
-        <TextView
-            android:id="@+id/profile_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/bussnm"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="-2dp"
-            android:layout_toRightOf="@id/profileIv"
-            android:text="ShopName"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+        </TextView>
 
 
-        <ImageButton
-            android:id="@+id/addproduct"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="285dp"
-            android:layout_marginTop="4dp"
-            android:background="@color/limegreen"
-            android:src="@drawable/ic_baseline_add_shopping_cart_24" />
-
-        <ImageButton
-            android:layout_width="70dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/ic_baseline_power_settings_new_24"
-            android:id="@+id/logoutbt"
-            android:background="@color/limegreen"
-            />
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="30dp"
             android:orientation="horizontal"
             android:background="@drawable/shaperec"
-            android:layout_below="@id/profileIv">
+            android:layout_below="@id/shopnear">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -99,7 +52,7 @@
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:textAlignment="center"
-                android:text="ORDERS"
+                android:text="MY ORDERS"
 
                 android:textColor="@color/black"
 
@@ -112,6 +65,32 @@
 
 
         </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/shopsRl"
+            android:layout_below="@id/toolbarRl">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/productsRv"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/row_wholeseller_shops"/>
+
 
     </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/ordersRl"
+        android:layout_below="@+id/toolbarRl">
+    </RelativeLayout>
+
+
+
 </RelativeLayout>

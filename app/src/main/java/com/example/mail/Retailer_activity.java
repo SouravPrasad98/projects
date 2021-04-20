@@ -37,7 +37,7 @@ public class Retailer_activity extends AppCompatActivity {
     private Retaileradapter2 retaileradapter2;
     private TextView bussnm,profile_name,productstab,orderstab,filteredproductsTv;
     private ImageButton logoutbt, addproduct,filterProductbtn;
-    private ImageView profileIv;
+    private ImageView profileIv, nextIv;
     private EditText searchProductEt;
     private RelativeLayout productsRl, ordersRl;
     private RecyclerView productsRv;
@@ -50,6 +50,7 @@ public class Retailer_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retailer_activity);
         productstab = findViewById(R.id.productstab);
+        nextIv = findViewById(R.id.nextIv);
         bussnm = findViewById(R.id.bussnm);
         filteredproductsTv = findViewById(R.id.filteredproductsTv);
         filterProductbtn = findViewById(R.id.filterProductbtn);
@@ -98,6 +99,14 @@ public class Retailer_activity extends AppCompatActivity {
             public void onClick(View v) {
                 showOrdersUi();
 
+            }
+        });
+
+        nextIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Retailer_activity.this, Showall_Retailerproducts.class);
+                startActivity(intent);
             }
         });
         filterProductbtn.setOnClickListener(new View.OnClickListener() {

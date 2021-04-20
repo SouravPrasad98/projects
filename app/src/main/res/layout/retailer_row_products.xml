@@ -34,7 +34,7 @@
                 android:id="@+id/productname"
                 android:layout_marginTop="5dp"
                 android:text="Product Name"
-                android:textSize="30dp"
+                android:textSize="25dp"
                 android:textColor="@color/black"/>
 
         </LinearLayout>

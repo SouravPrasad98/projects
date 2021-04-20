@@ -1,6 +1,8 @@
 package com.example.mail;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,11 +52,23 @@ public class Retaileradapter2 extends RecyclerView.Adapter<Retaileradapter2.Hold
             holder.productIconIv.setImageResource(R.drawable.cart_24);
         }
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, Retailer_showshops.class);
+                intent.putExtra("WholesellerList", (Parcelable) retailerProductModel.getWholesellerList().get("wholesellerList"));
+
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return productList.size();
+    }
+
+    private void passData(){
+
     }
 
     class HolderRetailer extends RecyclerView.ViewHolder{
