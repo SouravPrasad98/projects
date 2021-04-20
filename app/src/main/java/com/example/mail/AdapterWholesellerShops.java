@@ -11,11 +11,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mail.Retailer.WholesellerListItem;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 public class AdapterWholesellerShops extends RecyclerView.Adapter<AdapterWholesellerShops.HolderWholesellerShops> {
     private Context context;
-    public ArrayList<RetailerProductModel> productList, filterList;
-    public AdapterWholesellerShops(Context context, ArrayList<RetailerProductModel> productList) {
+    public ArrayList<WholesellerListItem> productList, filterList;
+    public AdapterWholesellerShops(Context context, ArrayList<WholesellerListItem> productList) {
         this.context = context;
         this.productList = productList;
     }
@@ -30,7 +33,38 @@ public class AdapterWholesellerShops extends RecyclerView.Adapter<AdapterWholese
 
     @Override
     public void onBindViewHolder(@NonNull AdapterWholesellerShops.HolderWholesellerShops holder, int position) {
-        RetailerProductModel retailerProductModel = productList.get(position);
+        WholesellerListItem retailerProductModel = productList.get(position);
+        String addresss = retailerProductModel.getAddress();
+        String priceproduct = retailerProductModel.getPrice();
+        String bussname = retailerProductModel.getBussinessname();
+        String quant = retailerProductModel.getQuantity();
+        String disprice = retailerProductModel.getDiscountprice();
+        String image = retailerProductModel.getIcon();
+        String disnote = retailerProductModel.getDiscountnote();
+        String shoopstat = retailerProductModel.getShopopen();
+        String on =retailerProductModel.getOnline();
+
+
+        holder.shopname.setText(bussname);
+        holder.productquantity.setText(quant);
+        holder.productprice.setText(priceproduct);
+        holder.shopaddress.setText(addresss);
+        holder.discountedpriceEt.setText(disprice);
+        if(shoopstat.equals("true")){
+            holder.closeIv.setVisibility(View.GONE);
+        }
+        else {
+            holder.closeIv.setVisibility(View.VISIBLE);
+        }
+
+        try{
+            Picasso.get().load(image).placeholder(R.drawable.ic_baseline_store_24).into(holder.profileIv);
+        }
+        catch (Exception e){
+            holder.profileIv.setImageResource(R.drawable.ic_baseline_store_24);
+        }
+
+
 
 
     }
@@ -42,7 +76,7 @@ public class AdapterWholesellerShops extends RecyclerView.Adapter<AdapterWholese
 
     public class HolderWholesellerShops extends RecyclerView.ViewHolder {
         private ImageView profileIv;
-        private TextView closeIv,shopaddress,shopname,discountedpriceEt,productprice,productquantity;
+        private TextView closeIv,shopaddress,shopname,productprice,productquantity,discountedpriceEt;
         private RatingBar ratingbar;
 
         public HolderWholesellerShops(@NonNull View itemView) {

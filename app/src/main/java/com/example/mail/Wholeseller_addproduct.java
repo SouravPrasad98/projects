@@ -152,6 +152,8 @@ public class Wholeseller_addproduct extends AppCompatActivity {
         product_cate = productcate.getText().toString().trim();
         product_quantity = productquantity.getText().toString().trim();
         discountAvailbale = discountswipe.isChecked();
+        discount_priceEt = discountpriceEt.getText().toString().trim();
+        discount_note = discountnote.getText().toString().trim();
 
         if(TextUtils.isEmpty(product_name)){
             Toast.makeText(this, "Name required", LENGTH_SHORT).show();
@@ -222,12 +224,12 @@ public class Wholeseller_addproduct extends AppCompatActivity {
                         hashMap1.put("productTitle",""+product_name);
                         hashMap1.put("productdescription",""+product_des);
                         hashMap1.put("productcategory",""+product_cate);
-                        //hashMap1.put("discountAvailable",""+discountAvailbale);
+                       // hashMap1.put("discountAvailable",""+discountAvailbale);
                         // hashMap1.put("discountnote",""+discount_note);
-                        //hashMap1.put("productprice",""+product_price);
+                        hashMap1.put("productprice",""+product_price);
                         //hashMap1.put("discountprice",""+discount_priceEt);
                         //hashMap1.put("productquantity",""+product_quantity);
-                        //hashMap1.put("productIcon",""+ downloadImageUri);
+                        hashMap1.put("productIcon","");
                         //hashMap1.put("timestamp",""+timestamp);
                         hashMap1.put("uid",""+firebaseAuth.getUid());
 
@@ -235,7 +237,7 @@ public class Wholeseller_addproduct extends AppCompatActivity {
 
                     }
                     HashMap<String,Object> wsd = new HashMap<>();
-                    wsd.put("price",""+product_price);
+                    wsd.put("product_price",""+product_price);
                     wsd.put("quantity", ""+product_quantity);
                     wsd.put("bussinessname", Constants.wbussinessname);
                     wsd.put("uid", ""+ Constants.wuid);
@@ -244,6 +246,12 @@ public class Wholeseller_addproduct extends AppCompatActivity {
                     wsd.put("address", ""+ Constants.waddress);
                     wsd.put("email", ""+Constants.wemail);
                     wsd.put("phonenumber", ""+ Constants.wphonenumber);
+                    wsd.put("icon", ""+Constants.wprofileimage);
+                    wsd.put("discountprice", discount_priceEt);
+                    wsd.put("discountnote", discount_note);
+                    wsd.put("discountAvailable1", discountAvailbale);
+                    wsd.put("online", "true");
+                    wsd.put("shopopen", "true");
 
                     productRef.child(product_name).child("wholesellerList").child(Constants.wuid).setValue(wsd);
 
@@ -331,8 +339,15 @@ public class Wholeseller_addproduct extends AppCompatActivity {
                                         wsd.put("address", ""+ Constants.waddress);
                                         wsd.put("email", ""+Constants.wemail);
                                         wsd.put("phonenumber", ""+ Constants.wphonenumber);
+                                        wsd.put("discountprice", discount_priceEt);
+                                        wsd.put("discountnote", discount_note);
+                                        wsd.put("discountAvailable1", discountAvailbale);
+                                        wsd.put("icon", ""+Constants.wprofileimage);
+                                        wsd.put("online", "true");
+                                        wsd.put("shopopen", "true");
 
-                                    productRef.child(product_name).child("wholesellerList").child(Constants.wuid).setValue(wsd);
+
+                                        productRef.child(product_name).child("wholesellerList").child(Constants.wuid).setValue(wsd);
 
                                     }
 

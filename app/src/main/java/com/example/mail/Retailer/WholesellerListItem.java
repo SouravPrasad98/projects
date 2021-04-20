@@ -3,21 +3,78 @@ package com.example.mail.Retailer;
 import java.io.Serializable;
 
 public class WholesellerListItem implements Serializable {
-    String address, bussinessname, email, latitude, longitude, phoneNumber, price, quantity, uid;
+    String address, bussinessname, email, latitude, longitude,online,shopopen, phonenumber, price, quantity, uid,discountprice,icon,discountnote;
+        Boolean    discountAvailable1;
+
 
     public WholesellerListItem() {
     }
 
-    public WholesellerListItem(String address, String bussinessname, String email, String latitude, String longitude, String phoneNumber, String price, String quantity, String uid) {
+    public WholesellerListItem(String address, String bussinessname, String email, String discountprice, Boolean discountAvailable1, String icon,
+                               String discountnote, String latitude, String longitude, String phonenumber, String price, String quantity, String uid, String online, String shopopen) {
         this.address = address;
         this.bussinessname = bussinessname;
         this.email = email;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.phoneNumber = phoneNumber;
+        this.phonenumber = phonenumber;
         this.price = price;
         this.quantity = quantity;
         this.uid = uid;
+        this.discountprice= discountprice;
+        this.discountAvailable1 = discountAvailable1;
+        this.icon = icon;
+        this.discountnote = discountnote;
+        this.online =online;
+        this.shopopen = shopopen;
+    }
+
+    public String getOnline() {
+        return online;
+    }
+
+    public void setOnline(String online) {
+        this.online = online;
+    }
+
+    public String getShopopen() {
+        return shopopen;
+    }
+
+    public void setShopopen(String shopopen) {
+        this.shopopen = shopopen;
+    }
+
+    public String getDiscountprice() {
+        return discountprice;
+    }
+
+    public void setDiscountprice(String discountprice) {
+        this.discountprice = discountprice;
+    }
+
+    public Boolean getDiscountAvailable1() {
+        return discountAvailable1;
+    }
+
+    public void setDiscountAvailable1(Boolean discountAvailable1) {
+        this.discountAvailable1 = discountAvailable1;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public String getDiscountnote() {
+        return discountnote;
+    }
+
+    public void setDiscountnote(String discountnote) {
+        this.discountnote = discountnote;
     }
 
     public String getAddress() {
@@ -60,12 +117,12 @@ public class WholesellerListItem implements Serializable {
         this.longitude = longitude;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhonenumber() {
+        return phonenumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
     }
 
     public String getPrice() {

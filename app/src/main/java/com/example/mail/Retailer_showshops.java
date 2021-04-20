@@ -48,7 +48,7 @@ public class Retailer_showshops extends AppCompatActivity {
     private ArrayList<RetailerProductModel> productList;
     private FirebaseAuth firebaseAuth;
 
-    private List<WholesellerListItem> wholesellerList;
+    private ArrayList<WholesellerListItem> wholesellerList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +57,13 @@ public class Retailer_showshops extends AppCompatActivity {
         productstab= findViewById(R.id.productstab);
 
         shopnear = findViewById(R.id.shopnear);
-        logoutbt = findViewById(R.id.logoutbt);
+        //logoutbt = findViewById(R.id.logoutbt);
         profileIv = findViewById(R.id.profileIv);
         productsRv = findViewById(R.id.productsRv);
         profileIv = findViewById(R.id.profileIv);
         firebaseAuth = FirebaseAuth.getInstance();
         orderstab = findViewById(R.id.orderstab);
-        productsRl = findViewById(R.id.productsRl);
+        productsRl =  findViewById(R.id.shopsRl);
         ordersRl = findViewById(R.id.ordersRl);
         Bundle extras =   getIntent().getExtras();
         if(extras!=null)
@@ -95,13 +95,13 @@ public class Retailer_showshops extends AppCompatActivity {
             }
         });
 
-        logoutbt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                firebaseAuth.signOut();
-
-            }
-        });
+//        logoutbt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                firebaseAuth.signOut();
+//
+//            }
+//        });
 
 
 
@@ -110,26 +110,28 @@ public class Retailer_showshops extends AppCompatActivity {
 
 
     private void loadAllShops() {
-        productList =new ArrayList<>();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Wholeseller");
-        reference.child(firebaseAuth.getUid()).child("Products").child("wholesellerList")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        productList.clear();
-                        for(DataSnapshot ds: snapshot.getChildren()){
-                            RetailerProductModel retailerProductModel = ds.getValue(RetailerProductModel.class);
-                            productList.add(retailerProductModel);
-                        }
-                        adapterWholesellerShops = new AdapterWholesellerShops(Retailer_showshops.this, productList);
-                        productsRv.setAdapter(adapterWholesellerShops);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+//        productList =new ArrayList<>();
+//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Wholeseller");
+//        reference.child(firebaseAuth.getUid()).child("Products").child("wholesellerList")
+//                .addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        productList.clear();
+//                        for(DataSnapshot ds: snapshot.getChildren()){
+//                            RetailerProductModel retailerProductModel = ds.getValue(RetailerProductModel.class);
+//                            productList.add(retailerProductModel);
+//                        }
+//                        adapterWholesellerShops = new AdapterWholesellerShops(Retailer_showshops.this, productList);
+//                        productsRv.setAdapter(adapterWholesellerShops);
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+        adapterWholesellerShops = new AdapterWholesellerShops(Retailer_showshops.this, wholesellerList);
+        productsRv.setAdapter(adapterWholesellerShops);
     }
 
     private void showShopUi() {
