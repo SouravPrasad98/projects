@@ -5,7 +5,7 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Retailer_activity">
+    tools:context=".Retailer_main_activity1">
 
 
     <RelativeLayout
@@ -85,7 +85,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:text="PRODUCTS"
+                android:text="SHOPS"
                 android:textAlignment="center"
                 android:background="@drawable/shaperec01"
                 android:textColor="@color/black"
@@ -113,66 +113,5 @@
 
         </LinearLayout>
 
-
     </RelativeLayout>
-
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/productsRl"
-        android:layout_below="@+id/toolbarRl">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/searchProductEt"
-            android:layout_margin="5dp"
-            android:background="@drawable/rectan"
-            android:layout_toStartOf="@id/filterProductbtn"
-            android:padding="10dp"
-            android:drawablePadding="10dp"
-            android:hint="Search"
-            android:drawableStart="@drawable/ic_baseline_search_24" />
-        <ImageButton
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_alignParentEnd="true"
-            android:id="@+id/filterProductbtn"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:background="@null"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_baseline_filter_alt_24"/>
-        <TextView
-            android:id="@+id/filteredproductsTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/searchProductEt"
-            android:textColor="@color/black"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="5dp"
-            android:text="Showing All"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:id="@+id/productsRv"
-            android:layout_height="match_parent"
-            android:layout_below="@id/filteredproductsTv"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/retailer_row_products"/>
-
-
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/ordersRl"
-        android:layout_below="@+id/toolbarRl">
-    </RelativeLayout>
-
-
 </RelativeLayout>
