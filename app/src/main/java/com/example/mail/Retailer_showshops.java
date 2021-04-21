@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.provider.SyncStateContract;
 import android.text.Editable;
@@ -33,6 +34,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -130,6 +133,27 @@ public class Retailer_showshops extends AppCompatActivity {
 //
 //                    }
 //                });
+
+        Location locationA = new Location("");
+        Location locationB = new Location("");
+        Location locationC = new Location("");
+//        fixed location for retailer
+        locationA.setLatitude(Double.parseDouble(Constants.wlatitude));
+        locationA.setLongitude(Double.parseDouble(Constants.wlongitude));
+
+        Collections.sort(wholesellerList, new Comparator<WholesellerListItem>() {
+            @Override
+            public int compare(WholesellerListItem o1, WholesellerListItem o2) {
+                locationB.setLatitude(Double.parseDouble(o1.getLatitude()));
+                locationB.setLongitude(Double.parseDouble(o1.getLongitude()));
+                locationC.setLatitude(Double.parseDouble(o2.getLatitude()));
+                locationC.setLongitude(Double.parseDouble(o2.getLongitude()));
+                double dist1 =  locationA.distanceTo(locationB);
+                double dist2 =  locationA.distanceTo(locationC);
+                return Double.compare(dist1, dist2);
+            }
+        });
+
         adapterWholesellerShops = new AdapterWholesellerShops(Retailer_showshops.this, wholesellerList);
         productsRv.setAdapter(adapterWholesellerShops);
     }
