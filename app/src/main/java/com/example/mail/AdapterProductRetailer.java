@@ -36,7 +36,7 @@ public class AdapterProductRetailer extends RecyclerView.Adapter<AdapterProductR
     public AdapterProductRetailer(Context context, ArrayList<ModelProduct> productList){
         this.context = context;
         this.productList = productList;
-        this.filterList = filterList;
+        this.filterList = productList;
     }
 
 
