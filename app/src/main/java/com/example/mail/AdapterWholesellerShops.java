@@ -1,6 +1,7 @@
 package com.example.mail;
 
 import android.content.Context;
+import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mail.Retailer.WholesellerListItem;
+import com.example.mail.common.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -71,9 +73,14 @@ public class AdapterWholesellerShops extends RecyclerView.Adapter<AdapterWholese
             holder.profileIv.setImageResource(R.drawable.ic_baseline_store_24);
         }
 
+        Location locationA = new Location("");
+        Location locationB = new Location("");
+        locationA.setLatitude(Double.parseDouble(Constants.wlatitude));
+        locationA.setLongitude(Double.parseDouble(Constants.wlongitude));
+        locationB.setLatitude(Double.parseDouble(retailerProductModel.getLatitude()));
+        locationB.setLongitude(Double.parseDouble(retailerProductModel.getLongitude()));
 
-
-
+        holder.distance.setText("Distance : " + String.format("%.2f", locationA.distanceTo(locationB)/1000) + " km");
     }
 
     @Override
@@ -83,7 +90,7 @@ public class AdapterWholesellerShops extends RecyclerView.Adapter<AdapterWholese
 
     public class HolderWholesellerShops extends RecyclerView.ViewHolder {
         private ImageView profileIv;
-        private TextView closeIv,shopaddress,shopname,productprice,productquantity,discountedpriceEt;
+        private TextView closeIv,shopaddress,shopname,productprice,productquantity,discountedpriceEt, distance;
         private RatingBar ratingbar;
 
         public HolderWholesellerShops(@NonNull View itemView) {
@@ -96,7 +103,7 @@ public class AdapterWholesellerShops extends RecyclerView.Adapter<AdapterWholese
             productquantity = itemView.findViewById(R.id.productquantity);
             productprice = itemView.findViewById(R.id.productprice);
             discountedpriceEt = itemView.findViewById(R.id.discountedpriceEt);
-
+            distance = itemView.findViewById(R.id.distance);
 
 
         }
