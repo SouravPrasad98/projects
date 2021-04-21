@@ -159,6 +159,7 @@ public class Wholeseller_addproduct extends AppCompatActivity {
             Toast.makeText(this, "Name required", LENGTH_SHORT).show();
             return;
         }
+
         if(TextUtils.isEmpty(product_price)){
             Toast.makeText(this, "Price required", LENGTH_SHORT).show();
             return;
@@ -173,7 +174,7 @@ public class Wholeseller_addproduct extends AppCompatActivity {
 
         }
         else {
-            discount_priceEt="0";
+            discount_priceEt="No discount";
             discount_note="";
         }
         addproduct();

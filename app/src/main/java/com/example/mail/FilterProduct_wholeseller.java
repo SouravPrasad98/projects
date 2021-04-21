@@ -1,6 +1,7 @@
 package com.example.mail;
 import android.widget.Filter;
 import java.util.ArrayList;
+
 public class FilterProduct_wholeseller extends Filter {
  private AdapterProductWholeseller adapter;
  private ArrayList<ModelProduct> filterlist;

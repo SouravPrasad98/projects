@@ -23,9 +23,11 @@ public class ModelProduct {
         this.productIcon = productIcon;
         this.timestamp = timestamp;
         this.uid = uid;
+
     }
 
     public String getProductId() {
+
         return productId;
     }
 

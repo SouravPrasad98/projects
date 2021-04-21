@@ -52,7 +52,7 @@
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:textAlignment="center"
-                android:text="MY ORDERS"
+                android:text="ORDERS to Wholeseller"
 
                 android:textColor="@color/black"
 

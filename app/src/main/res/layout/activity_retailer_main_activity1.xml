@@ -99,7 +99,7 @@
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:textAlignment="center"
-                android:text="ORDERS"
+                android:text="All Products Near Me"
 
                 android:textColor="@color/black"
 
@@ -387,7 +387,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/showproducts"
         android:layout_alignParentBottom="true"
-        android:text="Show All Products"
+        android:text="Products In My Stock"
         android:textColor="@color/white"
         android:background="@color/tomatored"/>
 

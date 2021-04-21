@@ -45,6 +45,7 @@ public class AdapterWholesellerShops extends RecyclerView.Adapter<AdapterWholese
         String on =retailerProductModel.getOnline();
 
 
+
         holder.shopname.setText(bussname);
         holder.productquantity.setText(quant);
         holder.productprice.setText(priceproduct);

@@ -66,7 +66,12 @@ public class Retailer_main_activity1 extends AppCompatActivity {
         checkuser();
 
 
-
+        productstab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showProductsUi();
+            }
+        });
 
         orderstab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,6 +180,16 @@ public class Retailer_main_activity1 extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void showProductsUi() {
+        productsRl.setVisibility(View.VISIBLE);
+        ordersRl.setVisibility(View.GONE);
+        productstab.setTextColor(getResources().getColor(R.color.black));
+        productstab.setBackgroundResource(R.drawable.shaperec01);
+        orderstab.setTextColor(getResources().getColor(R.color.white));
+        orderstab.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
     }
 

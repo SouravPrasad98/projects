@@ -32,11 +32,11 @@ public class AdapterProductWholeseller extends RecyclerView.Adapter<AdapterProdu
     private FilterProduct_wholeseller filter;
 
     private Context context;
-    public ArrayList<ModelProduct> productList, filterList;
+    public ArrayList<ModelProduct> productList, filterlist;
     public AdapterProductWholeseller(Context context, ArrayList<ModelProduct> productList){
         this.context = context;
         this.productList = productList;
-        this.filterList = filterList;
+        this.filterlist = filterlist;
     }
 
 
@@ -230,7 +230,7 @@ public class AdapterProductWholeseller extends RecyclerView.Adapter<AdapterProdu
     @Override
     public Filter getFilter() {
         if(filter==null){
-            filter = new FilterProduct_wholeseller(this, filterList);
+            filter = new FilterProduct_wholeseller(this, filterlist);
         }
         return filter;
     }
