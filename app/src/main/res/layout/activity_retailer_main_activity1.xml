@@ -9,11 +9,12 @@
 
 
     <RelativeLayout
+        android:id="@+id/toolbarRl"
         android:layout_width="match_parent"
         android:layout_height="90dp"
+        android:layout_marginLeft="0dp"
         android:background="@color/limegreen"
         android:padding="5dp"
-        android:id="@+id/toolbarRl"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="16dp">
@@ -61,54 +62,55 @@
             android:id="@+id/addproduct"
             android:layout_width="70dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="285dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginLeft="260dp"
+            android:layout_marginTop="1dp"
             android:background="@color/limegreen"
-            android:src="@drawable/ic_baseline_add_shopping_cart_24" />
+            android:src="@drawable/ic_baseline_add_circle_outline_24" />
 
         <ImageButton
+            android:id="@+id/logoutbt"
             android:layout_width="70dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
-            android:src="@drawable/ic_baseline_power_settings_new_24"
-            android:id="@+id/logoutbt"
             android:background="@color/limegreen"
-            />
+            android:src="@drawable/ic_baseline_power_settings_new_24" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="75dp"
-            android:orientation="horizontal"
+            android:layout_below="@id/profileIv"
             android:background="@drawable/shaperec"
-            android:layout_below="@id/profileIv">
+            android:orientation="horizontal">
+
             <TextView
+                android:id="@+id/productstab"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/shaperec01"
                 android:text="CATEGORY"
                 android:textAlignment="center"
-                android:background="@drawable/shaperec01"
                 android:textColor="@color/black"
-                android:textSize="15dp"
-                android:id="@+id/productstab">
+                android:textSize="15dp">
 
             </TextView>
+
             <TextView
+                android:id="@+id/orderstab"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_gravity="center"
-                android:textAlignment="center"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+
                 android:text="All Products Near Me"
 
+                android:textAlignment="center"
                 android:textColor="@color/black"
-
-                android:textSize="15dp"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/orderstab">
+                android:textSize="15dp">
 
             </TextView>
-
 
 
         </LinearLayout>

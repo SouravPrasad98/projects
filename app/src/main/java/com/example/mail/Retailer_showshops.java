@@ -47,9 +47,11 @@ public class Retailer_showshops extends AppCompatActivity {
     private ImageView profileIv;
 
     private RelativeLayout productsRl, ordersRl;
-    private RecyclerView productsRv;
+    private RecyclerView productsRv,orderRv;
     private ArrayList<RetailerProductModel> productList;
     private FirebaseAuth firebaseAuth;
+    private ArrayList<ModelOrderRetailer> shopList;
+    private AdapterOrderRetailer adapterOrderRetailer;
 
     private ArrayList<WholesellerListItem> wholesellerList;
 
@@ -68,6 +70,7 @@ public class Retailer_showshops extends AppCompatActivity {
         orderstab = findViewById(R.id.orderstab);
         productsRl =  findViewById(R.id.shopsRl);
         ordersRl = findViewById(R.id.ordersRl);
+
         Bundle extras =   getIntent().getExtras();
         if(extras!=null)
         {

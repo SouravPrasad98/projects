@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,6 +27,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mail.common.Constants;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +39,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import p32929.androideasysql_library.Column;
 import p32929.androideasysql_library.EasyDB;
@@ -51,12 +55,13 @@ public class ShopdetailsActivity extends AppCompatActivity {
     private ArrayList<ModelProduct> productList;
     private FirebaseAuth firebaseAuth;
 private String uid;
-private String myLatitude,myLongitude;
+private String myLatitude,myLongitude,myPhone;
 private String shopLatitude,shopLongitude,shopName,shopPhone,shopAddress,shopEmail;
 private AdapterProductShopDetails adapterProductShopDetails;
 private ArrayList<ModelCartItem> cartItemList;
 private AdaptercartItem adaptercartItem;
 public String deliveryFee;
+private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +84,9 @@ public String deliveryFee;
         ordersRl = findViewById(R.id.ordersRl);
         uid = getIntent().getStringExtra("uid");
         firebaseAuth = FirebaseAuth.getInstance();
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Please Wait");
+        progressDialog.setCanceledOnTouchOutside(false);
 
         loadmyinfo();
         loadShopdetails();
@@ -238,8 +246,81 @@ public String deliveryFee;
                 allTotalPrice = 0.00;
             }
         });
+        checkoutBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (myLatitude.equals("")   || myLatitude.equals("null") || myLongitude.equals("")  || myLatitude.equals("null"))
+                {
+                    Toast.makeText(ShopdetailsActivity.this,"Please enter your address in uour profile before placing order...",Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (myPhone.equals("")   || myPhone.equals("null"))
+                {
+                    Toast.makeText(ShopdetailsActivity.this,"Please enter your Phone Number in uour profile before placing order...",Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(cartItemList.size() == 0)
+                {
+                    Toast.makeText(ShopdetailsActivity.this,"Cart empty...",Toast.LENGTH_LONG).show();
+                    return;
+                }
+                submitOrder();
+            }
+        });
 
     }
+
+    private void submitOrder() {
+                          progressDialog.setMessage("Placing order....");
+                          progressDialog.show();
+                          String timestamp = "" +   System.currentTimeMillis();
+                          String Cost = allTotalPriceTv.getText().toString().trim().replace("$","");
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("orderId",""+ timestamp);
+        hashMap.put("orderTime",""+ timestamp);
+        hashMap.put("orderStatus","InProgress");
+        hashMap.put("orderCost","" + Cost);
+        hashMap.put("orderBy",firebaseAuth.getUid());
+        hashMap.put("orderTo",uid);
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("RetailerOnlineOrders").child(uid).child("Orders");
+        ref.child(timestamp).setValue(hashMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                               for(int i = 0 ;i<cartItemList.size();i++)
+                               {
+                                   String pId = cartItemList.get(i).getpId();
+                                    String id = cartItemList.get(i).getpId();
+                                     String cost = cartItemList.get(i).getCost();
+                                     String name = cartItemList.get(i).getName();
+                                      String price = cartItemList.get(i).getPrice();
+                                       String quantity = cartItemList.get(i).getQuantity();
+
+
+                                  HashMap<String ,String> hashMap1 = new HashMap<>();
+                                  hashMap1.put("pID",pId);
+                                  hashMap1.put("name",name);
+                                  hashMap1.put("cost",cost);
+                                  hashMap1.put("price",price);
+                                  hashMap1.put("quantity",quantity);
+
+                                  ref.child(timestamp).child("Items").child(pId).setValue(hashMap1);
+                               }
+                               progressDialog.dismiss();
+                               Toast.makeText(ShopdetailsActivity.this,"Order Placed Successfully ...",Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                         progressDialog.dismiss();                                                                         
+                         Toast.makeText(ShopdetailsActivity.this,"Order Placed Successfully ...",Toast.LENGTH_LONG).show();
+                    }
+                });
+
+    }
+
     private void openmap() {
         String address = "http://maps.google.com/maps?saddr=" + myLatitude +","+myLongitude +"&daddr=" +shopLatitude + "," + shopLongitude;
         Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(address));
@@ -365,7 +446,7 @@ public String deliveryFee;
                             //Constants.wname= "" + ds.child("name").getValue();
                             Constants.waddress = "" + ds.child("address").getValue();
                             Constants.wemail = "" + ds.child("email").getValue();
-                            Constants.wphonenumber = "" + ds.child("phonenumber").getValue();
+                            myPhone = "" + ds.child("phonenumber").getValue();
                             //Constants.wcountry= "" + ds.child("country").getValue();
                             Constants.wcity = "" + ds.child("city").getValue();
                             myLatitude = "" + ds.child("latitude").getValue();
