@@ -265,7 +265,7 @@ public String deliveryFee;
                         shopAddress=""+snapshot.child("address").getValue();
                         shopLatitude=""+snapshot.child("latitude").getValue();
                         shopLongitude = "" +snapshot.child("longitude").getValue();
-                        deliveryFee = "" + snapshot.child("deliveryfree").getValue();
+                        deliveryFee = "" + snapshot.child("deliveryfee").getValue();
                         String profileimage = "" + snapshot.child("profileimage").getValue();
 
                         bussnm.setText(shopName);

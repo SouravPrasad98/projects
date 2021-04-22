@@ -51,6 +51,8 @@ public class AdapterWholesellerShops extends RecyclerView.Adapter<AdapterWholese
 
         holder.perunitcost.setText(percost);
         holder.shopname.setText(bussname);
+
+
         if(Integer.parseInt(quant) > 0) {
             holder.productquantity.setText(quant);
         }

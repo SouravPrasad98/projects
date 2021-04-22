@@ -21,10 +21,9 @@
 
         <com.blogspot.atifsoftwares.circularimageview.CircularImageView
             android:id="@+id/profileIv"
-            android:layout_width="30dp"
-            android:layout_height="36dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_below="@id/key"
-            android:layout_marginTop="20dp"
             android:src="@drawable/ic_baseline_person_24"
             app:c_border="true"
             app:c_border_color="@color/Snow"

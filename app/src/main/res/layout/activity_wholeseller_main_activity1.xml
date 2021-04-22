@@ -21,10 +21,10 @@
 
         <com.blogspot.atifsoftwares.circularimageview.CircularImageView
             android:id="@+id/profileIv"
-            android:layout_width="30dp"
-            android:layout_height="36dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_below="@id/key"
-            android:layout_marginTop="20dp"
+
             android:src="@drawable/ic_baseline_person_24"
             app:c_border="true"
             app:c_border_color="@color/Snow"
@@ -56,18 +56,26 @@
             android:textSize="15sp"
             android:textStyle="bold" />
 
+        <ImageButton
+            android:id="@+id/settingsBtn"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:background="@null"
+            android:layout_toStartOf="@id/addproduct"
+            android:src="@drawable/ic_baseline_settings_24" />
 
         <ImageButton
             android:id="@+id/addproduct"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="285dp"
+            android:layout_width="35dp"
+            android:layout_height="29dp"
+            android:layout_toStartOf="@id/logoutbt"
             android:layout_marginTop="4dp"
+
             android:background="@color/limegreen"
             android:src="@drawable/ic_baseline_add_shopping_cart_24" />
 
         <ImageButton
-            android:layout_width="70dp"
+            android:layout_width="35dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_baseline_power_settings_new_24"

@@ -483,7 +483,7 @@ public class Retailer_register extends AppCompatActivity implements LocationList
             hashMap.put("state", "" + state);
             hashMap.put("city", "" + city);
             hashMap.put("address", "" + address);
-            hashMap.put("deliveryfree", "" + deliveryfee);
+            hashMap.put("deliveryfee", "" + deliveryfee);
             hashMap.put("latitude", "" + latitude);
             hashMap.put("longitude", "" + longitude);
             hashMap.put("accounttype", "retailer");
@@ -540,7 +540,7 @@ public class Retailer_register extends AppCompatActivity implements LocationList
                                 hashMap.put("city", "" + city);
 
                                 hashMap.put("address", "" + address);
-                                hashMap.put("deliveryfree", "" + deliveryfee);
+                                hashMap.put("deliveryfee", "" + deliveryfee);
                                 hashMap.put("latitude", "" + latitude);
                                 hashMap.put("longitude", "" + longitude);
                                 hashMap.put("accounttype", "Retailer");

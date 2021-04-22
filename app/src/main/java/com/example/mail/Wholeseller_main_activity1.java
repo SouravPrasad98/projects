@@ -31,7 +31,7 @@ import java.util.HashMap;
 public class Wholeseller_main_activity1 extends AppCompatActivity {
 
     private TextView bussnm,profile_name,productstab,orderstab;
-    private ImageButton logoutbt, addproduct;
+    private ImageButton logoutbt, addproduct,settingsBtn;
     private ImageView profileIv;
     private long backpressedTime;
     private Button showproducts;
@@ -50,6 +50,7 @@ public class Wholeseller_main_activity1 extends AppCompatActivity {
         productstab= findViewById(R.id.productstab);
         showproducts = findViewById(R.id.showproducts);
         bussnm = findViewById(R.id.bussnm);
+        settingsBtn = findViewById(R.id.settingsBtn);
         logoutbt = findViewById(R.id.logoutbt);
         productsRl = findViewById(R.id.productsRl);
         ordersRl = findViewById(R.id.ordersRl);
@@ -91,6 +92,12 @@ public class Wholeseller_main_activity1 extends AppCompatActivity {
             }
         });
 
+        settingsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Wholeseller_main_activity1.this, SettingsActivity.class));
+            }
+        });
 
         others.setOnClickListener(new View.OnClickListener() {
             @Override

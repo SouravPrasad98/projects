@@ -483,7 +483,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
             hashMap.put("state", "" + state);
             hashMap.put("city", "" + city);
             hashMap.put("address", "" + address);
-            hashMap.put("deliveryfree", "" + deliveryfee);
+            hashMap.put("deliveryfee", "" + deliveryfee);
             hashMap.put("latitude", "" + latitude);
             hashMap.put("longitude", "" + longitude);
             hashMap.put("accounttype", "wholeseller");
@@ -538,7 +538,7 @@ public class Wholeseller_register extends AppCompatActivity implements LocationL
                                 hashMap.put("city", "" + city);
 
                                 hashMap.put("address", "" + address);
-                                hashMap.put("deliveryfree", "" + deliveryfee);
+                                hashMap.put("deliveryfee", "" + deliveryfee);
                                 hashMap.put("latitude", "" + latitude);
                                 hashMap.put("longitude", "" + longitude);
                                 hashMap.put("accounttype", "wholeseller");

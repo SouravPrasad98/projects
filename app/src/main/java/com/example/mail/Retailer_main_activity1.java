@@ -26,7 +26,7 @@ import com.squareup.picasso.Picasso;
 public class Retailer_main_activity1 extends AppCompatActivity {
 
     private TextView bussnm,profile_name,productstab,orderstab;
-    private ImageButton logoutbt, addproduct;
+    private ImageButton logoutbt, addproduct,settingsBtn;
     private ImageView profileIv;
     private long backpressedTime;
     private Button showproducts;
@@ -48,7 +48,7 @@ public class Retailer_main_activity1 extends AppCompatActivity {
         logoutbt = findViewById(R.id.logoutbt);
         productsRl = findViewById(R.id.productsRl);
         ordersRl = findViewById(R.id.ordersRl);
-
+        settingsBtn = findViewById(R.id.settingsBtn);
         addproduct = findViewById(R.id.addproduct);
         profile_name = findViewById(R.id.profile_name);
         profileIv = findViewById(R.id.profileIv);
@@ -179,7 +179,12 @@ public class Retailer_main_activity1 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+            settingsBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(Retailer_main_activity1.this,SettingsActivity.class));
+                }
+            });
 
     }
 

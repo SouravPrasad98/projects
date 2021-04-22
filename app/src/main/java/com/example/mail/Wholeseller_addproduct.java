@@ -251,12 +251,14 @@ public class Wholeseller_addproduct extends AppCompatActivity {
                     wsd.put("email", ""+Constants.wemail);
                     wsd.put("phonenumber", ""+ Constants.wphonenumber);
                     wsd.put("icon", ""+Constants.wprofileimage);
+                    wsd.put("deliveryfee", Constants.wdeliveryfee);
                     wsd.put("discountprice", discount_priceEt);
                     wsd.put("discountnote", discount_note);
                     wsd.put("discountAvailable1", discountAvailbale);
                     wsd.put("perunitCost", ""+Constants.wperunitcost);
                     wsd.put("online", "true");
                     wsd.put("shopopen", "true");
+
 
                     productRef.child(product_name).child("wholesellerList").child(Constants.wuid).setValue(wsd);
 
@@ -345,6 +347,7 @@ public class Wholeseller_addproduct extends AppCompatActivity {
                                         wsd.put("longitude", ""+Constants.wlongitude);
                                         wsd.put("address", ""+ Constants.waddress);
                                         wsd.put("email", ""+Constants.wemail);
+                                        wsd.put("deliveryfee", Constants.wdeliveryfee);
                                         wsd.put("phonenumber", ""+ Constants.wphonenumber);
                                         wsd.put("discountprice", discount_priceEt);
                                         wsd.put("discountnote", discount_note);

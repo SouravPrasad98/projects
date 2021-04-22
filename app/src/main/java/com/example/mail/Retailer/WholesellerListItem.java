@@ -3,14 +3,15 @@ package com.example.mail.Retailer;
 import java.io.Serializable;
 
 public class WholesellerListItem implements Serializable {
-    String address, bussinessname, email, latitude, longitude,online,shopopen, phonenumber, price, quantity, uid,discountprice,icon,discountnote,perunitCost;
+    String address, bussinessname, email,deliveryfee, latitude, longitude,online,shopopen, phonenumber, price,
+            quantity, uid,discountprice,icon,discountnote,perunitCost;
         Boolean    discountAvailable1;
 
 
     public WholesellerListItem() {
     }
 
-    public WholesellerListItem(String address, String bussinessname, String email, String discountprice, Boolean discountAvailable1, String icon,
+    public WholesellerListItem(String address, String bussinessname, String email,String deliveryfee, String discountprice, Boolean discountAvailable1, String icon,
                                String discountnote, String latitude, String longitude, String phonenumber,String perunitCost, String price, String quantity, String uid, String online, String shopopen) {
         this.address = address;
         this.bussinessname = bussinessname;
@@ -20,6 +21,7 @@ public class WholesellerListItem implements Serializable {
         this.longitude = longitude;
         this.phonenumber = phonenumber;
         this.price = price;
+        this.deliveryfee = deliveryfee;
         this.quantity = quantity;
         this.uid = uid;
         this.discountprice= discountprice;
@@ -28,6 +30,14 @@ public class WholesellerListItem implements Serializable {
         this.discountnote = discountnote;
         this.online =online;
         this.shopopen = shopopen;
+    }
+
+    public String getDeliveryfee() {
+        return deliveryfee;
+    }
+
+    public void setDeliveryfee(String deliveryfee) {
+        this.deliveryfee = deliveryfee;
     }
 
     public String getPerunitCost() {
