@@ -21,7 +21,9 @@
         android:theme="@style/Theme.MAil"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
-        <activity android:name=".Retailer_showshops"></activity>
+        <activity android:name=".ShopdetailsActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
+        <activity android:name=".Retailer_showshops" />
         <activity android:name=".EditRetailerProductActivity" />
         <activity android:name=".Showall_Retailerproducts" />
         <activity android:name=".Retailer_main_activity1" />

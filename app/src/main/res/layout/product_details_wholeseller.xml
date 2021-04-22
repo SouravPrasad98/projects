@@ -101,6 +101,13 @@
             android:layout_marginTop="5dp"
             android:text="Quantity"
             android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/perunitcost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Per unit cost"
+            android:textColor="@color/black"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

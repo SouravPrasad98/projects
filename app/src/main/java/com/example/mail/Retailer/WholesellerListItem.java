@@ -3,7 +3,7 @@ package com.example.mail.Retailer;
 import java.io.Serializable;
 
 public class WholesellerListItem implements Serializable {
-    String address, bussinessname, email, latitude, longitude,online,shopopen, phonenumber, price, quantity, uid,discountprice,icon,discountnote;
+    String address, bussinessname, email, latitude, longitude,online,shopopen, phonenumber, price, quantity, uid,discountprice,icon,discountnote,perunitCost;
         Boolean    discountAvailable1;
 
 
@@ -11,11 +11,12 @@ public class WholesellerListItem implements Serializable {
     }
 
     public WholesellerListItem(String address, String bussinessname, String email, String discountprice, Boolean discountAvailable1, String icon,
-                               String discountnote, String latitude, String longitude, String phonenumber, String price, String quantity, String uid, String online, String shopopen) {
+                               String discountnote, String latitude, String longitude, String phonenumber,String perunitCost, String price, String quantity, String uid, String online, String shopopen) {
         this.address = address;
         this.bussinessname = bussinessname;
         this.email = email;
         this.latitude = latitude;
+        this.perunitCost =perunitCost;
         this.longitude = longitude;
         this.phonenumber = phonenumber;
         this.price = price;
@@ -27,6 +28,14 @@ public class WholesellerListItem implements Serializable {
         this.discountnote = discountnote;
         this.online =online;
         this.shopopen = shopopen;
+    }
+
+    public String getPerunitCost() {
+        return perunitCost;
+    }
+
+    public void setPerunitCost(String perunitCost) {
+        this.perunitCost = perunitCost;
     }
 
     public String getOnline() {

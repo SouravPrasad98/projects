@@ -16,6 +16,7 @@ public class Constants {
     public static String wdeliveryfee;
     public static String wuid;
     public static String wprofileimage;
+    public static String wperunitcost;
 
 
 

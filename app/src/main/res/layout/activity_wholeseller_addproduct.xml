@@ -98,6 +98,17 @@
             android:inputType="textCapSentences"
             android:padding="10dp"
             android:layout_below="@id/productcate"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:drawablePadding="10dp"
+            android:id="@+id/perunitcost"
+            android:hint="Per unit cost"
+            android:inputType="textCapSentences"
+            android:padding="10dp"
+            android:layout_below="@id/productquantity"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -107,7 +118,7 @@
             android:hint="Price"
             android:inputType="numberDecimal"
             android:padding="10dp"
-            android:layout_below="@id/productquantity"/>
+            android:layout_below="@id/perunitcost"/>
         <androidx.appcompat.widget.SwitchCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

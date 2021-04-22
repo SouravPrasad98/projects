@@ -51,7 +51,7 @@ public class Wholeseller_addproduct extends AppCompatActivity {
     private ImageButton backbutt;
     private TextView productcate;
     private ImageView cartadd;
-    private EditText discountnote,discountpriceEt,productprice,
+    private EditText discountnote,discountpriceEt,productprice,perunitcost,
             productquantity,productdes,productname;
     private SwitchCompat discountswipe;
     private Button addbutt;
@@ -74,6 +74,7 @@ public class Wholeseller_addproduct extends AppCompatActivity {
         setContentView(R.layout.activity_wholeseller_addproduct);
         backbutt= findViewById(R.id.backbutt);
         cartadd= findViewById(R.id.cartadd);
+        perunitcost = findViewById(R.id.perunitcost);
         productquantity= findViewById(R.id.productquantity);
         productdes= findViewById(R.id.productdes);
         productname= findViewById(R.id.productname);
@@ -141,7 +142,7 @@ public class Wholeseller_addproduct extends AppCompatActivity {
             }
         });
     }
-     private String product_name,product_des,product_price,product_cate,discount_note,discount_priceEt,
+     private String product_name,product_des,product_price,product_cate,discount_note,discount_priceEt,per_unitcost,
              product_quantity;
     private boolean discountAvailbale=false;
 
@@ -154,6 +155,7 @@ public class Wholeseller_addproduct extends AppCompatActivity {
         discountAvailbale = discountswipe.isChecked();
         discount_priceEt = discountpriceEt.getText().toString().trim();
         discount_note = discountnote.getText().toString().trim();
+        per_unitcost = perunitcost.getText().toString().trim();
 
         if(TextUtils.isEmpty(product_name)){
             Toast.makeText(this, "Name required", LENGTH_SHORT).show();
@@ -197,6 +199,7 @@ public class Wholeseller_addproduct extends AppCompatActivity {
             hashMap.put("discountprice",""+discount_priceEt);
             hashMap.put("productquantity",""+product_quantity);
             hashMap.put("productIcon","");
+            hashMap.put("perunitCost",""+per_unitcost);
             hashMap.put("timestamp",""+timestamp);
             hashMap.put("uid",""+firebaseAuth.getUid());
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Wholeseller");
@@ -251,6 +254,7 @@ public class Wholeseller_addproduct extends AppCompatActivity {
                     wsd.put("discountprice", discount_priceEt);
                     wsd.put("discountnote", discount_note);
                     wsd.put("discountAvailable1", discountAvailbale);
+                    wsd.put("perunitCost", ""+Constants.wperunitcost);
                     wsd.put("online", "true");
                     wsd.put("shopopen", "true");
 
@@ -287,6 +291,7 @@ public class Wholeseller_addproduct extends AppCompatActivity {
                                 hashMap1.put("discountAvailable",""+discountAvailbale);
                                 hashMap1.put("discountnote",""+discount_note);
                                 hashMap1.put("productprice",""+product_price);
+                                hashMap1.put("perunitCost",""+per_unitcost);
                                 hashMap1.put("discountprice",""+discount_priceEt);
                                 hashMap1.put("productquantity",""+product_quantity);
                                 hashMap1.put("productIcon",""+ downloadImageUri);
@@ -333,6 +338,7 @@ public class Wholeseller_addproduct extends AppCompatActivity {
                                         HashMap<String,Object> wsd = new HashMap<>();
                                         wsd.put("price",""+product_price);
                                         wsd.put("quantity", ""+product_quantity);
+                                        wsd.put("perunitCost", ""+Constants.wperunitcost);
                                         wsd.put("bussinessname", Constants.wbussinessname);
                                         wsd.put("uid", ""+ Constants.wuid);
                                         wsd.put("latitude", ""+Constants.wlatitude);
@@ -393,6 +399,7 @@ public class Wholeseller_addproduct extends AppCompatActivity {
 
     private void clearData(){
         productname.setText("");
+        perunitcost.setText("");
         productquantity.setText("");
         productprice.setText("");
         productcate.setText("");

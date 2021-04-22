@@ -52,6 +52,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.hbb20:ccp:2.3.1'
     implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.github.p32929:AndroidEasySQL-Library:1.4.1'
 
     //for getting data in recycler view from firebase
     implementation 'com.firebaseui:firebase-ui-database:7.1.1'

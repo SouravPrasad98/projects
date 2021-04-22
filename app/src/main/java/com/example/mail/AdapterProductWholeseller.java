@@ -62,12 +62,14 @@ public class AdapterProductWholeseller extends RecyclerView.Adapter<AdapterProdu
         String title = modelProduct.getProductTitle();
         String timestamp = modelProduct.getTimestamp();
         String productPrice = modelProduct.getProductprice();
+        String percost = modelProduct.getPerunitCost();
 
         holder.productname.setText(title);
         holder.productquantity.setText(quantity);
         holder.discountnote.setText(discountNote);
         holder.productprice.setText("$"+productPrice);
         holder.discountedpriceEt.setText("$"+discountPrice);
+        holder.perunitcost.setText(percost);
         if(discountAvailable.equals("true")){
            holder.discountedpriceEt.setVisibility(View.VISIBLE);
            holder.discountnote.setVisibility(View.VISIBLE);
@@ -112,6 +114,7 @@ public class AdapterProductWholeseller extends RecyclerView.Adapter<AdapterProdu
         TextView  discountedPriceTv= view.findViewById(R.id.discountedPriceTv);
         TextView  orignalPriceTv= view.findViewById(R.id.orignalPriceTv);
         TextView  titleTv= view.findViewById(R.id.titleTv);
+        TextView perunitcost = view.findViewById(R.id.perunitcost);
 
 
         String id = modelProduct.getProductId();
@@ -123,11 +126,13 @@ public class AdapterProductWholeseller extends RecyclerView.Adapter<AdapterProdu
         String prodectDescription = modelProduct.getProductdescription();
         String icon = modelProduct.getProductIcon();
         String quantity = modelProduct.getProductquantity();
+        String peruucost = modelProduct.getPerunitCost();
         String title = modelProduct.getProductTitle();
         String timestamp = modelProduct.getTimestamp();
         String productPrice = modelProduct.getProductprice();
 
         titleTv.setText(title);
+        perunitcost.setText(peruucost);
         descriptionTv.setText(prodectDescription);
         categoryTv.setText(productCategory);
         quantityTv.setText(quantity);
@@ -239,7 +244,7 @@ public class AdapterProductWholeseller extends RecyclerView.Adapter<AdapterProdu
 
 
         private ImageView productIconIv;
-        private TextView productname,discountnote,productquantity,productprice,discountedpriceEt;
+        private TextView productname,perunitcost,discountnote,productquantity,productprice,discountedpriceEt;
 
         public HolderProductWholeseller(@NonNull View itemView) {
             super(itemView);
@@ -249,6 +254,7 @@ public class AdapterProductWholeseller extends RecyclerView.Adapter<AdapterProdu
             productquantity = itemView.findViewById(R.id.productquantity);
             productprice = itemView.findViewById(R.id.productprice);
             productname = itemView.findViewById(R.id.productname);
+            perunitcost = itemView.findViewById(R.id.perunitcost);
             }
     }
 }

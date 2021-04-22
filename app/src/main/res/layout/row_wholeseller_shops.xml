@@ -42,6 +42,13 @@
                 android:text="1 Kg"
                 android:inputType="textCapWords"
                 android:textColor="@color/black"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/perunitcost"
+                android:text="Per unit Cost"
+                android:inputType="textCapWords"
+                android:textColor="@color/black"/>
 
             <RelativeLayout
                 android:layout_width="wrap_content"

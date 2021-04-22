@@ -20,7 +20,7 @@
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         android:src="@drawable/cart_24"/>
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -31,6 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/discountnote"
+                android:layout_alignParentEnd="true"
                 android:background="@drawable/discountnoteshape"
                 android:padding="5dp"
                 android:text="10% OFF"
@@ -47,39 +48,54 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/productquantity"
                 android:text="1 Kg"
+                android:layout_below="@id/productname"
                 android:inputType="textCapWords"
                 android:textColor="@color/black"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/perunitcost"
-                android:text="perunit"
+                android:text="Per unit Cost"
+                android:layout_below="@id/productquantity"
+                android:inputType="textCapWords"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/addtocart"
+                android:layout_below="@id/perunitcost"
+                android:text="Add to Cart"
+                android:layout_centerVertical="true"
+                android:drawableStart="@drawable/cart_24"
                 android:inputType="textCapWords"
                 android:textColor="@color/black"/>
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/addtocart"
+                android:layout_alignParentEnd="true"
                 android:layout_marginTop="5dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/discountedpriceEt"
+                    android:text="$10"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/grey"/>
+                <TextView
+                    android:layout_toEndOf="@id/discountedpriceEt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/productprice"
+                    android:text="$20"
+                    android:textColor="@color/grey"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/discountedpriceEt"
-                android:text="$10"
-                android:layout_marginEnd="10dp"
-                android:textColor="@color/grey"/>
-            <TextView
-                android:layout_toEndOf="@id/discountedpriceEt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/productprice"
-                android:text="$20"
-                android:textColor="@color/grey"/>
 
 
             </RelativeLayout>
 
-        </LinearLayout>
+
+        </RelativeLayout>
 
         <ImageView
             android:layout_width="wrap_content"

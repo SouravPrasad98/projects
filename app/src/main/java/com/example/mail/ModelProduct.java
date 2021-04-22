@@ -3,12 +3,12 @@ package com.example.mail;
 public class ModelProduct {
 
     private String productId,productTitle,productdescription,productcategory,discountAvailable,discountnote,productprice,discountprice,productquantity,
-            productIcon,timestamp,uid;
+            productIcon,timestamp,uid,perunitCost;
 
     public ModelProduct() {
     }
 
-    public ModelProduct(String productId, String productTitle, String productdescription,
+    public ModelProduct(String productId, String productTitle, String productdescription,String perunitCost,
                         String productcategory, String discountAvailable, String discountnote, String productprice,
                         String discountprice, String productquantity, String productIcon, String timestamp, String uid) {
         this.productId = productId;
@@ -23,7 +23,16 @@ public class ModelProduct {
         this.productIcon = productIcon;
         this.timestamp = timestamp;
         this.uid = uid;
+        this.perunitCost= perunitCost;
 
+    }
+
+    public String getPerunitCost() {
+        return perunitCost;
+    }
+
+    public void setPerunitCost(String perunitCost) {
+        this.perunitCost = perunitCost;
     }
 
     public String getProductId() {
