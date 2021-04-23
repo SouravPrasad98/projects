@@ -55,7 +55,7 @@ public class AdapterOrderedItem extends RecyclerView.Adapter<AdapterOrderedItem.
             itemTitleTv = itemView.findViewById(R.id.itemTitleTv);
             itemPriceTv = itemView.findViewById(R.id.itemPriceTv);
             itemPriceEachTv = itemView.findViewById(R.id.itemPriceEachTv);
-            itemQauntityTv  = itemView.findViewById(R.id.itemQauntityTv);
+            itemQauntityTv  = itemView.findViewById(R.id.itemQuantityTv);
 
         }
     }
