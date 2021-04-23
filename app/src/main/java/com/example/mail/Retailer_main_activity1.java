@@ -34,9 +34,9 @@ public class Retailer_main_activity1 extends AppCompatActivity {
     private long backpressedTime;
     private Button showproducts;
     private RelativeLayout productsRl, ordersRl;
-    private RecyclerView orderRv;
-    private ArrayList<ModelOrderRetailer> orderList;
-    private AdapterOrderRetailer adapterOrderRetailer;
+//    private RecyclerView orderRv;
+//    private ArrayList<ModelOrderRetailer> orderList;
+//    private AdapterOrderRetailer adapterOrderRetailer;
 
     private FirebaseAuth firebaseAuth;
 
@@ -56,7 +56,7 @@ public class Retailer_main_activity1 extends AppCompatActivity {
         ordersRl = findViewById(R.id.ordersRl);
 
         settingsBtn = findViewById(R.id.settingsBtn);
-        orderRv = findViewById(R.id.orderRv);
+        //orderRv = findViewById(R.id.orderRv);
         addproduct = findViewById(R.id.addproduct);
         profile_name = findViewById(R.id.profile_name);
         profileIv = findViewById(R.id.profileIv);
@@ -266,7 +266,7 @@ public class Retailer_main_activity1 extends AppCompatActivity {
                             catch (Exception e){
                                 profileIv.setImageResource(R.drawable.ic_baseline_person_24);
                             }
-                            loadOrders();
+                            //loadOrders();
                         }
                     }
 
@@ -280,50 +280,50 @@ public class Retailer_main_activity1 extends AppCompatActivity {
                 });
     }
 
-    private void loadOrders() {
-
-        orderList = new ArrayList<>();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("RetailerOnlineOrders");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                orderList.clear();
-                for(DataSnapshot ds : dataSnapshot.getChildren())
-                {
-                    String uid = "" + ds.getRef().getKey();
-                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("RetailerOnlineOrders").child("Orders");
-                    ref.orderByChild("orderBy").equalTo(firebaseAuth.getUid())
-                            .addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if(dataSnapshot.exists())
-                                    {
-                                        for(DataSnapshot ds: dataSnapshot.getChildren())
-                                        {
-                                            ModelOrderRetailer modelOrderRetailer = ds.getValue(ModelOrderRetailer.class);
-                                            orderList.add(modelOrderRetailer);
-                                        }
-                                        adapterOrderRetailer = new AdapterOrderRetailer(Retailer_main_activity1.this,orderList);
-                                        orderRv.setAdapter(adapterOrderRetailer);
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-    }
+//    private void loadOrders() {
+//
+//        orderList = new ArrayList<>();
+//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("RetailerOnlineOrders");
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                orderList.clear();
+//                for(DataSnapshot ds : dataSnapshot.getChildren())
+//                {
+//                    String uid = "" + ds.getRef().getKey();
+//                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("RetailerOnlineOrders").child("Orders");
+//                    ref.orderByChild("orderBy").equalTo(firebaseAuth.getUid())
+//                            .addValueEventListener(new ValueEventListener() {
+//                                @Override
+//                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                    if(dataSnapshot.exists())
+//                                    {
+//                                        for(DataSnapshot ds: dataSnapshot.getChildren())
+//                                        {
+//                                            ModelOrderRetailer modelOrderRetailer = ds.getValue(ModelOrderRetailer.class);
+//                                            orderList.add(modelOrderRetailer);
+//                                        }
+//                                        adapterOrderRetailer = new AdapterOrderRetailer(Retailer_main_activity1.this,orderList);
+//                                        orderRv.setAdapter(adapterOrderRetailer);
+//                                    }
+//                                }
+//
+//                                @Override
+//                                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                                }
+//                            });
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+//    }
 
     @Override
     public void onBackPressed() {

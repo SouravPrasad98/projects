@@ -128,14 +128,13 @@
         android:layout_height="match_parent"
         android:id="@+id/categoriesRl"
         android:layout_below="@+id/toolbarRl">
-        <ScrollView
+
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            android:layout_height="wrap_content">
+
+
 
 
                 <TextView
@@ -383,7 +382,7 @@
 
 
 
-        </ScrollView>
+
 
 
 

@@ -47,10 +47,11 @@ public class Retailer_showshops extends AppCompatActivity {
 
     private RelativeLayout productsRl, ordersRl;
     private RecyclerView productsRv,orderRv;
-    private ArrayList<RetailerProductModel> productList;
     private FirebaseAuth firebaseAuth;
-    private ArrayList<ModelOrderRetailer> shopList;
+    private ArrayList<ModelOrderRetailer> orderList;
     private AdapterOrderRetailer adapterOrderRetailer;
+
+
 
     private ArrayList<WholesellerListItem> wholesellerList;
 
@@ -59,7 +60,7 @@ public class Retailer_showshops extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retailer_showshops);
         productstab= findViewById(R.id.productstab);
-
+        orderRv= findViewById(R.id.orderRv);
         //logoutbt = findViewById(R.id.logoutbt);
         profileIv = findViewById(R.id.profileIv);
         productsRv = findViewById(R.id.productsRv);
@@ -80,6 +81,7 @@ public class Retailer_showshops extends AppCompatActivity {
             System.out.println(wholesellerList);
         }
         showShopUi();
+        loadmyinfo();
         loadAllShops();
 
 
@@ -110,6 +112,98 @@ public class Retailer_showshops extends AppCompatActivity {
 
 
     }
+    private void loadmyinfo() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Retailer");
+        ref.orderByChild("uid").equalTo(firebaseAuth.getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            String name = "" + ds.child("bussinessname").getValue();
+                            String accountype = "" + ds.child("accounttype").getValue();
+                            String profilename = ""+ ds.child("name").getValue();
+                            String profileimage= "" + ds.child("profileimage").getValue();
+
+                            Constants.wname= "" + ds.child("name").getValue();
+                            Constants.waddress= ""+ ds.child("address").getValue();
+                            Constants.wemail= "" + ds.child("email").getValue();
+                            Constants.wphonenumber= "" + ds.child("phonenumber").getValue();
+                            Constants.wcountry= "" + ds.child("country").getValue();
+                            Constants.wcity= "" + ds.child("city").getValue();
+                            Constants.wlatitude= "" + ds.child("latitude").getValue();
+                            Constants.wlongitude= "" + ds.child("longitude").getValue();
+                            Constants.wdeliveryfee= "" + ds.child("deliveryfee").getValue();
+                            Constants.wbussinessname= "" + ds.child("bussinessname").getValue();
+                            Constants.wstate= "" + ds.child("state").getValue();
+                            Constants.wuid= "" + ds.child("uid").getValue();
+                            Constants.wprofileimage= "" + ds.child("profileimage").getValue();
+
+
+//                            try{
+//                                Picasso.get().load(profileimage).placeholder(R.drawable.ic_baseline_person_24).into(profileIv);
+//                            }
+//                            catch (Exception e){
+//                                profileIv.setImageResource(R.drawable.ic_baseline_person_24);
+//                            }
+                            loadOrders();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(Retailer_showshops.this, "error", Toast.LENGTH_SHORT).show();
+
+                    }
+
+
+                });
+    }
+
+    private void loadOrders() {
+
+        orderList = new ArrayList<>();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("RetailerOnlineOrders");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                orderList.clear();
+                for(DataSnapshot ds : dataSnapshot.getChildren())
+                {
+                    String uid = "" + ds.getRef().getKey();
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("RetailerOnlineOrders");
+                    ref.orderByChild("orderBy").equalTo(firebaseAuth.getUid())
+                            .addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if(dataSnapshot.exists())
+                                    {
+                                        for(DataSnapshot ds: dataSnapshot.getChildren())
+                                        {
+                                            ModelOrderRetailer modelOrderRetailer = ds.getValue(ModelOrderRetailer.class);
+                                            orderList.add(modelOrderRetailer);
+                                        }
+                                        adapterOrderRetailer = new AdapterOrderRetailer(Retailer_showshops.this,orderList);
+                                        orderRv.setAdapter(adapterOrderRetailer);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
 
 
 

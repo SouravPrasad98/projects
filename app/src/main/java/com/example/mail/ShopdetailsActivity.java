@@ -283,7 +283,7 @@ private ProgressDialog progressDialog;
         hashMap.put("orderBy",firebaseAuth.getUid());
         hashMap.put("orderTo",uid);
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("RetailerOnlineOrders").child(uid).child("Orders");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("RetailerOnlineOrders");
         ref.child(timestamp).setValue(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

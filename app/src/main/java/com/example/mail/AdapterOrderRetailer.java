@@ -78,12 +78,12 @@ public class AdapterOrderRetailer extends RecyclerView.Adapter<AdapterOrderRetai
 
     private void loadShopInfo(ModelOrderRetailer modelOrderRetailer, HolderOrderRetailer holder) {
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("RetailerOnlineOrders");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Wholeseller");
         ref.child(modelOrderRetailer.getOrderTo())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String shopName = "" + dataSnapshot.child("shopname").getValue();
+                        String shopName = "" + dataSnapshot.child("bussinessname").getValue();
                         holder.shopNameTv.setText(shopName);
                     }
 
