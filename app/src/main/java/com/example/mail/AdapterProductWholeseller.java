@@ -147,6 +147,7 @@ public class AdapterProductWholeseller extends RecyclerView.Adapter<AdapterProdu
         else{
             discountedPriceTv.setVisibility(View.GONE);
             discountNoteTv.setVisibility(View.GONE);
+            orignalPriceTv.setVisibility(View.VISIBLE);
 
         }
         try{

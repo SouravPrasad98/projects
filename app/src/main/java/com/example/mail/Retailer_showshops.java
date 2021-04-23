@@ -42,14 +42,15 @@ import java.util.Map;
 
 public class Retailer_showshops extends AppCompatActivity {
     private AdapterWholesellerShops adapterWholesellerShops;
-    private TextView productstab,orderstab,shopnear;
-    private ImageButton logoutbt;
+    private TextView productstab,orderstab;
     private ImageView profileIv;
 
     private RelativeLayout productsRl, ordersRl;
-    private RecyclerView productsRv;
+    private RecyclerView productsRv,orderRv;
     private ArrayList<RetailerProductModel> productList;
     private FirebaseAuth firebaseAuth;
+    private ArrayList<ModelOrderRetailer> shopList;
+    private AdapterOrderRetailer adapterOrderRetailer;
 
     private ArrayList<WholesellerListItem> wholesellerList;
 
@@ -59,7 +60,6 @@ public class Retailer_showshops extends AppCompatActivity {
         setContentView(R.layout.activity_retailer_showshops);
         productstab= findViewById(R.id.productstab);
 
-        shopnear = findViewById(R.id.shopnear);
         //logoutbt = findViewById(R.id.logoutbt);
         profileIv = findViewById(R.id.profileIv);
         productsRv = findViewById(R.id.productsRv);
@@ -68,6 +68,7 @@ public class Retailer_showshops extends AppCompatActivity {
         orderstab = findViewById(R.id.orderstab);
         productsRl =  findViewById(R.id.shopsRl);
         ordersRl = findViewById(R.id.ordersRl);
+
         Bundle extras =   getIntent().getExtras();
         if(extras!=null)
         {

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="3dp"
+    android:layout_marginTop="2dp"
+    app:contentPadding="5dp"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/orderTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order : 12345"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+
+            />
+        <TextView
+            android:id="@+id/dateTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order : 22/04/2021"
+            android:layout_toStartOf="@+id/nextTv"
+            android:layout_marginLeft="200dp"
+            />
+
+        <TextView
+            android:id="@+id/shopNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ABC SHOP"
+            android:textColor="@color/black"
+            android:layout_below="@+id/orderTv"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/amountTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/shopNameTv"
+            android:text="Total Amount : $10"
+
+
+            android:textColor="@color/black" />
+
+
+        <TextView
+            android:id="@+id/statusTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="In Progress"
+            android:textColor="@color/forestgreen"
+            android:layout_toStartOf="@+id/nextTv"
+            android:layout_marginTop="25dp"
+            />
+
+        <ImageView
+            android:id="@+id/nextTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_next"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            />
+
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

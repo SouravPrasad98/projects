@@ -51,14 +51,12 @@ public class AdapterWholesellerShops extends RecyclerView.Adapter<AdapterWholese
 
         holder.perunitcost.setText(percost);
         holder.shopname.setText(bussname);
-
-
         if(Integer.parseInt(quant) > 0) {
             holder.productquantity.setText(quant);
         }
         else
         {
-            holder.productquantity.setText("Not in stock!");
+            holder.productquantity.setText("Not in stock! Available in 4 days");
         }
         holder.productprice.setText(priceproduct);
         holder.shopaddress.setText(addresss);
