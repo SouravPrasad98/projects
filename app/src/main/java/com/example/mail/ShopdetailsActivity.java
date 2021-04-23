@@ -26,6 +26,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.mail.common.Constants;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,8 +43,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import p32929.androideasysql_library.Column;
 import p32929.androideasysql_library.EasyDB;
@@ -309,6 +317,14 @@ private ProgressDialog progressDialog;
                                }
                                progressDialog.dismiss();
                                Toast.makeText(ShopdetailsActivity.this,"Order Placed Successfully ...",Toast.LENGTH_LONG).show();
+
+
+
+                               //prepareNotificationMessage(timestamp);
+
+
+
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -472,5 +488,79 @@ private ProgressDialog progressDialog;
 
 
     }
+
+    private void prepareNotificationMessage(String  orderId)
+    {
+        String NOTIFICATION_TOPIC = "/topics" + Constants.FCM_TOPIC;
+        String NOTIFICATION_TITLE =  "New Order" + orderId;
+        String NOTIFICATION_MESSAGE = "Congratulations....!! You have new order";
+        String NOTIFICATION_TYPE = "NewOrder";
+
+        JSONObject notificationJo = new JSONObject();
+        JSONObject notificationBodyJo = new JSONObject();
+
+        try {
+            notificationBodyJo.put("notificationType",NOTIFICATION_TYPE);
+            notificationBodyJo.put("buyUid",firebaseAuth.getUid());
+            notificationBodyJo.put("sellUid",uid);//shopUid
+            notificationBodyJo.put("orderId",orderId);
+            notificationBodyJo.put("notificationTitle",NOTIFICATION_TITLE);
+            notificationBodyJo.put("notificationMessage",NOTIFICATION_MESSAGE);
+
+            notificationJo.put("to",NOTIFICATION_TOPIC);
+            notificationJo.put("data",notificationBodyJo);
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(this,""+ e.getMessage(),Toast.LENGTH_SHORT).show();
+        }
+
+        sendFcmNotification(notificationJo,orderId);
+    }
+
+    private void sendFcmNotification(JSONObject notificationJo, String orderId) {
+
+        JsonObjectRequest jsonObjectRequest =new JsonObjectRequest("https://fcm.googleapis.com/fcm/send", notificationJo, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                //Intent intent = new Intent(ShopdetailsActivity.this , OrderDetailRetailerActivity.class)
+                //intent.putExtra("orderTo",Uid);
+                //intent.putExtra("orderId",orderId);
+                //startActivity(intent);
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                //Intent intent = new Intent(ShopdetailsActivity.this , OrderDetailRetailerActivity.class)
+                //intent.putExtra("orderTo",Uid);
+                //intent.putExtra("orderId",orderId);
+                //startActivity(intent);
+
+
+            }
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+
+                Map<String,String> headers = new HashMap<>();
+                headers.put("Content-Type","application/json");
+                headers.put("Authorization","key=" + Constants.FCM_KEY);
+
+
+
+                return headers;
+            }
+        };
+        Volley.newRequestQueue(this).add(jsonObjectRequest);
+
+    }
+
+
 }
 
