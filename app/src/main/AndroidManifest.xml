@@ -21,7 +21,8 @@
         android:theme="@style/Theme.MAil"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".OrderdetailsRetailerActivity"></activity>
+        <activity android:name=".SettingsActivity" />
         <activity
             android:name=".ShopdetailsActivity"
             android:windowSoftInputMode="stateHidden" />
