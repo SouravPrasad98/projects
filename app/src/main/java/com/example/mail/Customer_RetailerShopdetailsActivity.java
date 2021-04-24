@@ -57,7 +57,7 @@ private String myLatitude,myLongitude,myPhone;
 private String shopLatitude,shopLongitude,shopName,shopPhone,shopAddress,shopEmail;
 private AdapterProductShopDetails adapterProductShopDetails;
 private ArrayList<ModelCartItem> cartItemList;
-private AdaptercartItem adaptercartItem;
+private Customer_AdaptercartItem adaptercartItem;
 public String deliveryFee;
 private ProgressDialog progressDialog;
 private RatingBar ratingBar;
@@ -282,7 +282,7 @@ private RatingBar ratingBar;
 
         }
 
-        adaptercartItem = new AdaptercartItem(this, cartItemList);
+        adaptercartItem = new Customer_AdaptercartItem(this, cartItemList);
         cartItemsRv.setAdapter(adaptercartItem);
         dFeeTv.setText("$"+ deliveryFee);
         sTotalTv.setText("$"+String.format("%.2f", allTotalPrice));

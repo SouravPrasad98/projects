@@ -60,7 +60,7 @@ public class Customer_OrderdetailsActivity extends AppCompatActivity {
         writeReviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(Customer_OrderdetailsActivity.this, WriteReviewActivity.class);
+                Intent intent1 = new Intent(Customer_OrderdetailsActivity.this, Customer_WriteReviewActivity.class);
                 intent1.putExtra("uid", orderTo);
                 startActivity(intent1);
                 finish();
