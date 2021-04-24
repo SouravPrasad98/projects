@@ -11,11 +11,13 @@ public class RetailerProductModel {
             discountprice,productIcon, uid;
 
     private Map<String, WholesellerListItem> wholesellerList;
+    private Map<String, WholesellerListItem> RetailerList;
+
 
     public RetailerProductModel() {
     }
 
-    public RetailerProductModel(String productTitle, String productdescription, String productcategory, String discountAvailable, String discountnote, String discountprice, String productIcon, String uid, Map<String, WholesellerListItem> wholesellerList) {
+    public RetailerProductModel(String productTitle, String productdescription, String productcategory, String discountAvailable, String discountnote, String discountprice, String productIcon, String uid, Map<String, WholesellerListItem> wholesellerList, Map<String, WholesellerListItem> retailerList) {
         this.productTitle = productTitle;
         this.productdescription = productdescription;
         this.productcategory = productcategory;
@@ -25,6 +27,15 @@ public class RetailerProductModel {
         this.productIcon = productIcon;
         this.uid = uid;
         this.wholesellerList = wholesellerList;
+        RetailerList = retailerList;
+    }
+
+    public Map<String, WholesellerListItem> getRetailerList() {
+        return RetailerList;
+    }
+
+    public void setRetailerList(Map<String, WholesellerListItem> retailerList) {
+        RetailerList = retailerList;
     }
 
     public String getProductTitle() {

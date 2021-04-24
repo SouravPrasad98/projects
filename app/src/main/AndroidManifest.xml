@@ -45,10 +45,11 @@
         <activity android:name=".Retailer.RetailerPlusVegetables" />
         <activity android:name=".Retailer.RetailerPlusPulses" />
         <activity android:name=".Retailer.Retailer_dashboard" />
-        <activity android:name=".Customer_activity" />
         <activity android:name=".Retailer_register" />
         <activity android:name=".Customer_register" />
         <activity android:name=".Wholeseller_activity" />
+        <activity android:name=".Customer_activity" />
+        <activity android:name=".Customer_activity2" />
         <activity android:name=".Wholeseller_forgotpassword" />
         <activity android:name=".Wholeseller_register" />
         <activity android:name=".Splashscreen">
