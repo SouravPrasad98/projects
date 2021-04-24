@@ -69,7 +69,7 @@ public class Customer_showshops extends AppCompatActivity {
         }
         showShopUi();
 //        loadmyinfo();
-//        loadOrders();
+        loadOrders();
         loadAllShops();
 
 
@@ -150,7 +150,7 @@ public class Customer_showshops extends AppCompatActivity {
     private void loadOrders() {
 
         orderList = new ArrayList<>();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("RetailerOnlineOrders");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("CustomerOnlineOrders");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -158,7 +158,7 @@ public class Customer_showshops extends AppCompatActivity {
                 for(DataSnapshot ds : dataSnapshot.getChildren())
                 {
                     String uid = "" + ds.getRef().getKey();
-                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("RetailerOnlineOrders");
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("CustomerOnlineOrders");
                     ref.orderByChild("orderBy").equalTo(firebaseAuth.getUid())
                             .addValueEventListener(new ValueEventListener() {
                                 @Override

@@ -210,7 +210,7 @@ public class AdapterProductShopDetails extends RecyclerView.Adapter<AdapterProdu
 
         Toast.makeText(context, "Added to cart", Toast.LENGTH_SHORT).show();
 
-        ((Customer_RetailerShopdetailsActivity)context).cartCount();
+        ((ShopdetailsActivity)context).cartCount();
 
     }
 
