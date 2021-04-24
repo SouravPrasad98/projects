@@ -18,11 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-<<<<<<< HEAD
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/access_time/baseline_access_time_24.xml" />
-=======
-                                      <entry key="url" value="file:/D:/Android_Sdk/icons/material/materialicons/star_border/baseline_star_border_24.xml" />
->>>>>>> 391979b9e57365e55d336cf81d91638c537b5217
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/shopping_basket/baseline_shopping_basket_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -32,14 +28,9 @@
                         </option>
                         <option name="values">
                           <map>
-<<<<<<< HEAD
-                            <entry key="outputName" value="ic_baseline_access_time_24" />
+                            <entry key="color" value="0060fa" />
+                            <entry key="outputName" value="ic_baseline_shopping_basket_24" />
                             <entry key="sourceFile" value="D:\Area 51\oop-project-final" />
-=======
-                            <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_baseline_star_border_24" />
-                            <entry key="sourceFile" value="C:\Users\SHIFA SAIMA\Desktop\oop-project-final" />
->>>>>>> 391979b9e57365e55d336cf81d91638c537b5217
                           </map>
                         </option>
                       </PersistentState>

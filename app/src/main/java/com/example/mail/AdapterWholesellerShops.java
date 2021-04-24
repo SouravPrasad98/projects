@@ -56,10 +56,10 @@ public class AdapterWholesellerShops extends RecyclerView.Adapter<AdapterWholese
 
         loadReviews(retailerProductModel, holder);
 
-        holder.perunitcost.setText(percost);
+        holder.perunitcost.setText("Rs. " + priceproduct);
         holder.shopname.setText(bussname);
         if(Integer.parseInt(quant) > 0) {
-            holder.productquantity.setText(quant);
+            holder.productquantity.setText("Quantity : " + quant);
         }
         else
         {
@@ -68,12 +68,12 @@ public class AdapterWholesellerShops extends RecyclerView.Adapter<AdapterWholese
         holder.productprice.setText(priceproduct);
         holder.shopaddress.setText(addresss);
         holder.discountedpriceEt.setText(disprice);
-        if(shoopstat.equals("true")){
-            holder.closeIv.setVisibility(View.GONE);
-        }
-        else {
-            holder.closeIv.setVisibility(View.VISIBLE);
-        }
+//        if(shoopstat.equals("true")){
+//            holder.closeIv.setVisibility(View.GONE);
+//        }
+//        else {
+//            holder.closeIv.setVisibility(View.VISIBLE);
+//        }
 
         try{
             Picasso.get().load(image).placeholder(R.drawable.ic_baseline_store_24).into(holder.profileIv);

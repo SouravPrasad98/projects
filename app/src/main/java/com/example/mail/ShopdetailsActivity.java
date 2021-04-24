@@ -559,8 +559,8 @@ private RatingBar ratingBar;
 
         try {
             notificationBodyJo.put("notificationType",NOTIFICATION_TYPE);
-            notificationBodyJo.put("buyUid",firebaseAuth.getUid());
-            notificationBodyJo.put("sellUid",uid);//shopUid
+            notificationBodyJo.put("buyerUid",firebaseAuth.getUid());
+            notificationBodyJo.put("sellerUid",uid);//shopUid
             notificationBodyJo.put("orderId",orderId);
             notificationBodyJo.put("notificationTitle",NOTIFICATION_TITLE);
             notificationBodyJo.put("notificationMessage",NOTIFICATION_MESSAGE);

@@ -2,12 +2,16 @@ package com.example.mail;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -26,18 +30,23 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Wholeseller_main_activity1 extends AppCompatActivity {
 
-    private TextView bussnm,profile_name,productstab,orderstab;
-    private ImageButton logoutbt, addproduct,settingsBtn;
+    private TextView bussnm,profile_name,productstab,orderstab,filteredOrdersTv;
+    private ImageButton logoutbt, addproduct,settingsBtn,filterOrderBtn,reviewsBtn;
     private ImageView profileIv;
     private long backpressedTime;
+    private EditText searchOrderEt;
     private Button showproducts;
     private RelativeLayout productsRl, ordersRl;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
+    private RecyclerView orderRv;
+    private AdapterOrderWholeseller adapterOrderWholeseller;
+    private ArrayList<ModelOrderWholeseller> modelOrderWholesellerArrayList;
 
     private TextView others,Biscuits,beverages,breakfastdairy,eggmeat,frozenfood,
             fruitsandveg,foodgrain;
@@ -46,11 +55,15 @@ public class Wholeseller_main_activity1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wholeseller_main_activity1);
-
+        filterOrderBtn = findViewById(R.id.filterOrderBtn);
+        filteredOrdersTv = findViewById(R.id.filteredOrdersTv);
+        reviewsBtn =  findViewById(R.id.reviewsBtn);
+        searchOrderEt = findViewById(R.id.searchOrderEt);
         productstab= findViewById(R.id.productstab);
         showproducts = findViewById(R.id.showproducts);
         bussnm = findViewById(R.id.bussnm);
         settingsBtn = findViewById(R.id.settingsBtn);
+        orderRv = findViewById(R.id.orderRv);
         logoutbt = findViewById(R.id.logoutbt);
         productsRl = findViewById(R.id.productsRl);
         ordersRl = findViewById(R.id.ordersRl);
@@ -72,8 +85,18 @@ public class Wholeseller_main_activity1 extends AppCompatActivity {
         foodgrain =findViewById(R.id.foodgrain);
 
         checkuser();
+        loadAllOrders();
+        showOrdersUi();
+        showProductsUi();
 
 
+        productstab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showProductsUi();
+
+            }
+        });
 
 
         orderstab.setOnClickListener(new View.OnClickListener() {
@@ -189,7 +212,75 @@ public class Wholeseller_main_activity1 extends AppCompatActivity {
             }
         });
 
+        reviewsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Wholeseller_main_activity1.this, ShopReviewsActivity.class);
+                intent.putExtra("uid", ""+ firebaseAuth.getUid());
+                startActivity(intent);
+            }
+        });
 
+        filterOrderBtn.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        String[] options = {"All","In Progress","Completed","Cancelled"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(Wholeseller_main_activity1.this);
+        builder.setTitle("Filter Orders:")
+                .setItems(options, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which == 0){
+                            filteredOrdersTv.setText("Showing All");
+                            adapterOrderWholeseller.getFilter().filter("");
+                        }
+                        else{
+                            String optionClicked = options[which];
+                            filteredOrdersTv.setText("Showing" + optionClicked+ "orders");
+                            adapterOrderWholeseller.getFilter().filter(optionClicked);
+                        }
+                    }
+                });
+    }
+});
+
+    }
+
+    private void loadAllOrders() {
+        modelOrderWholesellerArrayList = new ArrayList<>();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("RetailerOnlineOrders");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        modelOrderWholesellerArrayList.clear();
+                        for (DataSnapshot ds: snapshot.getChildren()){
+                            ModelOrderWholeseller modelOrderWholeseller = ds.getValue(ModelOrderWholeseller.class);
+                            if(modelOrderWholeseller.getOrderTo().equals(Constants.wuid)) {
+                                modelOrderWholesellerArrayList.add(modelOrderWholeseller);
+                            }
+                        }
+                        adapterOrderWholeseller = new AdapterOrderWholeseller(Wholeseller_main_activity1.this, modelOrderWholesellerArrayList);
+                        orderRv.setAdapter(adapterOrderWholeseller);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+
+
+    }
+
+    private void showProductsUi() {
+        productsRl.setVisibility(View.VISIBLE);
+        ordersRl.setVisibility(View.GONE);
+        productstab.setTextColor(getResources().getColor(R.color.black));
+        productstab.setBackgroundResource(R.drawable.shaperec01);
+        orderstab.setTextColor(getResources().getColor(R.color.white));
+        orderstab.setBackgroundColor(getResources().getColor(android.R.color.transparent));
     }
 
     private void makemeOffline() {
