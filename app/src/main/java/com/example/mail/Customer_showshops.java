@@ -69,7 +69,7 @@ public class Customer_showshops extends AppCompatActivity {
         }
         showShopUi();
 //        loadmyinfo();
-//        loadOrders();
+        loadOrders();
         loadAllShops();
 
 

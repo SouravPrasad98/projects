@@ -55,10 +55,9 @@ public class Wholeseller_main_activity1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wholeseller_main_activity1);
-        filterOrderBtn = findViewById(R.id.filterOrderBtn);
-        filteredOrdersTv = findViewById(R.id.filteredOrdersTv);
+
         reviewsBtn =  findViewById(R.id.reviewsBtn);
-        searchOrderEt = findViewById(R.id.searchOrderEt);
+
         productstab= findViewById(R.id.productstab);
         showproducts = findViewById(R.id.showproducts);
         bussnm = findViewById(R.id.bussnm);
@@ -221,28 +220,7 @@ public class Wholeseller_main_activity1 extends AppCompatActivity {
             }
         });
 
-        filterOrderBtn.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        String[] options = {"All","In Progress","Completed","Cancelled"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(Wholeseller_main_activity1.this);
-        builder.setTitle("Filter Orders:")
-                .setItems(options, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if(which == 0){
-                            filteredOrdersTv.setText("Showing All");
-                            adapterOrderWholeseller.getFilter().filter("");
-                        }
-                        else{
-                            String optionClicked = options[which];
-                            filteredOrdersTv.setText("Showing" + optionClicked+ "orders");
-                            adapterOrderWholeseller.getFilter().filter(optionClicked);
-                        }
-                    }
-                });
-    }
-});
+
 
     }
 
