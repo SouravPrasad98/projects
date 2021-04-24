@@ -42,9 +42,9 @@ public class AdaptercartItem extends RecyclerView.Adapter<AdaptercartItem.Holder
         String quantity = modelCartItem.getQuantity();
 
         holder.itemQuatiTv.setText("["+quantity+"]");
-        holder.itemPriceTv.setText(""+cost);
+        holder.itemPriceTv.setText(""+price);
         holder.itemTitleTv.setText(""+title);
-        holder.itemPriceEachTv.setText(""+price);
+        holder.itemPriceEachTv.setText(""+cost);
 
         holder.itemRemoveTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,13 +66,41 @@ public class AdaptercartItem extends RecyclerView.Adapter<AdaptercartItem.Holder
                 notifyItemChanged(position);
                 notifyDataSetChanged();
 
-                double tx = Double.parseDouble((((ShopdetailsActivity)context).allTotalPriceTv.getText().toString().trim().replace("$", "")));
-                double totalPrice = tx - Double.parseDouble(cost.replace("$", ""));
-                double deliverFee = Double.parseDouble((((ShopdetailsActivity)context).deliveryFee.replace("$", "")));
-                double sTotalPrice = Double.parseDouble(String.format("%.2f", totalPrice)) - Double.parseDouble(String.format("%.2f", deliverFee));
-                ((ShopdetailsActivity)context).allTotalPrice = 0.00;
-                ((ShopdetailsActivity)context).sTotalTv.setText(String.format("%.2f", sTotalPrice));
-                ((ShopdetailsActivity)context).allTotalPriceTv.setText("$"+String.format("%.2f", Double.parseDouble(String.format("%.2f", totalPrice))));
+                double subTotalWithoutDiscount = ((ShopdetailsActivity)context).allTotalPrice;
+                double subTotalAfterProductRemove = subTotalWithoutDiscount - Double.parseDouble(cost.replace("$", ""));
+                ((ShopdetailsActivity)context).allTotalPrice = subTotalAfterProductRemove;
+                ((ShopdetailsActivity)context).sTotalTv.setText("$"+ String.format("%.2f", ((ShopdetailsActivity)context).allTotalPrice));
+
+                double promoPrice = Double.parseDouble(((ShopdetailsActivity)context).promoPrice);
+                double deliveryFee = Double.parseDouble(((ShopdetailsActivity)context).deliveryFee.replace("$", ""));
+
+                if(((ShopdetailsActivity)context).isPromoCodeApplied){
+                    if(subTotalAfterProductRemove< Double.parseDouble(((ShopdetailsActivity)context).promoMinimumOrderPrice)){
+                        Toast.makeText(context, "This code is valid for order with minimum amount: $"+ ((ShopdetailsActivity)context).promoMinimumOrderPrice, Toast.LENGTH_SHORT).show();
+                        ((ShopdetailsActivity)context).applyBtn.setVisibility(View.GONE);
+                        ((ShopdetailsActivity)context).promoDescriptionTv.setVisibility(View.GONE);
+                        ((ShopdetailsActivity)context).promoDescriptionTv.setText("");
+                        ((ShopdetailsActivity)context).discountTv.setText("$0");
+                        ((ShopdetailsActivity)context).isPromoCodeApplied= false;
+
+                        ((ShopdetailsActivity)context).allTotalPriceTv.setText("$" + String.format("%.2f", Double.parseDouble(String.format("%.2f", subTotalAfterProductRemove+ deliveryFee))));
+
+                    }
+                    else{
+                        ((ShopdetailsActivity)context).applyBtn.setVisibility(View.VISIBLE);
+                        ((ShopdetailsActivity)context).promoDescriptionTv.setVisibility(View.VISIBLE);
+                        ((ShopdetailsActivity)context).promoDescriptionTv.setText(((ShopdetailsActivity)context).promoDescription);
+
+                        ((ShopdetailsActivity)context).isPromoCodeApplied= true;
+
+                        ((ShopdetailsActivity)context).allTotalPriceTv.setText("$" + String.format("%.2f", Double.parseDouble(String.format("%.2f", subTotalAfterProductRemove+ deliveryFee - promoPrice))));
+                    }
+                }
+                else{
+                    ((ShopdetailsActivity)context).allTotalPriceTv.setText("$"+ String.format("%.2f", Double.parseDouble(String.format("%.2f", subTotalAfterProductRemove + deliveryFee))));
+
+                }
+
                 ((ShopdetailsActivity)context).cartCount();
 
             }

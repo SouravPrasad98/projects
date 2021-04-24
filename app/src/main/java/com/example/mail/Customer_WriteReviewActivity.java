@@ -1,5 +1,6 @@
 package com.example.mail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -60,6 +61,8 @@ private FirebaseAuth firebaseAuth;
             @Override
             public void onClick(View v) {
                 inputData();
+                Intent intent = new Intent(Customer_WriteReviewActivity.this, Customer_activity.class);
+                startActivity(intent);
             }
         });
     }

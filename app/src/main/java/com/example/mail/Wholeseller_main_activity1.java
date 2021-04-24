@@ -35,8 +35,10 @@ import java.util.HashMap;
 
 public class Wholeseller_main_activity1 extends AppCompatActivity {
 
-    private TextView bussnm,profile_name,productstab,orderstab,filteredOrdersTv;
-    private ImageButton logoutbt, addproduct,settingsBtn,filterOrderBtn,reviewsBtn;
+
+    private TextView bussnm,profile_name,productstab,orderstab;
+    private ImageButton logoutbt, addproduct,settingsBtn, promoBtn, filterOrderBtn,reviewsBtn;
+
     private ImageView profileIv;
     private long backpressedTime;
     private EditText searchOrderEt;
@@ -82,12 +84,20 @@ public class Wholeseller_main_activity1 extends AppCompatActivity {
         frozenfood =findViewById(R.id.frozenfood);
         fruitsandveg =findViewById(R.id.fruitsandveg);
         foodgrain =findViewById(R.id.foodgrain);
+        promoBtn = findViewById(R.id.promoBtn);
 
         checkuser();
         loadAllOrders();
         showOrdersUi();
         showProductsUi();
 
+        promoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Wholeseller_main_activity1.this,PromotionCodesActivity.class);
+                startActivity(intent);
+            }
+        });
 
         productstab.setOnClickListener(new View.OnClickListener() {
             @Override

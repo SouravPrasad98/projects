@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ImageButton;
@@ -124,15 +125,25 @@ public class OrderDetailsWholesellerActivity extends AppCompatActivity {
                         String message = "Order is now"+ selectedOption;
                         Toast.makeText(OrderDetailsWholesellerActivity.this, message, Toast.LENGTH_SHORT).show();
 
-                      //  if (selectedOption.equals("In Progress")) {
-                     //       orderStatusTv.setTextColor(getResources().getColor(R.color.colorPrimary));
-                      //  } else if (selectedOption.equals("Completed")) {
-                      //      orderStatusTv.setTextColor(getResources().getColor(R.color.middlegreen));
-                      //  } else if (selectedOption.equals("Cancelled")) {
-                      //      orderStatusTv.setTextColor(getResources().getColor(R.color.tomatored));
-                      //  }
+                        String phoneNumber = phoneTv.getText().toString();
 
-                        prepareNotificationMessage(orderId,message);
+                        String mssg = "";
+                        if (selectedOption.equals("In Progress")) {
+                            orderStatusTv.setTextColor(getResources().getColor(R.color.colorPrimary));
+                            mssg = new String("Dear Retailer " +  nameTv.getText().toString() + ", Your order status for order id :  " + orderId +
+                                    "has been updated to \'In Progress\'");
+                        } else if (selectedOption.equals("Completed")) {
+                            orderStatusTv.setTextColor(getResources().getColor(R.color.middlegreen));
+                            mssg = new String("Dear Retailer " +  nameTv.getText().toString() + ",  Your order status for order id :  " + orderId +
+                                    "has been updated to \'Completed\'");
+                        } else if (selectedOption.equals("Cancelled")) {
+                            orderStatusTv.setTextColor(getResources().getColor(R.color.tomatored));
+                            mssg = new String("Dear Retailer " +  nameTv.getText().toString() + ",  Your order status for order id :  " + orderId +
+                                    "has been updated to \'Cancelled\'");
+                        }
+                        SmsManager smsManager = SmsManager.getDefault();
+                        smsManager.sendTextMessage(phoneNumber, null, mssg, null, null);
+//                        prepareNotificationMessage(orderId,message);
 
 
                     }

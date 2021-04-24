@@ -33,7 +33,7 @@ public class Customer_login extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
     private DataSnapshot dataSnapshot;
-    private static final int TIME_DELAY= 2000;
+
     private static long back_pressed;
 
     @Override
@@ -77,19 +77,7 @@ public class Customer_login extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        if(back_pressed + TIME_DELAY > System.currentTimeMillis()){
-            Intent intent = new Intent(Customer_login.this,Choice_Role.class);
-            startActivity(intent);
 
-        }
-        else
-        {
-            Toast.makeText(getApplicationContext(), "Please back press once more", Toast.LENGTH_SHORT).show();
-        }
-
-    }
 
     private String Email, Password;
 

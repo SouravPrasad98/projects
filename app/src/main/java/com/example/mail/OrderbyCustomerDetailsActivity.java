@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ImageButton;
@@ -46,6 +47,7 @@ public class OrderbyCustomerDetailsActivity extends AppCompatActivity {
     private RecyclerView itemsRv;
     private ArrayList<ModelOrderedItem> orderedItemArrayList;
     private AdapterbyCustomerOrderedItem adapterbyCustomerOrderedItem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,18 +76,18 @@ public class OrderbyCustomerDetailsActivity extends AppCompatActivity {
         loadOrderDetails();
         loadOrderedItems();
 
-       editBtn.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               editOrderStatusDialog();
-           }
-       });
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editOrderStatusDialog();
+            }
+        });
 
         writeReviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OrderbyCustomerDetailsActivity.this, RetailerShopReviewsActivity.class);
-                intent.putExtra("uid", ""+ firebaseAuth.getUid());
+                intent.putExtra("uid", "" + firebaseAuth.getUid());
                 startActivity(intent);
 
             }
@@ -100,7 +102,7 @@ public class OrderbyCustomerDetailsActivity extends AppCompatActivity {
     }
 
     private void editOrderStatusDialog() {
-        String[] options = {"All","In Progress","Completed","Cancelled"};
+        String[] options = {"All", "In Progress", "Completed", "Cancelled"};
         AlertDialog.Builder builder = new AlertDialog.Builder(OrderbyCustomerDetailsActivity.this);
         builder.setTitle("Edit Order Status")
                 .setItems(options, new DialogInterface.OnClickListener() {
@@ -115,7 +117,7 @@ public class OrderbyCustomerDetailsActivity extends AppCompatActivity {
 
     private void editOrderStatusDialog(String selectedOption) {
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("orderStatus", ""+ selectedOption);
+        hashMap.put("orderStatus", "" + selectedOption);
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("CustomerOnlineOrders");
         reference.child(orderId).updateChildren(hashMap)
@@ -123,18 +125,28 @@ public class OrderbyCustomerDetailsActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
 
-                        String message = "Order is now"+ selectedOption;
+                        String message = "Order is now" + selectedOption;
                         Toast.makeText(OrderbyCustomerDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
 
-                      //  if (selectedOption.equals("In Progress")) {
-                     //       orderStatusTv.setTextColor(getResources().getColor(R.color.colorPrimary));
-                      //  } else if (selectedOption.equals("Completed")) {
-                      //      orderStatusTv.setTextColor(getResources().getColor(R.color.middlegreen));
-                      //  } else if (selectedOption.equals("Cancelled")) {
-                      //      orderStatusTv.setTextColor(getResources().getColor(R.color.tomatored));
-                      //  }
+                        String phoneNumber = phoneTv.getText().toString();
 
-                        prepareNotificationMessage(orderId,message);
+                        String mssg = "";
+                        if (selectedOption.equals("In Progress")) {
+                            orderStatusTv.setTextColor(getResources().getColor(R.color.colorPrimary));
+                            mssg = new String("Dear Customer " + nameTv.getText().toString() + ", Your order status for order id :  " + orderId +
+                                    "has been updated to \'In Progress\'");
+                        } else if (selectedOption.equals("Completed")) {
+                            orderStatusTv.setTextColor(getResources().getColor(R.color.middlegreen));
+                            mssg = new String("Dear Customer " + nameTv.getText().toString() + ",  Your order status for order id :  " + orderId +
+                                    "has been updated to \'Completed\'");
+                        } else if (selectedOption.equals("Cancelled")) {
+                            orderStatusTv.setTextColor(getResources().getColor(R.color.tomatored));
+                            mssg = new String("Dear Customer " + nameTv.getText().toString() + ",  Your order status for order id :  " + orderId +
+                                    "has been updated to \'Cancelled\'");
+                        }
+                        SmsManager smsManager = SmsManager.getDefault();
+                        smsManager.sendTextMessage(phoneNumber, null, mssg, null, null);
+//                        prepareNotificationMessage(orderId,message);
 
 
                     }

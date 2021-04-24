@@ -55,40 +55,42 @@
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
+
         <ImageButton
             android:id="@+id/reviewsBtn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toStartOf="@id/addproduct"
             android:background="@null"
-            android:layout_toStartOf="@id/settingsBtn"
             android:src="@drawable/ic_baseline_star_border_24" />
 
         <ImageButton
-            android:id="@+id/settingsBtn"
-            android:layout_width="30dp"
+            android:id="@+id/promoBtn"
+            android:layout_width="35dp"
             android:layout_height="30dp"
             android:background="@null"
-            android:layout_toStartOf="@id/addproduct"
-            android:src="@drawable/ic_baseline_settings_24" />
+            android:layout_toStartOf="@id/reviewsBtn"
+            android:src="@drawable/ic_baseline_arrow_right_alt_24" />
+
+        >
 
         <ImageButton
             android:id="@+id/addproduct"
             android:layout_width="35dp"
-            android:layout_height="29dp"
-            android:layout_toStartOf="@id/logoutbt"
+            android:layout_height="match_parent"
             android:layout_marginTop="4dp"
+            android:layout_toStartOf="@id/logoutbt"
 
             android:background="@color/limegreen"
             android:src="@drawable/ic_baseline_add_shopping_cart_24" />
 
         <ImageButton
-            android:layout_width="35dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/ic_baseline_power_settings_new_24"
             android:id="@+id/logoutbt"
+            android:layout_width="35dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
             android:background="@color/limegreen"
-            />
+            android:src="@drawable/ic_baseline_power_settings_new_24" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="75dp"
@@ -127,6 +129,8 @@
 
 
         </LinearLayout>
+
+
 
     </RelativeLayout>
 
