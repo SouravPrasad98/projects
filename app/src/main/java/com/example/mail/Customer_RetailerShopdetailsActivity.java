@@ -55,7 +55,7 @@ public class Customer_RetailerShopdetailsActivity extends AppCompatActivity {
 private String uid;
 private String myLatitude,myLongitude,myPhone;
 private String shopLatitude,shopLongitude,shopName,shopPhone,shopAddress,shopEmail;
-private AdapterProductShopDetails adapterProductShopDetails;
+private Customer_AdapterProductShopDetails adapterProductShopDetails;
 private ArrayList<ModelCartItem> cartItemList;
 private Customer_AdaptercartItem adaptercartItem;
 public String deliveryFee;
@@ -446,7 +446,7 @@ private RatingBar ratingBar;
                             }
 
                         }
-                        adapterProductShopDetails = new AdapterProductShopDetails(Customer_RetailerShopdetailsActivity.this, productList);
+                        adapterProductShopDetails = new Customer_AdapterProductShopDetails(Customer_RetailerShopdetailsActivity.this, productList);
                         productsRv.setAdapter(adapterProductShopDetails);
                     }
 
@@ -469,7 +469,7 @@ private RatingBar ratingBar;
                             ModelProduct modelProduct = ds.getValue(ModelProduct.class);
                             productList.add(modelProduct);
                         }
-                        adapterProductShopDetails = new AdapterProductShopDetails(Customer_RetailerShopdetailsActivity.this, productList);
+                        adapterProductShopDetails = new Customer_AdapterProductShopDetails(Customer_RetailerShopdetailsActivity.this, productList);
                         productsRv.setAdapter(adapterProductShopDetails);
                     }
 

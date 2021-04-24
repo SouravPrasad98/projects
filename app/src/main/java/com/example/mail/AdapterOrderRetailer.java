@@ -47,7 +47,7 @@ public class AdapterOrderRetailer extends RecyclerView.Adapter<AdapterOrderRetai
         String OrderStatus = modelOrderRetailer.getOrderStatus();
         String OrderTime = modelOrderRetailer.getOrderTime();
         String OrderTo = modelOrderRetailer.getOrderTo();
-
+    
         loadShopInfo(modelOrderRetailer,holder);
 
         holder.amountTv.setText("Amount: $ "+ OrderCost);

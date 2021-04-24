@@ -6,8 +6,6 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,78 +20,82 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class AdapterOrderByCustomer extends RecyclerView.Adapter<AdapterOrderByCustomer.HolderOrderWholeseller> {
-    public ArrayList<ModelOrderWholeseller> modelOrderWholesellerArrayList;
+public class AdapterOrderByCustomer extends RecyclerView.Adapter<AdapterOrderByCustomer.HolderOrderRetailer> {
+
     private Context context;
+    private ArrayList<ModelOrderWholeseller> orderUsersList;
 
-
-
-    public AdapterOrderByCustomer(Context context, ArrayList<ModelOrderWholeseller> modelOrderWholesellerArrayList) {
+    public AdapterOrderByCustomer(Context context, ArrayList<ModelOrderWholeseller> orderUsersList) {
         this.context = context;
-        this.modelOrderWholesellerArrayList =modelOrderWholesellerArrayList;
-
+        this.orderUsersList = orderUsersList;
     }
 
     @NonNull
     @Override
-    public HolderOrderWholeseller onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.row_order_wholeseller, parent, false);
-        return new HolderOrderWholeseller(view);
+    public HolderOrderRetailer onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.row_order_retailer,parent,false);
+
+        return new HolderOrderRetailer(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HolderOrderWholeseller holder, int position) {
-   ModelOrderWholeseller modelOrderWholeseller = modelOrderWholesellerArrayList.get(position);
-   String orderBy = modelOrderWholeseller.getOrderBy();
-   String orderTo = modelOrderWholeseller.getOrderTo();
-   String orderCost = modelOrderWholeseller.getOrderCost();
-   String orderStatus = modelOrderWholeseller.getOrderStatus();
-   String orderTime = modelOrderWholeseller.getOrderTime();
-   String orderId = modelOrderWholeseller.getOrderId();
-   loadRetailerInfo(modelOrderWholeseller,holder);
-   holder.amountTv.setText("Amount: $" +orderCost);
-   holder.statusTv.setText(orderStatus);
-   holder.orderIdTv.setText("Order ID:"+orderId);
-        if(orderStatus.equals("In Progress"))
+    public void onBindViewHolder(@NonNull HolderOrderRetailer holder, int position) {
+        ModelOrderWholeseller modelOrderWholeseller =orderUsersList.get(position);
+        String OrderId = modelOrderWholeseller.getOrderId();
+        String OrderBy = modelOrderWholeseller.getOrderBy();
+        String OrderCost = modelOrderWholeseller.getOrderCost();
+        String OrderStatus = modelOrderWholeseller.getOrderStatus();
+        String OrderTime = modelOrderWholeseller.getOrderTime();
+        String OrderTo = modelOrderWholeseller.getOrderTo();
+    
+        loadShopInfo(modelOrderWholeseller,holder);
+
+        holder.amountTv.setText("Amount: $ "+ OrderCost);
+        holder.statusTv.setText(OrderStatus);
+        holder.orderIdTv.setText("OrderId :" +OrderId);
+        if(OrderStatus.equals("In Progress"))
         {
             holder.statusTv.setTextColor(context.getResources().getColor(R.color.colorPrimary));
         }
-        else if (orderStatus.equals("Completed"))
+        else if (OrderStatus.equals("Completed"))
         {
             holder.statusTv.setTextColor(context.getResources().getColor(R.color.forestgreen));
         }
-        else if (orderStatus.equals("Cancelled"))
+        else if (OrderStatus.equals("Cancelled"))
         {
             holder.statusTv.setTextColor(context.getResources().getColor(R.color.tomatored));
         }
 
+
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(Long.parseLong(orderTime));
+        calendar.setTimeInMillis(Long.parseLong(OrderTime));
         String formatedDate = DateFormat.format("dd/MM/yyyy",calendar).toString();
 
 
-        holder.orderDateTv.setText(formatedDate);
+        holder.dateTv.setText(formatedDate);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(context,OrderDetailsWholesellerActivity.class);
-                intent.putExtra("orderId", orderId);
-                intent.putExtra("orderBy", orderBy);
-                intent.putExtra("orderTo", orderTo);
+                Intent intent = new Intent(context, OrderbyCustomerDetailsActivity.class);
+                intent.putExtra("orderTo",OrderTo);
+                intent.putExtra("orderId", OrderId);
+                intent.putExtra("orderBy", OrderBy);
                 context.startActivity(intent);
-
             }
         });
+
     }
 
-    private void loadRetailerInfo(ModelOrderWholeseller modelOrderWholeseller, HolderOrderWholeseller holder) {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Customer");
-        ref.child(modelOrderWholeseller.getOrderBy())
+    private void loadShopInfo(ModelOrderWholeseller modelOrderWholeseller, HolderOrderRetailer holder) {
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Wholeseller");
+        ref.child(modelOrderWholeseller.getOrderTo())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String email = "" + dataSnapshot.child("email").getValue();
-                        holder.emailTv.setText(email);
+                        String shopName = "" + dataSnapshot.child("bussinessname").getValue();
+                        holder.shopNameTv.setText(shopName);
                     }
 
                     @Override
@@ -101,27 +103,31 @@ public class AdapterOrderByCustomer extends RecyclerView.Adapter<AdapterOrderByC
 
                     }
                 });
+
     }
 
     @Override
     public int getItemCount() {
-        return modelOrderWholesellerArrayList.size();
+        return orderUsersList.size();
     }
 
+    class HolderOrderRetailer extends RecyclerView.ViewHolder{
+        private TextView orderIdTv,dateTv,shopNameTv,amountTv,statusTv;
 
-
-    class HolderOrderWholeseller extends RecyclerView.ViewHolder{
-         private TextView amountTv, statusTv,emailTv,orderDateTv,orderIdTv;
-        public HolderOrderWholeseller(@NonNull View itemView) {
+        public HolderOrderRetailer(@NonNull View itemView) {
             super(itemView);
-            orderIdTv = itemView.findViewById(R.id.orderIdTv);
-            orderDateTv= itemView.findViewById(R.id.orderDateTv);
-            emailTv = itemView.findViewById(R.id.emailTv);
-            statusTv= itemView.findViewById(R.id.statusTv);
+
+            orderIdTv = itemView.findViewById(R.id.orderTv);
+            dateTv = itemView.findViewById(R.id.dateTv);
+            shopNameTv = itemView.findViewById(R.id.shopNameTv);
             amountTv = itemView.findViewById(R.id.amountTv);
-
-
+            statusTv = itemView.findViewById(R.id.statusTv);
 
         }
     }
+
+
+
+
+
 }

@@ -35,11 +35,9 @@ public class Retailer_main_activity1 extends AppCompatActivity {
     private Button showproducts;
     private RelativeLayout productsRl, ordersRl;
     private RecyclerView orderRv;
-    private ArrayList<ModelOrderWholeseller> modelOrderWholesellerArrayList;
-    private AdapterOrderByCustomer adapterOrderByCustomer;
-
+    private ArrayList<ModelOrderWholeseller> modelOrderWholesellers;
+    private AdapterOrderCustomer2 adapterOrderCustomer2;
     private FirebaseAuth firebaseAuth;
-
     private TextView others,Biscuits,beverages,breakfastdairy,eggmeat,frozenfood,
             fruitsandveg,foodgrain;
 
@@ -198,20 +196,20 @@ public class Retailer_main_activity1 extends AppCompatActivity {
     }
 
     private void loadAllOrders() {
-        modelOrderWholesellerArrayList = new ArrayList<>();
+        modelOrderWholesellers = new ArrayList<>();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("CustomerOnlineOrders");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                modelOrderWholesellerArrayList.clear();
+                modelOrderWholesellers.clear();
                 for (DataSnapshot ds: snapshot.getChildren()){
                     ModelOrderWholeseller modelOrderWholeseller = ds.getValue(ModelOrderWholeseller.class);
                     if(modelOrderWholeseller.getOrderTo().equals(Constants.wuid)) {
-                        modelOrderWholesellerArrayList.add(modelOrderWholeseller);
+                        modelOrderWholesellers.add(modelOrderWholeseller);
                     }
                 }
-                adapterOrderByCustomer = new AdapterOrderByCustomer(Retailer_main_activity1.this, modelOrderWholesellerArrayList);
-                orderRv.setAdapter(adapterOrderByCustomer);
+                adapterOrderCustomer2 = new AdapterOrderCustomer2(Retailer_main_activity1.this, modelOrderWholesellers);
+                orderRv.setAdapter(adapterOrderCustomer2);
             }
 
             @Override
