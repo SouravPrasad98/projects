@@ -56,10 +56,10 @@ public class AdapterWholesellerShops extends RecyclerView.Adapter<AdapterWholese
 
         loadReviews(retailerProductModel, holder);
 
-        holder.perunitcost.setText(percost);
+        holder.perunitcost.setText("Rs. " + priceproduct);
         holder.shopname.setText(bussname);
         if(Integer.parseInt(quant) > 0) {
-            holder.productquantity.setText(quant);
+            holder.productquantity.setText("Quantity : " + quant);
         }
         else
         {
