@@ -15,6 +15,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.mail.common.Constants;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,9 +30,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
 public class OrderDetailsWholesellerActivity extends AppCompatActivity {
     String orderId, orderTo, orderBy;
@@ -112,15 +120,19 @@ public class OrderDetailsWholesellerActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(OrderDetailsWholesellerActivity.this, "Order is now"+ selectedOption, Toast.LENGTH_SHORT).show();
 
-                        if (selectedOption.equals("In Progress")) {
-                            orderStatusTv.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        } else if (selectedOption.equals("Completed")) {
-                            orderStatusTv.setTextColor(getResources().getColor(R.color.middlegreen));
-                        } else if (selectedOption.equals("Cancelled")) {
-                            orderStatusTv.setTextColor(getResources().getColor(R.color.tomatored));
-                        }
+                        String message = "Order is now"+ selectedOption;
+                        Toast.makeText(OrderDetailsWholesellerActivity.this, message, Toast.LENGTH_SHORT).show();
+
+                      //  if (selectedOption.equals("In Progress")) {
+                     //       orderStatusTv.setTextColor(getResources().getColor(R.color.colorPrimary));
+                      //  } else if (selectedOption.equals("Completed")) {
+                      //      orderStatusTv.setTextColor(getResources().getColor(R.color.middlegreen));
+                      //  } else if (selectedOption.equals("Cancelled")) {
+                      //      orderStatusTv.setTextColor(getResources().getColor(R.color.tomatored));
+                      //  }
+
+                        prepareNotificationMessage(orderId,message);
 
 
                     }
@@ -246,4 +258,70 @@ public class OrderDetailsWholesellerActivity extends AppCompatActivity {
                     }
                 });
     }
+    private void prepareNotificationMessage(String  orderId ,String message)
+    {
+        String NOTIFICATION_TOPIC = "/topics" + Constants.FCM_TOPIC;
+        String NOTIFICATION_TITLE =  "Your Order" + orderId;
+        String NOTIFICATION_MESSAGE = "" + message;
+        String NOTIFICATION_TYPE = "OrderStatusChanged";
+
+        JSONObject notificationJo = new JSONObject();
+        JSONObject notificationBodyJo = new JSONObject();
+
+        try {
+            notificationBodyJo.put("notificationType",NOTIFICATION_TYPE);
+            notificationBodyJo.put("buyerUid",orderBy);
+            notificationBodyJo.put("sellerlUid",firebaseAuth.getUid());//shopUid
+            notificationBodyJo.put("orderId",orderId);
+            notificationBodyJo.put("notificationTitle",NOTIFICATION_TITLE);
+            notificationBodyJo.put("notificationMessage",NOTIFICATION_MESSAGE);
+
+            notificationJo.put("to",NOTIFICATION_TOPIC);
+            notificationJo.put("data",notificationBodyJo);
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(this,""+ e.getMessage(),Toast.LENGTH_SHORT).show();
+        }
+
+        sendFcmNotification(notificationJo);
+    }
+
+    private void sendFcmNotification(JSONObject notificationJo) {
+
+        JsonObjectRequest jsonObjectRequest =new JsonObjectRequest("https://fcm.googleapis.com/fcm/send", notificationJo, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+
+
+
+            }
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+
+                Map<String,String> headers = new HashMap<>();
+                headers.put("Content-Type","application/json");
+                headers.put("Authorization","key=" + Constants.FCM_KEY);
+
+
+
+                return headers;
+            }
+        };
+        Volley.newRequestQueue(this).add(jsonObjectRequest);
+
+    }
+
 }

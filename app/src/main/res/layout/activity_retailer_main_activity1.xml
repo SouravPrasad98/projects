@@ -63,13 +63,14 @@
             android:background="@null"
             android:layout_toStartOf="@id/addproduct"
             android:src="@drawable/ic_baseline_settings_24" />
+
         <ImageButton
             android:id="@+id/addproduct"
             android:layout_width="35dp"
             android:layout_height="30dp"
 
+            android:layout_marginTop="0dp"
             android:layout_toStartOf="@id/logoutbt"
-            android:layout_marginTop="4dp"
             android:background="@color/limegreen"
             android:src="@drawable/ic_baseline_shopping_cart_24" />
 
