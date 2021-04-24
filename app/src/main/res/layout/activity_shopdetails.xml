@@ -30,12 +30,20 @@
 
         <ImageButton
             android:id="@+id/addproduct"
-            android:layout_width="79dp"
-            android:layout_height="37dp"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="350dp"
             android:layout_marginTop="14dp"
             android:background="@null"
-            android:src="@drawable/ic_baseline_shopping_cart_24" />
+            android:src="@drawable/ic_baseline_add_shopping_cart_24" />
+        <ImageButton
+            android:id="@+id/reviewsBtn"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="315dp"
+            android:layout_marginTop="14dp"
+            android:background="@null"
+            android:src="@drawable/ic_baseline_star_border_24"/>
 
         <TextView
             android:id="@+id/bussnm"
@@ -79,30 +87,43 @@
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_marginTop="20dp"
-      android:layout_height="60dp"
-      android:orientation="horizontal"
-      android:gravity="center_horizontal"
-      android:layout_below="@id/address">
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/address"
+            android:layout_centerInParent="true"
+            android:id="@+id/ratingBar"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:numStars="5"
+            android:backgroundTint="@color/grey"
+            android:progressTint="@color/white"/>
 
-      <ImageButton
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:background="@color/limegreen"
-          android:src="@drawable/ic_baseline_local_phone_24"
-          android:id="@+id/callBt"></ImageButton>
-
-      <ImageButton
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:background="@color/limegreen"
-          android:src="@drawable/ic_baseline_map_24"
-          android:id="@+id/mapBt"></ImageButton>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/address">
 
 
-  </LinearLayout>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/ic_baseline_local_phone_24"
+                android:id="@+id/callBt"></ImageButton>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/ic_baseline_map_24"
+                android:id="@+id/mapBt"></ImageButton>
+
+
+        </LinearLayout>
     </RelativeLayout>
 
     <RelativeLayout
