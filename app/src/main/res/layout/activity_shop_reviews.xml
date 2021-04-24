@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/Snow"
+    tools:context=".ShopReviewsActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/shopRl"
+        android:padding="10dp"
+        android:background="@color/limegreen">
+<ImageButton
+            android:id="@+id/addproduct"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="350dp"
+            android:layout_marginTop="14dp"
+            android:background="@null"
+            android:src="@drawable/ic_baseline_add_shopping_cart_24" />
+        <ImageButton
+            android:id="@+id/reviewsBtn"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="305dp"
+            android:layout_marginTop="14dp"
+            android:background="@null"
+            android:src="@drawable/ic_baseline_star_border_24"/>
+
+        <TextView
+            android:id="@+id/bussnm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+
+            android:text="Shop Reviews"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:padding="10dp">
+        <com.blogspot.atifsoftwares.circularimageview.CircularImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:c_border_width="3dp"
+            android:id="@+id/profileIv"
+            app:c_border="true"
+            app:c_border_color="@color/limegreen"
+            android:src="@drawable/ic_baseline_store_24"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/shopNameTv"
+            android:text="Shop Name"/>
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ratingBar"
+            style="@style/Widget.AppCompat.RatingBar.Small"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ratingsTv"
+            android:text="4.3 [100,098,577]"
+            android:textSize="12sp"/>
+
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/reviewsRv"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/row_review"/>
+
+</LinearLayout>

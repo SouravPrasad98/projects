@@ -179,7 +179,7 @@ public class AdapterProductShopDetails extends RecyclerView.Adapter<AdapterProdu
                 String proname = nameTv.getText().toString().trim();
                 String priceeach= price;
                 String totalPrice = finalTv.getText().toString().trim().replace("$", "");
-                String qUantity = Quantity.getText().toString().trim();
+                String qUantity = quantityTv.getText().toString().trim();
 
                 addToCart(productid,priceeach,totalPrice,qUantity,proname);
                 dialog.dismiss();
