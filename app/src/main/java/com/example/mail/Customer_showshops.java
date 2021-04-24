@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Customer_showshops extends AppCompatActivity {
-    private AdapterWholesellerShops adapterWholesellerShops;
+    private Customer_AdapterRetailerShops adapterWholesellerShops;
     private TextView productstab,orderstab;
     private ImageView profileIv;
 
@@ -36,7 +36,7 @@ public class Customer_showshops extends AppCompatActivity {
     private RecyclerView productsRv,orderRv;
     private FirebaseAuth firebaseAuth;
     private ArrayList<ModelOrderRetailer> orderList;
-    private AdapterOrderRetailer adapterOrderRetailer;
+    private Customer_AdapterOrderRetailer adapterOrderRetailer;
 
 
 
@@ -101,7 +101,7 @@ public class Customer_showshops extends AppCompatActivity {
 
     }
     private void loadmyinfo() {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Retailer");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Customer");
         ref.orderByChild("uid").equalTo(firebaseAuth.getUid())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -170,7 +170,7 @@ public class Customer_showshops extends AppCompatActivity {
                                             ModelOrderRetailer modelOrderRetailer = ds.getValue(ModelOrderRetailer.class);
                                             orderList.add(modelOrderRetailer);
                                         }
-                                        adapterOrderRetailer = new AdapterOrderRetailer(Customer_showshops.this,orderList);
+                                        adapterOrderRetailer = new Customer_AdapterOrderRetailer(Customer_showshops.this,orderList);
                                         orderRv.setAdapter(adapterOrderRetailer);
                                     }
                                 }
@@ -237,7 +237,7 @@ public class Customer_showshops extends AppCompatActivity {
             }
         });
 
-        adapterWholesellerShops = new AdapterWholesellerShops(Customer_showshops.this, wholesellerList);
+        adapterWholesellerShops = new Customer_AdapterRetailerShops(Customer_showshops.this, wholesellerList);
         productsRv.setAdapter(adapterWholesellerShops);
     }
 

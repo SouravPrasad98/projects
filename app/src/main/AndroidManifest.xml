@@ -30,7 +30,7 @@
         <activity android:name=".ShopReviewsActivity"></activity>
 
         <activity android:name=".OrderDetailsWholesellerActivity"></activity>
-        <activity android:name=".ShopReviewsActivity" />
+
 
         <activity android:name=".WriteReviewActivity" />
 
@@ -62,8 +62,11 @@
         <activity android:name=".Customer_activity" />
         <activity android:name=".Customer_activity2" />
         <activity android:name=".Customer_showshops" />
+        <activity android:name=".Customer_RetailerShopdetailsActivity" />
+        <activity android:name=".Customer_ShopReviewsActivity" />
         <activity android:name=".Wholeseller_forgotpassword" />
         <activity android:name=".Wholeseller_register" />
+        <activity android:name=".Customer_OrderdetailsActivity" />
         <activity android:name=".Splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -80,8 +83,10 @@
         <activity android:name=".Registration" />
         <activity android:name=".PhoneNAuthen" />
         <activity android:name=".Identification" />
+        <activity android:name=".Customer_WriteReviewActivity" />
         <activity android:name=".Login" />
         <activity android:name=".MainActivity" />
+
 
         <meta-data
             android:name="preloaded_fonts"
