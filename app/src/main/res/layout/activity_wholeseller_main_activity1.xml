@@ -380,10 +380,53 @@
 
             </LinearLayout>
 
-
-
-
         </ScrollView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/orderdRl"
+        android:layout_below="@id/toolbarRl">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchProductEt"
+            android:layout_margin="5dp"
+            android:background="@drawable/rectan"
+            android:layout_toStartOf="@id/filterProductbtn"
+            android:padding="10dp"
+            android:drawablePadding="10dp"
+            android:hint="Search"
+            android:drawableStart="@drawable/ic_baseline_search_24" />
+        <ImageButton
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/filterProductbtn"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/filter_alt_24"/>
+        <TextView
+            android:id="@+id/filteredproductsTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/searchProductEt"
+            android:textColor="@color/black"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="Showing All"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/productsRv"
+            android:layout_height="match_parent"
+            android:layout_below="@id/filteredproductsTv"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/row_product_seller"/>
 
 
 

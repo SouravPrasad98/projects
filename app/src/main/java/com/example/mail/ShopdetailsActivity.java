@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +44,7 @@ import p32929.androideasysql_library.EasyDB;
 public class ShopdetailsActivity extends AppCompatActivity {
 
     private TextView bussnm,phonenum,emaill,address,filteredproductsTv,cartCountTv;
-    private ImageButton mapBt, callBt,filterProductbtn,addproduct;
+    private ImageButton mapBt, callBt,filterProductbtn,addproduct,reviewsBtn;
     private ImageView profileIv;
     private EditText searchProductEt;
     private RelativeLayout productsRl, ordersRl;
@@ -59,14 +60,17 @@ private ArrayList<ModelCartItem> cartItemList;
 private AdaptercartItem adaptercartItem;
 public String deliveryFee;
 private ProgressDialog progressDialog;
+private RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopdetails);
         phonenum= findViewById(R.id.phonenum);
+        ratingBar = findViewById(R.id.ratingBar);
         cartCountTv= findViewById(R.id.cartCountTv);
         addproduct = findViewById(R.id.addproduct);
+        reviewsBtn = findViewById(R.id.reviewsBtn);
         bussnm = findViewById(R.id.bussnm);
         filteredproductsTv = findViewById(R.id.filteredproductsTv);
         filterProductbtn = findViewById(R.id.filterProductbtn);
@@ -89,6 +93,7 @@ private ProgressDialog progressDialog;
         loadmyinfo();
         loadShopdetails();
         loadAllProducts();
+        loadReviews();
          easyDB =EasyDB.init(this, "ITEMS_DB")
                 .setTableName("ITEMS_TABLE")
                 .addColumn(new Column("Item_Id", new String[]{"text","unique"}))
@@ -143,7 +148,14 @@ private ProgressDialog progressDialog;
 
             }
         });
-
+       reviewsBtn.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+              Intent intent = new Intent(ShopdetailsActivity.this, ShopReviewsActivity.class);
+              intent.putExtra("uid", uid);
+              startActivity(intent);
+           }
+       });
 
         filterProductbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,6 +183,35 @@ private ProgressDialog progressDialog;
 
 
 
+    }
+    private float ratingSum=0;
+    private void loadReviews() {
+
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Wholeseller");
+        ref.child(uid).child("Ratings")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        ratingSum = 0;
+                        for (DataSnapshot ds: snapshot.getChildren()){
+                            float rating = Float.parseFloat(""+ ds.child("ratings").getValue());
+                            ratingSum = ratingSum+rating;
+
+                        }
+
+                        long numberOfReviews = snapshot.getChildrenCount();
+                        float avgRating = ratingSum/numberOfReviews;
+
+                        ratingBar.setRating(avgRating);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 
     private void deleteCartData() {

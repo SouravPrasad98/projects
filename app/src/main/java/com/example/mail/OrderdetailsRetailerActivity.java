@@ -30,7 +30,7 @@ import java.util.Locale;
 
 public class OrderdetailsRetailerActivity extends AppCompatActivity {
     private String orderTo, orderId,orderBy, latitude, longitude, deliveryfee,address;
-    private ImageButton backbutt;
+    private ImageButton backbutt,writeReviewBtn;
     private TextView orderIdTv, dateTv, orderStatusTv, shopNameTv, amountTv, totalItemsTv, addressTv;
     private RecyclerView itemsRv;
     private FirebaseAuth firebaseAuth;
@@ -41,7 +41,7 @@ public class OrderdetailsRetailerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orderdetails_retailer);
 
-
+        writeReviewBtn = findViewById(R.id.writeReviewBtn);
         backbutt = findViewById(R.id.backBtn);
         dateTv = findViewById(R.id.dateTv);
         orderStatusTv = findViewById(R.id.orderStatusTv);
@@ -62,6 +62,16 @@ public class OrderdetailsRetailerActivity extends AppCompatActivity {
         loadShopInfo();
 
         loadOrderedItems();
+
+        writeReviewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(OrderdetailsRetailerActivity.this, WriteReviewActivity.class);
+                intent1.putExtra("uid", orderTo);
+                startActivity(intent1);
+                finish();
+            }
+        });
 
 //        backbutt.setOnClickListener(new View.OnClickListener() {
 //            @Override
