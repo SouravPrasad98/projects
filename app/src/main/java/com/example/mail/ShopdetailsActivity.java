@@ -6,16 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -35,7 +32,6 @@ import com.example.mail.common.Constants;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -54,7 +50,7 @@ import p32929.androideasysql_library.EasyDB;
 
 public class ShopdetailsActivity extends AppCompatActivity {
 
-    private TextView bussnm,phonenum,emaill,address,filteredproductsTv;
+    private TextView bussnm,phonenum,emaill,address,filteredproductsTv,cartCountTv;
     private ImageButton mapBt, callBt,filterProductbtn,addproduct;
     private ImageView profileIv;
     private EditText searchProductEt;
@@ -62,6 +58,7 @@ public class ShopdetailsActivity extends AppCompatActivity {
     private RecyclerView productsRv;
     private ArrayList<ModelProduct> productList;
     private FirebaseAuth firebaseAuth;
+    private EasyDB easyDB;
 private String uid;
 private String myLatitude,myLongitude,myPhone;
 private String shopLatitude,shopLongitude,shopName,shopPhone,shopAddress,shopEmail;
@@ -76,6 +73,7 @@ private ProgressDialog progressDialog;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopdetails);
         phonenum= findViewById(R.id.phonenum);
+        cartCountTv= findViewById(R.id.cartCountTv);
         addproduct = findViewById(R.id.addproduct);
         bussnm = findViewById(R.id.bussnm);
         filteredproductsTv = findViewById(R.id.filteredproductsTv);
@@ -99,9 +97,17 @@ private ProgressDialog progressDialog;
         loadmyinfo();
         loadShopdetails();
         loadAllProducts();
-
+         easyDB =EasyDB.init(this, "ITEMS_DB")
+                .setTableName("ITEMS_TABLE")
+                .addColumn(new Column("Item_Id", new String[]{"text","unique"}))
+                .addColumn(new Column("Item_PId", new String[]{"text","not null"}))
+                .addColumn(new Column("Item_Name", new String[]{"text","not null"}))
+                .addColumn(new Column("Item_Price", new String[]{"text","not null"}))
+                .addColumn(new Column("Item_Quantity", new String[]{"text","not null"}))
+                .addColumn(new Column("Item_Price_Each", new String[]{"text","not null"}))
+                .doneTableColumn();
         deleteCartData();
-
+        cartCount();
 
         searchProductEt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -177,17 +183,20 @@ private ProgressDialog progressDialog;
 
     private void deleteCartData() {
 
-        EasyDB easyDB =EasyDB.init(this, "ITEMS_DB")
-                .setTableName("ITEMS_TABLE")
-                .addColumn(new Column("Item_Id", new String[]{"text","unique"}))
-                .addColumn(new Column("Item_PId", new String[]{"text","not null"}))
-                .addColumn(new Column("Item_Name", new String[]{"text","not null"}))
-                .addColumn(new Column("Item_Price", new String[]{"text","not null"}))
-                .addColumn(new Column("Item_Quantity", new String[]{"text","not null"}))
-                .addColumn(new Column("Item_Price_Each", new String[]{"text","not null"}))
-                .doneTableColumn();
+
         easyDB.deleteAllDataFromTable();
 
+    }
+
+    public void cartCount(){
+        int count = easyDB.getAllData().getCount();
+        if(count<=0){
+            cartCountTv.setVisibility(View.GONE);
+        }
+        else{
+            cartCountTv.setVisibility(View.VISIBLE);
+            cartCountTv.setText(""+ count);
+        }
     }
 
     public double allTotalPrice  = 0.00;
@@ -291,6 +300,8 @@ private ProgressDialog progressDialog;
         hashMap.put("orderBy",firebaseAuth.getUid());
         hashMap.put("orderTo",uid);
 
+
+
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("RetailerOnlineOrders");
         ref.child(timestamp).setValue(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -320,10 +331,16 @@ private ProgressDialog progressDialog;
 
 
 
+
                                //prepareNotificationMessage(timestamp);
 
 
 
+
+                        Intent intent = new Intent(ShopdetailsActivity.this, OrderdetailsRetailerActivity.class);
+                        intent.putExtra("orderTo",uid);
+                        intent.putExtra("orderId", timestamp);
+                        startActivity(intent);
 
                     }
                 })

@@ -1,6 +1,7 @@
 package com.example.mail;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,6 +74,16 @@ public class AdapterOrderRetailer extends RecyclerView.Adapter<AdapterOrderRetai
 
         holder.dateTv.setText(formatedDate);
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, OrderdetailsRetailerActivity.class);
+                intent.putExtra("orderTo",OrderTo);
+                intent.putExtra("orderId", OrderId);
+                intent.putExtra("orderBy", OrderBy);
+                context.startActivity(intent);
+            }
+        });
 
     }
 

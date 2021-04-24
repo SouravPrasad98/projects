@@ -73,7 +73,7 @@ public class AdaptercartItem extends RecyclerView.Adapter<AdaptercartItem.Holder
                 ((ShopdetailsActivity)context).allTotalPrice = 0.00;
                 ((ShopdetailsActivity)context).sTotalTv.setText(String.format("%.2f", sTotalPrice));
                 ((ShopdetailsActivity)context).allTotalPriceTv.setText("$"+String.format("%.2f", Double.parseDouble(String.format("%.2f", totalPrice))));
-
+                ((ShopdetailsActivity)context).cartCount();
 
             }
         });
