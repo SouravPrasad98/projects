@@ -60,7 +60,7 @@ public class OrderdetailsRetailerActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         loadShopInfo();
-        loadOrderDetails();
+
         loadOrderedItems();
 
 //        backbutt.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +110,7 @@ public class OrderdetailsRetailerActivity extends AppCompatActivity {
                         String shopName = "" + snapshot.child("bussinessname").getValue();
                         shopNameTv.setText(shopName);
                         deliveryfee = ""+ snapshot.child("deliveryfee").getValue();
-
+                        loadOrderDetails();
                     }
 
                     @Override
