@@ -275,7 +275,7 @@ private RatingBar ratingBar;
             String cost = res.getString(5);
             String quantity = res.getString(6);
 
-            allTotalPrice = allTotalPrice + Double.parseDouble(cost);
+            allTotalPrice = allTotalPrice + Double.parseDouble(price);
 
             ModelCartItem modelCartItem = new ModelCartItem(""+id,
                     ""+ pId,
