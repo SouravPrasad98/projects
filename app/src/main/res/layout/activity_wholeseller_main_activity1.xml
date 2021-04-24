@@ -64,6 +64,14 @@
             android:src="@drawable/ic_baseline_star_border_24" />
 
         <ImageButton
+            android:id="@+id/promoBtn"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:background="@null"
+            android:layout_toStartOf="@id/settingsBtn"
+            android:src="@drawable/ic_baseline_arrow_right_alt_24" />
+
+        <ImageButton
             android:id="@+id/settingsBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -127,6 +135,8 @@
 
 
         </LinearLayout>
+
+
 
     </RelativeLayout>
 

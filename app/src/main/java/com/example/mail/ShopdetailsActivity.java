@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.mail.common.Constants;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,9 +43,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+
+import java.text.SimpleDateFormat;
+
 import org.json.JSONObject;
 
+
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,6 +59,7 @@ import p32929.androideasysql_library.Column;
 import p32929.androideasysql_library.EasyDB;
 
 public class ShopdetailsActivity extends AppCompatActivity {
+
 
     private TextView bussnm,phonenum,emaill,address,filteredproductsTv,cartCountTv;
     private ImageButton mapBt, callBt,filterProductbtn,addproduct,reviewsBtn;
@@ -242,16 +251,36 @@ private RatingBar ratingBar;
     }
 
     public double allTotalPrice  = 0.00;
-    public TextView sTotalTv,dFeeTv,allTotalPriceTv;
+    public TextView sTotalTv,dFeeTv,allTotalPriceTv, promoDescriptionTv, discountTv;
+    public EditText promoCodeEt;
+    public Button applyBtn;
     private void showCartDialog() {
         cartItemList = new ArrayList<>();
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_cart, null);
         TextView shopNameTv = view.findViewById(R.id.shopNameTV);
+        promoCodeEt = view.findViewById(R.id.promoCodeEt);
+        promoDescriptionTv = view.findViewById(R.id.promoDescriptionTv);
+        discountTv = view.findViewById(R.id.discountTv);
+        FloatingActionButton validateBtn =view.findViewById(R.id.validateBtn);
+        applyBtn = view.findViewById(R.id.applyBtn);
         RecyclerView cartItemsRv = view.findViewById(R.id.cartItemsRv);
          sTotalTv = view.findViewById(R.id.sTotalTv);
          dFeeTv = view.findViewById(R.id.dFeeTv);
          allTotalPriceTv = view.findViewById(R.id.totalTv);
         Button checkoutBt = view.findViewById(R.id.checkoutBt);
+
+        if(isPromoCodeApplied){
+            promoDescriptionTv.setVisibility(View.VISIBLE);
+            applyBtn.setVisibility(View.VISIBLE);
+            applyBtn.setText("Applied");
+            promoCodeEt.setText(promoCode);
+            promoDescriptionTv.setText(promoDescription);
+        }
+        else{
+            promoDescriptionTv.setVisibility(View.GONE);
+            applyBtn.setVisibility(View.GONE);
+            applyBtn.setText("Apply");
+        }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(view);
@@ -288,14 +317,18 @@ private RatingBar ratingBar;
 
             cartItemList.add(modelCartItem);
 
+
         }
 
         adaptercartItem = new AdaptercartItem(this, cartItemList);
         cartItemsRv.setAdapter(adaptercartItem);
-        dFeeTv.setText("$"+ deliveryFee);
-        sTotalTv.setText("$"+String.format("%.2f", allTotalPrice));
-        allTotalPriceTv.setText("$"+(allTotalPrice + Double.parseDouble(deliveryFee.replace("$", ""))));
 
+        if(isPromoCodeApplied){
+            priceWithDiscount();
+        }
+        else{
+            priceWithoutDiscount();
+        }
         AlertDialog dialog =builder.create();
         dialog.show();
 
@@ -327,7 +360,151 @@ private RatingBar ratingBar;
             }
         });
 
+        validateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String promotionCode = promoCodeEt.getText().toString().trim();
+                if(TextUtils.isEmpty(promotionCode)){
+                    Toast.makeText(ShopdetailsActivity.this, "Please enter promo code...", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    checkCodeAvailability(promotionCode);
+                }
+            }
+        });
+
+        applyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isPromoCodeApplied = true;
+                applyBtn.setText("Applied");
+
+                priceWithDiscount();
+            }
+        });
+
+
+
     }
+
+    private void priceWithDiscount(){
+        discountTv.setText("$"+ promoPrice);
+        dFeeTv.setText("$"+ deliveryFee);
+        sTotalTv.setText("$"+ String.format("%.2f", allTotalPrice));
+        sTotalTv.setText("$"+ (allTotalPrice + Double.parseDouble(deliveryFee.replace("$", "")) - Double.parseDouble(promoPrice)));
+
+    }
+
+    private void priceWithoutDiscount(){
+        discountTv.setText("$0");
+        dFeeTv.setText("$"+ deliveryFee);
+        sTotalTv.setText("$"+ String.format("%.2f", allTotalPrice));
+        sTotalTv.setText("$"+ (allTotalPrice + Double.parseDouble(deliveryFee.replace("$", ""))));
+    }
+
+    public Boolean isPromoCodeApplied = false;
+    public String promoId, promoTimestamp, promoCode, promoDescription, promoExpDate, promoMinimumOrderPrice, promoPrice;
+    private void checkCodeAvailability(String promotionCode)
+    {
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Please Wait");
+        progressDialog.setMessage("Checking Promo Code...");
+        progressDialog.setCanceledOnTouchOutside(false);
+
+        isPromoCodeApplied = false;
+        applyBtn.setText("Apply");
+        priceWithoutDiscount();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Wholeseller");
+        ref.child(uid).child("Promotions").orderByChild("promoCode").equalTo(promotionCode)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists())
+                        {
+                            progressDialog.dismiss();
+                            for(DataSnapshot ds: snapshot.getChildren())
+                            {
+                                promoId = ""+ds.child("id").getValue();
+                                promoTimestamp = ""+ds.child("timestamp").getValue();
+                                promoCode = ""+ds.child("promoCode").getValue();
+                                promoDescription = ""+ds.child("description").getValue();
+                                promoExpDate = ""+ds.child("expireDate").getValue();
+                                promoMinimumOrderPrice = ""+ds.child("minimumOrderPrice").getValue();
+                                promoPrice = ""+ds.child("promoPrice").getValue();
+                                
+                                checkCodeExpireDate();
+
+                            }
+                        }
+                        else
+                        {
+                            progressDialog.dismiss();
+                            Toast.makeText(ShopdetailsActivity.this, "Invlaid Promo Code", Toast.LENGTH_SHORT).show();
+                            applyBtn.setVisibility(View.GONE);
+                            promoDescriptionTv.setVisibility(View.GONE);
+                            promoDescriptionTv.setText("");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+    }
+
+    private void checkCodeExpireDate() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) +1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        
+        String todayDate =  day + "/" + month +"/" + year;
+
+        try {
+            SimpleDateFormat sdformat = new SimpleDateFormat("dd/MM/yyyy");
+            Date currentDate = sdformat.parse(todayDate);
+            Date expireDate = sdformat.parse(promoExpDate);
+            
+            if(expireDate.compareTo(currentDate)>0){
+                checkMinimumOrderPrice();
+            }
+            else if(expireDate.compareTo(currentDate)<0){
+                Toast.makeText(this, "The promotion code is expired on"+ promoExpDate, Toast.LENGTH_SHORT).show();
+                applyBtn.setVisibility(View.GONE);
+                promoDescriptionTv.setVisibility(View.GONE);
+                promoDescriptionTv.setText("");
+            }
+            else if(expireDate.compareTo(currentDate)==0){
+                checkMinimumOrderPrice();
+            }
+
+        }
+        catch(Exception e){
+            Toast.makeText(this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+            applyBtn.setVisibility(View.GONE);
+            promoDescriptionTv.setVisibility(View.GONE);
+            promoDescriptionTv.setText("");
+        }
+    }
+
+    private void checkMinimumOrderPrice() {
+        if(Double.parseDouble(String.format("%.2f", allTotalPrice))<Double.parseDouble(promoMinimumOrderPrice)){
+            Toast.makeText(this, "This code is valid for order with minimum amount: $" + promoMinimumOrderPrice, Toast.LENGTH_SHORT).show();
+            applyBtn.setVisibility(View.GONE);
+            promoDescriptionTv.setVisibility(View.GONE);
+            promoDescriptionTv.setText("");
+        }
+        else{
+            applyBtn.setVisibility(View.VISIBLE);
+            promoDescriptionTv.setVisibility(View.VISIBLE);
+            promoDescriptionTv.setText(promoDescription);
+        }
+    }
+
 
     private void submitOrder() {
                           progressDialog.setMessage("Placing order....");
@@ -341,6 +518,14 @@ private RatingBar ratingBar;
         hashMap.put("orderCost","" + cost);
         hashMap.put("orderBy",firebaseAuth.getUid());
         hashMap.put("orderTo",uid);
+        hashMap.put("deliveryFee", ""+deliveryFee);
+        hashMap.put("discount", ""+ promoPrice);
+        if(isPromoCodeApplied){
+            hashMap.put("discount", ""+promoPrice);
+        }
+        else {
+            hashMap.put("discount", ""+ promoPrice);
+        }
 
 
 
