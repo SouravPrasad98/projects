@@ -126,7 +126,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/categoriesRl"
+        android:id="@+id/productsRl"
         android:layout_below="@+id/toolbarRl">
         <ScrollView
             android:layout_width="match_parent"
@@ -387,15 +387,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/orderdRl"
-        android:layout_below="@id/toolbarRl">
+        android:id="@+id/ordersRl"
+        android:layout_below="@+id/toolbarRl">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/searchProductEt"
+            android:id="@+id/searchOrderEt"
             android:layout_margin="5dp"
             android:background="@drawable/rectan"
-            android:layout_toStartOf="@id/filterProductbtn"
+            android:layout_toStartOf="@id/filterOrderBtn"
             android:padding="10dp"
             android:drawablePadding="10dp"
             android:hint="Search"
@@ -404,35 +404,41 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentEnd="true"
-            android:id="@+id/filterProductbtn"
+            android:id="@+id/filterOrderBtn"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
             android:background="@null"
             android:scaleType="fitXY"
             android:src="@drawable/filter_alt_24"/>
         <TextView
-            android:id="@+id/filteredproductsTv"
+            android:id="@+id/filteredOrdersTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/searchProductEt"
+            android:layout_below="@id/searchOrderEt"
             android:textColor="@color/black"
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
             android:text="Showing All"/>
-
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:id="@+id/productsRv"
             android:layout_height="match_parent"
-            android:layout_below="@id/filteredproductsTv"
+            android:id="@+id/orderRv"
+            app:reverseLayout="true"
+            app:stackFromEnd="true"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/row_product_seller"/>
+            android:layout_below="@id/filteredOrdersTv"
+            tools:listitem="@layout/row_order_wholeseller"/>
+
+
+
 
 
 
 
 
     </RelativeLayout>
+
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
