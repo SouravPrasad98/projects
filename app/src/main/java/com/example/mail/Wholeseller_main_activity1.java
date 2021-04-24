@@ -238,14 +238,15 @@ filterOrderBtn.setOnClickListener(new View.OnClickListener() {
     private void loadAllOrders() {
         modelOrderWholesellerArrayList = new ArrayList<>();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("RetailerOnlineOrders");
-        ref.orderByChild("orderTo").equalTo(Constants.wuid)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         modelOrderWholesellerArrayList.clear();
                         for (DataSnapshot ds: snapshot.getChildren()){
                             ModelOrderWholeseller modelOrderWholeseller = ds.getValue(ModelOrderWholeseller.class);
-                            modelOrderWholesellerArrayList.add(modelOrderWholeseller);
+                            if(modelOrderWholeseller.getOrderTo().equals(Constants.wuid)) {
+                                modelOrderWholesellerArrayList.add(modelOrderWholeseller);
+                            }
                         }
                         adapterOrderWholeseller = new AdapterOrderWholeseller(Wholeseller_main_activity1.this, modelOrderWholesellerArrayList);
                         orderRv.setAdapter(adapterOrderWholeseller);
