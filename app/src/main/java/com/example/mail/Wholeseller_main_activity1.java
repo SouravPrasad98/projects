@@ -36,7 +36,7 @@ import java.util.HashMap;
 public class Wholeseller_main_activity1 extends AppCompatActivity {
 
     private TextView bussnm,profile_name,productstab,orderstab,filteredOrdersTv;
-    private ImageButton logoutbt, addproduct,settingsBtn,filterOrderBtn;
+    private ImageButton logoutbt, addproduct,settingsBtn,filterOrderBtn,reviewsBtn;
     private ImageView profileIv;
     private long backpressedTime;
     private EditText searchOrderEt;
@@ -57,6 +57,7 @@ public class Wholeseller_main_activity1 extends AppCompatActivity {
         setContentView(R.layout.activity_wholeseller_main_activity1);
         filterOrderBtn = findViewById(R.id.filterOrderBtn);
         filteredOrdersTv = findViewById(R.id.filteredOrdersTv);
+        reviewsBtn =  findViewById(R.id.reviewsBtn);
         searchOrderEt = findViewById(R.id.searchOrderEt);
         productstab= findViewById(R.id.productstab);
         showproducts = findViewById(R.id.showproducts);
@@ -210,7 +211,17 @@ public class Wholeseller_main_activity1 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-filterOrderBtn.setOnClickListener(new View.OnClickListener() {
+
+        reviewsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Wholeseller_main_activity1.this, ShopReviewsActivity.class);
+                intent.putExtra("uid", ""+ firebaseAuth.getUid());
+                startActivity(intent);
+            }
+        });
+
+        filterOrderBtn.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         String[] options = {"All","In Progress","Completed","Cancelled"};
