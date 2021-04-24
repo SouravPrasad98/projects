@@ -91,6 +91,8 @@ private RatingBar ratingBar;
         progressDialog.setCanceledOnTouchOutside(false);
 
         myPhone = Constants.wphonenumber;
+        myLatitude = Constants.wlatitude;
+        myLongitude = Constants.wlongitude;
 //        loadmyinfo();
         loadShopdetails();
         loadAllProducts();
