@@ -31,7 +31,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class Customer_activity2 extends AppCompatActivity {
-    private Retaileradapter2 retaileradapter2;
+    private Customeradapter2 customeradapter2;
     private TextView bussnm,profile_name,productstab,filteredproductsTv;
     private ImageButton logoutbt, addproduct,filterProductbtn;
     private ImageView profileIv, nextIv;
@@ -147,8 +147,8 @@ public class Customer_activity2 extends AppCompatActivity {
                             productList.add(modelProduct);
 
                         }
-                        retaileradapter2 = new Retaileradapter2(Customer_activity2.this, productList);
-                     productsRv.setAdapter(retaileradapter2);
+                        customeradapter2 = new Customeradapter2(Customer_activity2.this, productList);
+                        productsRv.setAdapter(customeradapter2);
                     }
 
                     @Override

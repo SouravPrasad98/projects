@@ -51,6 +51,7 @@
         <activity android:name=".Wholeseller_activity" />
         <activity android:name=".Customer_activity" />
         <activity android:name=".Customer_activity2" />
+        <activity android:name=".Customer_showshops" />
         <activity android:name=".Wholeseller_forgotpassword" />
         <activity android:name=".Wholeseller_register" />
         <activity android:name=".Splashscreen">
