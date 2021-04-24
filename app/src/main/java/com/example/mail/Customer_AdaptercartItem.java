@@ -66,14 +66,14 @@ public class Customer_AdaptercartItem extends RecyclerView.Adapter<Customer_Adap
                 notifyItemChanged(position);
                 notifyDataSetChanged();
 
-                double tx = Double.parseDouble((((ShopdetailsActivity)context).allTotalPriceTv.getText().toString().trim().replace("$", "")));
+                double tx = Double.parseDouble((((Customer_RetailerShopdetailsActivity)context).allTotalPriceTv.getText().toString().trim().replace("$", "")));
                 double totalPrice = tx - Double.parseDouble(cost.replace("$", ""));
-                double deliverFee = Double.parseDouble((((ShopdetailsActivity)context).deliveryFee.replace("$", "")));
+                double deliverFee = Double.parseDouble((((Customer_RetailerShopdetailsActivity)context).deliveryFee.replace("$", "")));
                 double sTotalPrice = Double.parseDouble(String.format("%.2f", totalPrice)) - Double.parseDouble(String.format("%.2f", deliverFee));
-                ((ShopdetailsActivity)context).allTotalPrice = 0.00;
-                ((ShopdetailsActivity)context).sTotalTv.setText(String.format("%.2f", sTotalPrice));
-                ((ShopdetailsActivity)context).allTotalPriceTv.setText("$"+String.format("%.2f", Double.parseDouble(String.format("%.2f", totalPrice))));
-                ((ShopdetailsActivity)context).cartCount();
+                ((Customer_RetailerShopdetailsActivity)context).allTotalPrice = 0.00;
+                ((Customer_RetailerShopdetailsActivity)context).sTotalTv.setText(String.format("%.2f", sTotalPrice));
+                ((Customer_RetailerShopdetailsActivity)context).allTotalPriceTv.setText("$"+String.format("%.2f", Double.parseDouble(String.format("%.2f", totalPrice))));
+                ((Customer_RetailerShopdetailsActivity)context).cartCount();
 
             }
         });

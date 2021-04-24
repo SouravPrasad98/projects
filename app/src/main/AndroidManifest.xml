@@ -56,6 +56,7 @@
         <activity android:name=".Customer_ShopReviewsActivity" />
         <activity android:name=".Wholeseller_forgotpassword" />
         <activity android:name=".Wholeseller_register" />
+        <activity android:name=".Customer_OrderdetailsActivity" />
         <activity android:name=".Splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -71,8 +72,10 @@
         <activity android:name=".Registration" />
         <activity android:name=".PhoneNAuthen" />
         <activity android:name=".Identification" />
+        <activity android:name=".Customer_WriteReviewActivity" />
         <activity android:name=".Login" />
         <activity android:name=".MainActivity" />
+
 
         <meta-data
             android:name="preloaded_fonts"
