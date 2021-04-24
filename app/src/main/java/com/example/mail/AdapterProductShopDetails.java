@@ -59,11 +59,11 @@ public class AdapterProductShopDetails extends RecyclerView.Adapter<AdapterProdu
         String timestamp = modelProduct.getTimestamp();
         String productPrice = modelProduct.getProductprice();
 
-        holder.productquantity.setText(quantity);
+        holder.productquantity.setText("Quantity : " + quantity);
         holder.productname.setText(title);
         holder.discountedpriceEt.setText(discountPrice);
-        holder.discountnote.setText(discountNote);
-        holder.perunitcost.setText(percost);
+        holder.discountnote.setText(discountNote + "% OFF");
+        holder.perunitcost.setText("Rs. " + productPrice);
         holder.productprice.setText(productPrice);
 
         if(discountAvailable.equals("true")){
@@ -179,7 +179,7 @@ public class AdapterProductShopDetails extends RecyclerView.Adapter<AdapterProdu
                 String proname = nameTv.getText().toString().trim();
                 String priceeach= price;
                 String totalPrice = finalTv.getText().toString().trim().replace("$", "");
-                String qUantity = Quantity.getText().toString().trim();
+                String qUantity = quantityTv.getText().toString().trim();
 
                 addToCart(productid,priceeach,totalPrice,qUantity,proname);
                 dialog.dismiss();
@@ -241,7 +241,7 @@ private TextView  productname,productquantity,perunitcost,addtocart,discountedpr
             discountedpriceEt = itemView.findViewById(R.id.discountedpriceEt);
             productprice = itemView.findViewById(R.id.productprice);
             discountnote = itemView.findViewById(R.id.discountnote);
-            perunitcost = itemView.findViewById(R.id.productquantity);
+            perunitcost = itemView.findViewById(R.id.perunitcost);
         }
     }
 }

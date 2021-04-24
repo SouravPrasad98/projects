@@ -20,10 +20,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.mail.common.Constants;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,11 +42,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+
 import java.text.SimpleDateFormat;
+
+import org.json.JSONObject;
+
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import p32929.androideasysql_library.Column;
 import p32929.androideasysql_library.EasyDB;
@@ -49,7 +61,7 @@ public class ShopdetailsActivity extends AppCompatActivity {
 
 
     private TextView bussnm,phonenum,emaill,address,filteredproductsTv,cartCountTv;
-    private ImageButton mapBt, callBt,filterProductbtn,addproduct;
+    private ImageButton mapBt, callBt,filterProductbtn,addproduct,reviewsBtn;
     private ImageView profileIv;
     private EditText searchProductEt;
     private RelativeLayout productsRl, ordersRl;
@@ -65,14 +77,17 @@ private ArrayList<ModelCartItem> cartItemList;
 private AdaptercartItem adaptercartItem;
 public String deliveryFee;
 private ProgressDialog progressDialog;
+private RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopdetails);
         phonenum= findViewById(R.id.phonenum);
+        ratingBar = findViewById(R.id.ratingBar);
         cartCountTv= findViewById(R.id.cartCountTv);
         addproduct = findViewById(R.id.addproduct);
+        reviewsBtn = findViewById(R.id.reviewsBtn);
         bussnm = findViewById(R.id.bussnm);
         filteredproductsTv = findViewById(R.id.filteredproductsTv);
         filterProductbtn = findViewById(R.id.filterProductbtn);
@@ -95,6 +110,7 @@ private ProgressDialog progressDialog;
         loadmyinfo();
         loadShopdetails();
         loadAllProducts();
+        loadReviews();
          easyDB =EasyDB.init(this, "ITEMS_DB")
                 .setTableName("ITEMS_TABLE")
                 .addColumn(new Column("Item_Id", new String[]{"text","unique"}))
@@ -149,7 +165,14 @@ private ProgressDialog progressDialog;
 
             }
         });
-
+       reviewsBtn.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+              Intent intent = new Intent(ShopdetailsActivity.this, ShopReviewsActivity.class);
+              intent.putExtra("uid", uid);
+              startActivity(intent);
+           }
+       });
 
         filterProductbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,6 +200,35 @@ private ProgressDialog progressDialog;
 
 
 
+    }
+    private float ratingSum=0;
+    private void loadReviews() {
+
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Wholeseller");
+        ref.child(uid).child("Ratings")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        ratingSum = 0;
+                        for (DataSnapshot ds: snapshot.getChildren()){
+                            float rating = Float.parseFloat(""+ ds.child("ratings").getValue());
+                            ratingSum = ratingSum+rating;
+
+                        }
+
+                        long numberOfReviews = snapshot.getChildrenCount();
+                        float avgRating = ratingSum/numberOfReviews;
+
+                        ratingBar.setRating(avgRating);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 
     private void deleteCartData() {
@@ -252,7 +304,7 @@ private ProgressDialog progressDialog;
             String cost = res.getString(5);
             String quantity = res.getString(6);
 
-            allTotalPrice = allTotalPrice + Double.parseDouble(cost);
+            allTotalPrice = allTotalPrice + Double.parseDouble(price);
 
             ModelCartItem modelCartItem = new ModelCartItem(""+id,
                     ""+ pId,
@@ -503,10 +555,19 @@ private ProgressDialog progressDialog;
                                progressDialog.dismiss();
                                Toast.makeText(ShopdetailsActivity.this,"Order Placed Successfully ...",Toast.LENGTH_LONG).show();
 
-                        Intent intent = new Intent(ShopdetailsActivity.this, OrderdetailsRetailerActivity.class);
-                        intent.putExtra("orderTo",uid);
-                        intent.putExtra("orderId", timestamp);
-                        startActivity(intent);
+
+
+
+                               prepareNotificationMessage(timestamp);
+
+
+
+
+                       // Intent intent = new Intent(ShopdetailsActivity.this, OrderdetailsRetailerActivity.class);
+                        //intent.putExtra("orderTo",uid);
+                        //intent.putExtra("orderId", timestamp);
+                        //startActivity(intent);
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -670,5 +731,79 @@ private ProgressDialog progressDialog;
 
 
     }
+
+    private void prepareNotificationMessage(String  orderId)
+    {
+        String NOTIFICATION_TOPIC = "/topics" + Constants.FCM_TOPIC;
+        String NOTIFICATION_TITLE =  "New Order" + orderId;
+        String NOTIFICATION_MESSAGE = "Congratulations....!! You have new order";
+        String NOTIFICATION_TYPE = "NewOrder";
+
+        JSONObject notificationJo = new JSONObject();
+        JSONObject notificationBodyJo = new JSONObject();
+
+        try {
+            notificationBodyJo.put("notificationType",NOTIFICATION_TYPE);
+            notificationBodyJo.put("buyerUid",firebaseAuth.getUid());
+            notificationBodyJo.put("sellerUid",uid);//shopUid
+            notificationBodyJo.put("orderId",orderId);
+            notificationBodyJo.put("notificationTitle",NOTIFICATION_TITLE);
+            notificationBodyJo.put("notificationMessage",NOTIFICATION_MESSAGE);
+
+            notificationJo.put("to",NOTIFICATION_TOPIC);
+            notificationJo.put("data",notificationBodyJo);
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(this,""+ e.getMessage(),Toast.LENGTH_SHORT).show();
+        }
+
+        sendFcmNotification(notificationJo,orderId);
+    }
+
+    private void sendFcmNotification(JSONObject notificationJo, String orderId) {
+
+        JsonObjectRequest jsonObjectRequest =new JsonObjectRequest("https://fcm.googleapis.com/fcm/send", notificationJo, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Intent intent = new Intent(ShopdetailsActivity.this , OrderdetailsRetailerActivity.class);
+                intent.putExtra("orderTo",uid);
+                intent.putExtra("orderId",orderId);
+                startActivity(intent);
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Intent intent = new Intent(ShopdetailsActivity.this , OrderdetailsRetailerActivity.class);
+                intent.putExtra("orderTo",uid);
+                intent.putExtra("orderId",orderId);
+                startActivity(intent);
+
+
+            }
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+
+                Map<String,String> headers = new HashMap<>();
+                headers.put("Content-Type","application/json");
+                headers.put("Authorization","key=" + Constants.FCM_KEY);
+
+
+
+                return headers;
+            }
+        };
+        Volley.newRequestQueue(this).add(jsonObjectRequest);
+
+    }
+
+
 }
 

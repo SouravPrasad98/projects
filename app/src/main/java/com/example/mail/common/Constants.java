@@ -3,6 +3,11 @@ package com.example.mail.common;
 import android.net.Uri;
 
 public class Constants {
+
+    public static final String FCM_KEY = "AAAAd1EAhLQ:APA91bEAoBwwKlPphF2A0nK7p0s3DahHyUhy1oQdTMmPzEc0VVAYC1ve-N7LU-K8jMDL3umqdKO2qoPexvwuSX4z_UbmTPr4muOb-VeJRs4Pz01Z2x3mGO38qhU_jc4Dn9jWwySfDihf";
+    public static final  String FCM_TOPIC = "PUSH_NOTIFICATIONS";
+
+
     public static String wname;
     public static String wemail;
     public static String wphonenumber;

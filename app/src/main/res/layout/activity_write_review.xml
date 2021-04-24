@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/Snow"
+    android:layout_height="match_parent"
+    tools:context=".WriteReviewActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:background="@color/limegreen"
+        android:padding="5dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp">
+    <ImageButton
+        android:id="@+id/backbutt"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/ic_baseline_chevron_left_24"
+        android:background="@color/limegreen"/>
+
+    <TextView
+        android:id="@+id/bussnm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_centerInParent="true"
+        android:text="Write Review"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/writeReviewBtn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:background="@null"-->
+<!--            android:src="@drawable/ic_baseline_rate_review_24" />-->
+    </RelativeLayout>
+
+    <com.blogspot.atifsoftwares.circularimageview.CircularImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:c_border="true"
+        app:c_border_color="@color/limegreen"
+        app:c_border_width="2dp"
+        android:src="@drawable/ic_baseline_store_24"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:id="@+id/profileIv"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/shopNameTv"
+            android:textColor="@color/tomatored"
+            android:layout_gravity="center_horizontal"
+            android:text="Shop Name"
+            android:background="@null"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_gravity="center_horizontal"
+        android:text="How was your experience with this seller? \nYour feedback is important to improve our quality of services"
+        android:background="@null"
+        android:textColor="@color/black" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@null"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/reviewEt"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/shaperec01"
+        android:gravity="top"
+        android:minHeight="150dp"
+        android:padding="10dp"
+        android:hint="Type your Review..."/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/submitBtn"
+        android:layout_marginLeft="335dp"
+        android:layout_marginTop="80dp"
+
+        android:src="@drawable/ic_baseline_done_24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

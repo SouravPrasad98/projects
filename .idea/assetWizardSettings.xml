@@ -18,7 +18,11 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
+
                                       <entry key="url" value="file:/$USER_HOME$/Desktop/Sdk/icons/material/materialicons/send/baseline_send_24.xml" />
+
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/shopping_basket/baseline_shopping_basket_24.xml" />
+
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,9 +32,15 @@
                         </option>
                         <option name="values">
                           <map>
+
                             <entry key="color" value="6200ee" />
                             <entry key="outputName" value="ic_send_primary" />
                             <entry key="sourceFile" value="F:\New folder\oop-project-final" />
+
+                            <entry key="color" value="0060fa" />
+                            <entry key="outputName" value="ic_baseline_shopping_basket_24" />
+                            <entry key="sourceFile" value="D:\Area 51\oop-project-final" />
+
                           </map>
                         </option>
                       </PersistentState>

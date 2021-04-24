@@ -15,6 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mail.Retailer.WholesellerListItem;
 import com.example.mail.common.Constants;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -49,10 +54,12 @@ public class AdapterWholesellerShops extends RecyclerView.Adapter<AdapterWholese
         String id = retailerProductModel.getUid();
         String percost = retailerProductModel.getPerunitCost();
 
-        holder.perunitcost.setText(percost);
+        loadReviews(retailerProductModel, holder);
+
+        holder.perunitcost.setText("Rs. " + priceproduct);
         holder.shopname.setText(bussname);
         if(Integer.parseInt(quant) > 0) {
-            holder.productquantity.setText(quant);
+            holder.productquantity.setText("Quantity : " + quant);
         }
         else
         {
@@ -61,12 +68,12 @@ public class AdapterWholesellerShops extends RecyclerView.Adapter<AdapterWholese
         holder.productprice.setText(priceproduct);
         holder.shopaddress.setText(addresss);
         holder.discountedpriceEt.setText(disprice);
-        if(shoopstat.equals("true")){
-            holder.closeIv.setVisibility(View.GONE);
-        }
-        else {
-            holder.closeIv.setVisibility(View.VISIBLE);
-        }
+//        if(shoopstat.equals("true")){
+//            holder.closeIv.setVisibility(View.GONE);
+//        }
+//        else {
+//            holder.closeIv.setVisibility(View.VISIBLE);
+//        }
 
         try{
             Picasso.get().load(image).placeholder(R.drawable.ic_baseline_store_24).into(holder.profileIv);
@@ -93,7 +100,42 @@ public class AdapterWholesellerShops extends RecyclerView.Adapter<AdapterWholese
             }
         });
 
+
+
     }
+
+    private float ratingSum=0;
+    private void loadReviews(WholesellerListItem retailerProductModel, HolderWholesellerShops holder) {
+
+         String shopid = retailerProductModel.getUid();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Wholeseller");
+        ref.child(shopid).child("Ratings")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        ratingSum = 0;
+                        for (DataSnapshot ds: snapshot.getChildren()){
+                            float rating = Float.parseFloat(""+ ds.child("ratings").getValue());
+                            ratingSum = ratingSum+rating;
+
+                        }
+
+                        long numberOfReviews = snapshot.getChildrenCount();
+                        float avgRating = ratingSum/numberOfReviews;
+
+                        holder.ratingbar.setRating(avgRating);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
+
+
+
 
     @Override
     public int getItemCount() {

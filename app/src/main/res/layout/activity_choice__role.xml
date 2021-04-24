@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".Choice_Role">
 
     <LinearLayout
@@ -47,6 +48,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
             android:text="Wholesaler" />
+
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:src="@drawable/foodhump" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
