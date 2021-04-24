@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".OrderdetailsRetailerActivity">
-
+    tools:context=".OrderDetailsWholesellerActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="59dp"
@@ -23,16 +22,16 @@
             android:src="@drawable/ic_baseline_chevron_left_24"
             android:background="@color/limegreen"/>
 
-    <TextView
-        android:id="@+id/bussnm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="3dp"
-        android:layout_centerInParent="true"
-        android:text="Order Details"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/bussnm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_centerInParent="true"
+            android:text="Order Details"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
         <ImageButton
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -40,6 +39,20 @@
             android:src="@drawable/ic_baseline_rate_review_24"
             android:background="@null"
             android:layout_alignParentEnd="true"/>
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/editBtn"
+            android:layout_toStartOf="@id/writeReviewBtn"
+            android:src="@drawable/ic_baseline_edit_24"
+            android:background="@null" />
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/mapBtn"
+            android:layout_toStartOf="@id/editBtn"
+            android:src="@drawable/ic_baseline_map_24"
+            android:background="@null" />
 
     </RelativeLayout>
 
@@ -120,18 +133,39 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
-                    android:text="Customer Name"
+                    android:text="Name"
                     android:textStyle="bold"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:id="@+id/shopNameTv"
+                    android:id="@+id/nameTv"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
-                    android:text="Shop name"
+                    android:text="Name"
+                    android:textColor="@color/black" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="Phone Number"
+                    android:textStyle="bold"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/phoneTv"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="86668686"
                     android:textColor="@color/black" />
             </TableRow>
             <TableRow>
@@ -204,13 +238,13 @@
         android:text="Ordered Items"
         android:textAlignment="center"
         android:background="@color/limegreen"/>
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/itemsRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/itemsRv"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/row_ordereditem"/>
-
+        tools:listitem="@layout/row_ordereditem" />
 
 
 </LinearLayout>

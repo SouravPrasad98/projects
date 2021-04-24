@@ -21,7 +21,8 @@
         android:theme="@style/Theme.MAil"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
-        <activity android:name=".ShopReviewsActivity"></activity>
+        <activity android:name=".OrderDetailsWholesellerActivity"></activity>
+        <activity android:name=".ShopReviewsActivity" />
         <activity android:name=".WriteReviewActivity" />
         <activity android:name=".OrderdetailsRetailerActivity" />
         <activity android:name=".SettingsActivity" />
