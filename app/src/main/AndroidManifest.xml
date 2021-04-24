@@ -4,14 +4,6 @@
     package="com.example.mail"
     android:installLocation="auto">
 
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,7 +13,9 @@
         android:theme="@style/Theme.MAil"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
-        <activity android:name=".OrderdetailsRetailerActivity"></activity>
+        <activity android:name=".AddPromotionCodeActivity"></activity>
+        <activity android:name=".PromotionCodesActivity" />
+        <activity android:name=".OrderdetailsRetailerActivity" />
         <activity android:name=".SettingsActivity" />
         <activity
             android:name=".ShopdetailsActivity"
@@ -71,5 +65,13 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>
