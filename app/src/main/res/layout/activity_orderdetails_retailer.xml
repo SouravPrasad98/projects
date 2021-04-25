@@ -193,6 +193,16 @@
                     android:layout_marginEnd="5dp"
                     android:text="sdgsuugg"
                     android:textColor="@color/black" />
+
+                <Button
+                    android:id="@+id/OfflineOrder"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:backgroundTint="@color/tomatored"
+                    android:text="Make It Offline"
+
+                    android:textColor="@color/white"
+                    android:textSize="12sp"></Button>
             </TableRow>
         </TableLayout>
     </androidx.cardview.widget.CardView>

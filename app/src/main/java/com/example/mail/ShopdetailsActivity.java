@@ -3,14 +3,19 @@ package com.example.mail;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -373,15 +378,15 @@ private RatingBar ratingBar;
 
 
 
-                               prepareNotificationMessage(timestamp);
+                              prepareNotificationMessage(timestamp);
 
 
 
 
-                       // Intent intent = new Intent(ShopdetailsActivity.this, OrderdetailsRetailerActivity.class);
-                        //intent.putExtra("orderTo",uid);
-                        //intent.putExtra("orderId", timestamp);
-                        //startActivity(intent);
+                      //  Intent intent = new Intent(ShopdetailsActivity.this, OrderdetailsRetailerActivity.class);
+                      //  intent.putExtra("orderTo",uid);
+                       // intent.putExtra("orderId", timestamp);
+                       // startActivity(intent);
 
                     }
                 })
@@ -394,6 +399,8 @@ private RatingBar ratingBar;
                 });
 
     }
+
+
 
     private void openmap() {
         String address = "http://maps.google.com/maps?saddr=" + myLatitude +","+myLongitude +"&daddr=" +shopLatitude + "," + shopLongitude;
