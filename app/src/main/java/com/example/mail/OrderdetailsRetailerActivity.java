@@ -10,6 +10,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -34,6 +35,7 @@ public class OrderdetailsRetailerActivity extends AppCompatActivity {
     private TextView orderIdTv, dateTv, orderStatusTv, shopNameTv, amountTv, totalItemsTv, addressTv;
     private RecyclerView itemsRv;
     private FirebaseAuth firebaseAuth;
+    private Button offlineOrder;
  private ArrayList<ModelOrderedItem> orderedItemArrayList;
  private AdapterOrderedItem adapterOrderedItem;
     @Override
@@ -51,12 +53,19 @@ public class OrderdetailsRetailerActivity extends AppCompatActivity {
         totalItemsTv = findViewById(R.id.totalItemsTv);
         addressTv = findViewById(R.id.addressTv);
         itemsRv = findViewById(R.id.itemsRv);
-
+        offlineOrder = findViewById(R.id.OfflineOrder);
 
         Intent intent = getIntent();
         orderTo = intent.getStringExtra("orderTo");
         orderId = intent.getStringExtra("orderId");
         orderBy = intent.getStringExtra("orderBy");
+        offlineOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (OrderdetailsRetailerActivity.this , offlineOrders.class);
+                startActivity(intent);
+            }
+        });
 
         firebaseAuth = FirebaseAuth.getInstance();
         loadShopInfo();

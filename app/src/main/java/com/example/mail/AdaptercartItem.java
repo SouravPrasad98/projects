@@ -41,10 +41,14 @@ public class AdaptercartItem extends RecyclerView.Adapter<AdaptercartItem.Holder
         String price = modelCartItem.getPrice();
         String quantity = modelCartItem.getQuantity();
 
+
+
         Double x = Double.parseDouble(quantity);
         Double y = Double.parseDouble(cost);
         Double z =x*y;
         String a = Double.toString(z);
+
+
 
 
         holder.itemQuatiTv.setText("["+quantity+"]");
