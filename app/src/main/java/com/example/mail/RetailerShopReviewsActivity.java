@@ -20,13 +20,13 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class Customer_ShopReviewsActivity extends AppCompatActivity {
+public class RetailerShopReviewsActivity extends AppCompatActivity {
 private String shopUid;
 
     private TextView ratingsTv;
    private ImageView profileIv;
    private FirebaseAuth firebaseAuth;
-   private Customer_AdapterReview customer_adapterReview;
+   private AdapterReview adapterReview;
    private ArrayList<ModelReview> reviewArrayList;
    private ImageButton reviewsBtn,addproduct;
    private RatingBar ratingBar;
@@ -69,8 +69,8 @@ private String shopUid;
                             reviewArrayList.add(modelReview);
                         }
 
-                        customer_adapterReview = new Customer_AdapterReview(Customer_ShopReviewsActivity.this, reviewArrayList);
-                        reviewsRv.setAdapter(customer_adapterReview);
+                        adapterReview = new AdapterReview(RetailerShopReviewsActivity.this, reviewArrayList);
+                        reviewsRv.setAdapter(adapterReview);
 
                         long numberOfReviews = snapshot.getChildrenCount();
                         float avgRating = ratingSum/numberOfReviews;

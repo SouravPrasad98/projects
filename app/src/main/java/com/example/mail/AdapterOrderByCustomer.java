@@ -20,12 +20,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class AdapterOrderRetailer extends RecyclerView.Adapter<AdapterOrderRetailer.HolderOrderRetailer> {
+public class AdapterOrderByCustomer extends RecyclerView.Adapter<AdapterOrderByCustomer.HolderOrderRetailer> {
 
     private Context context;
-    private ArrayList<ModelOrderRetailer> orderUsersList;
+    private ArrayList<ModelOrderWholeseller> orderUsersList;
 
-    public AdapterOrderRetailer(Context context, ArrayList<ModelOrderRetailer> orderUsersList) {
+    public AdapterOrderByCustomer(Context context, ArrayList<ModelOrderWholeseller> orderUsersList) {
         this.context = context;
         this.orderUsersList = orderUsersList;
     }
@@ -40,15 +40,15 @@ public class AdapterOrderRetailer extends RecyclerView.Adapter<AdapterOrderRetai
 
     @Override
     public void onBindViewHolder(@NonNull HolderOrderRetailer holder, int position) {
-        ModelOrderRetailer modelOrderRetailer =orderUsersList.get(position);
-        String OrderId = modelOrderRetailer.getOrderId();
-        String OrderBy = modelOrderRetailer.getOrderBy();
-        String OrderCost = modelOrderRetailer.getOrderCost();
-        String OrderStatus = modelOrderRetailer.getOrderStatus();
-        String OrderTime = modelOrderRetailer.getOrderTime();
-        String OrderTo = modelOrderRetailer.getOrderTo();
+        ModelOrderWholeseller modelOrderWholeseller =orderUsersList.get(position);
+        String OrderId = modelOrderWholeseller.getOrderId();
+        String OrderBy = modelOrderWholeseller.getOrderBy();
+        String OrderCost = modelOrderWholeseller.getOrderCost();
+        String OrderStatus = modelOrderWholeseller.getOrderStatus();
+        String OrderTime = modelOrderWholeseller.getOrderTime();
+        String OrderTo = modelOrderWholeseller.getOrderTo();
     
-        loadShopInfo(modelOrderRetailer,holder);
+        loadShopInfo(modelOrderWholeseller,holder);
 
         holder.amountTv.setText("Amount: $ "+ OrderCost);
         holder.statusTv.setText(OrderStatus);
@@ -77,7 +77,7 @@ public class AdapterOrderRetailer extends RecyclerView.Adapter<AdapterOrderRetai
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, OrderdetailsRetailerActivity.class);
+                Intent intent = new Intent(context, OrderbyCustomerDetailsActivity.class);
                 intent.putExtra("orderTo",OrderTo);
                 intent.putExtra("orderId", OrderId);
                 intent.putExtra("orderBy", OrderBy);
@@ -87,10 +87,10 @@ public class AdapterOrderRetailer extends RecyclerView.Adapter<AdapterOrderRetai
 
     }
 
-    private void loadShopInfo(ModelOrderRetailer modelOrderRetailer, HolderOrderRetailer holder) {
+    private void loadShopInfo(ModelOrderWholeseller modelOrderWholeseller, HolderOrderRetailer holder) {
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Wholeseller");
-        ref.child(modelOrderRetailer.getOrderTo())
+        ref.child(modelOrderWholeseller.getOrderTo())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

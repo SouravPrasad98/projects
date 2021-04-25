@@ -1,9 +1,5 @@
 package com.example.mail;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +11,10 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
@@ -38,7 +38,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OrderDetailsWholesellerActivity extends AppCompatActivity {
+public class OrderbyCustomerDetailsActivity extends AppCompatActivity {
     String orderId, orderTo, orderBy;
     private ImageButton writeReviewBtn, editBtn, mapBtn;
     private TextView nameTv, phoneTv, totalItemsTv, amountTv, addressTv, orderIdTv, dateTv, orderStatusTv;
@@ -46,7 +46,7 @@ public class OrderDetailsWholesellerActivity extends AppCompatActivity {
     String slatitude, slongitude, dlatitude, dlongitude;
     private RecyclerView itemsRv;
     private ArrayList<ModelOrderedItem> orderedItemArrayList;
-    private AdapterOrderedItem adapterOrderedItem;
+    private AdapterbyCustomerOrderedItem adapterbyCustomerOrderedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,16 +76,19 @@ public class OrderDetailsWholesellerActivity extends AppCompatActivity {
         loadOrderDetails();
         loadOrderedItems();
 
-       editBtn.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               editOrderStatusDialog();
-           }
-       });
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editOrderStatusDialog();
+            }
+        });
 
         writeReviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(OrderbyCustomerDetailsActivity.this, RetailerShopReviewsActivity.class);
+                intent.putExtra("uid", "" + firebaseAuth.getUid());
+                startActivity(intent);
 
             }
         });
@@ -99,8 +102,8 @@ public class OrderDetailsWholesellerActivity extends AppCompatActivity {
     }
 
     private void editOrderStatusDialog() {
-        String[] options = {"All","In Progress","Completed","Cancelled"};
-        android.app.AlertDialog.Builder builder = new AlertDialog.Builder(OrderDetailsWholesellerActivity.this);
+        String[] options = {"All", "In Progress", "Completed", "Cancelled"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(OrderbyCustomerDetailsActivity.this);
         builder.setTitle("Edit Order Status")
                 .setItems(options, new DialogInterface.OnClickListener() {
                     @Override
@@ -114,31 +117,31 @@ public class OrderDetailsWholesellerActivity extends AppCompatActivity {
 
     private void editOrderStatusDialog(String selectedOption) {
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("orderStatus", ""+ selectedOption);
+        hashMap.put("orderStatus", "" + selectedOption);
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("RetailerOnlineOrders");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("CustomerOnlineOrders");
         reference.child(orderId).updateChildren(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
 
-                        String message = "Order is now"+ selectedOption;
-                        Toast.makeText(OrderDetailsWholesellerActivity.this, message, Toast.LENGTH_SHORT).show();
+                        String message = "Order is now" + selectedOption;
+                        Toast.makeText(OrderbyCustomerDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
 
                         String phoneNumber = phoneTv.getText().toString();
 
                         String mssg = "";
                         if (selectedOption.equals("In Progress")) {
                             orderStatusTv.setTextColor(getResources().getColor(R.color.colorPrimary));
-                            mssg = new String("Dear Retailer " +  nameTv.getText().toString() + ", Your order status for order id :  " + orderId +
+                            mssg = new String("Dear Customer " + nameTv.getText().toString() + ", Your order status for order id :  " + orderId +
                                     "has been updated to \'In Progress\'");
                         } else if (selectedOption.equals("Completed")) {
                             orderStatusTv.setTextColor(getResources().getColor(R.color.middlegreen));
-                            mssg = new String("Dear Retailer " +  nameTv.getText().toString() + ",  Your order status for order id :  " + orderId +
+                            mssg = new String("Dear Customer " + nameTv.getText().toString() + ",  Your order status for order id :  " + orderId +
                                     "has been updated to \'Completed\'");
                         } else if (selectedOption.equals("Cancelled")) {
                             orderStatusTv.setTextColor(getResources().getColor(R.color.tomatored));
-                            mssg = new String("Dear Retailer " +  nameTv.getText().toString() + ",  Your order status for order id :  " + orderId +
+                            mssg = new String("Dear Customer " + nameTv.getText().toString() + ",  Your order status for order id :  " + orderId +
                                     "has been updated to \'Cancelled\'");
                         }
                         SmsManager smsManager = SmsManager.getDefault();
@@ -151,7 +154,7 @@ public class OrderDetailsWholesellerActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(OrderDetailsWholesellerActivity.this, "error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OrderbyCustomerDetailsActivity.this, "error", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -160,7 +163,7 @@ public class OrderDetailsWholesellerActivity extends AppCompatActivity {
 
     private void loadOrderedItems() {
         orderedItemArrayList = new ArrayList<>();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("RetailerOnlineOrders");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("CustomerOnlineOrders");
         ref.child(orderId).child("Items")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -171,8 +174,8 @@ public class OrderDetailsWholesellerActivity extends AppCompatActivity {
 
                             orderedItemArrayList.add(modelOrderedItem);
                         }
-                        adapterOrderedItem = new AdapterOrderedItem(OrderDetailsWholesellerActivity.this, orderedItemArrayList);
-                        itemsRv.setAdapter(adapterOrderedItem);
+                        adapterbyCustomerOrderedItem = new AdapterbyCustomerOrderedItem(OrderbyCustomerDetailsActivity.this, orderedItemArrayList);
+                        itemsRv.setAdapter(adapterbyCustomerOrderedItem);
 
                         totalItemsTv.setText(""+snapshot.getChildrenCount());
                     }
@@ -186,7 +189,7 @@ public class OrderDetailsWholesellerActivity extends AppCompatActivity {
 
 
     private void loadOrderDetails() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("RetailerOnlineOrders");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("CustomerOnlineOrders");
         reference.child(orderId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -225,7 +228,7 @@ public class OrderDetailsWholesellerActivity extends AppCompatActivity {
     }
 
     private void loadmyInfo() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Wholeseller");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Retailer");
         reference.child(orderTo)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -249,7 +252,7 @@ public class OrderDetailsWholesellerActivity extends AppCompatActivity {
     }
 
     private void loadBuyerInfo() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Retailer");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Customer");
         reference.child(orderBy)
                 .addValueEventListener(new ValueEventListener() {
                     @Override

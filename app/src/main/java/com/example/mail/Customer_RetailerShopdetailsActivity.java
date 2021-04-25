@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -364,6 +365,11 @@ private RatingBar ratingBar;
                                }
                                progressDialog.dismiss();
                                Toast.makeText(Customer_RetailerShopdetailsActivity.this,"Order Placed Successfully ...",Toast.LENGTH_LONG).show();
+
+                        String phoneNumber = shopPhone;
+                        String message = new String("Dear Retailer " +  shopName + ", You have a new order with orderId " + timestamp);
+                        SmsManager smsManager = SmsManager.getDefault();
+                        smsManager.sendTextMessage(phoneNumber, null, message, null, null);
 
                         Intent intent = new Intent(Customer_RetailerShopdetailsActivity.this, Customer_OrderdetailsActivity.class);
                         intent.putExtra("orderTo",uid);
