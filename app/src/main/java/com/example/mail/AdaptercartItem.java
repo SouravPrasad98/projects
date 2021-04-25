@@ -41,6 +41,12 @@ public class AdaptercartItem extends RecyclerView.Adapter<AdaptercartItem.Holder
         String price = modelCartItem.getPrice();
         String quantity = modelCartItem.getQuantity();
 
+        Double x = Double.parseDouble(quantity);
+        Double y = Double.parseDouble(cost);
+        Double z =x*y;
+        String a = Double.toString(z);
+
+
         holder.itemQuatiTv.setText("["+quantity+"]");
         holder.itemPriceTv.setText(""+price);
         holder.itemTitleTv.setText(""+title);
@@ -62,12 +68,14 @@ public class AdaptercartItem extends RecyclerView.Adapter<AdaptercartItem.Holder
                 easyDB.deleteRow(1, id);
                 Toast.makeText(context, "Removed from cart...", Toast.LENGTH_SHORT).show();
 
+
                 cartItems.remove(position);
                 notifyItemChanged(position);
                 notifyDataSetChanged();
 
+
                 double subTotalWithoutDiscount = ((ShopdetailsActivity)context).allTotalPrice;
-                double subTotalAfterProductRemove = subTotalWithoutDiscount - Double.parseDouble(cost.replace("$", ""));
+                double subTotalAfterProductRemove = subTotalWithoutDiscount - Double.parseDouble(a.replace("$", ""));
                 ((ShopdetailsActivity)context).allTotalPrice = subTotalAfterProductRemove;
                 ((ShopdetailsActivity)context).sTotalTv.setText("$"+ String.format("%.2f", ((ShopdetailsActivity)context).allTotalPrice));
 

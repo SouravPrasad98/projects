@@ -390,7 +390,7 @@ private RatingBar ratingBar;
         discountTv.setText("$"+ promoPrice);
         dFeeTv.setText("$"+ deliveryFee);
         sTotalTv.setText("$"+ String.format("%.2f", allTotalPrice));
-        sTotalTv.setText("$"+ (allTotalPrice + Double.parseDouble(deliveryFee.replace("$", "")) - Double.parseDouble(promoPrice)));
+        allTotalPriceTv.setText("$"+ (allTotalPrice + Double.parseDouble(deliveryFee.replace("$", "")) - Double.parseDouble(promoPrice)));
 
     }
 
@@ -398,7 +398,7 @@ private RatingBar ratingBar;
         discountTv.setText("$0");
         dFeeTv.setText("$"+ deliveryFee);
         sTotalTv.setText("$"+ String.format("%.2f", allTotalPrice));
-        sTotalTv.setText("$"+ (allTotalPrice + Double.parseDouble(deliveryFee.replace("$", ""))));
+        allTotalPriceTv.setText("$"+ (allTotalPrice + Double.parseDouble(deliveryFee.replace("$", ""))));
     }
 
     public Boolean isPromoCodeApplied = false;
@@ -439,7 +439,7 @@ private RatingBar ratingBar;
                         else
                         {
                             progressDialog.dismiss();
-                            Toast.makeText(ShopdetailsActivity.this, "Invlaid Promo Code", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ShopdetailsActivity.this, "Invalid Promo Code", Toast.LENGTH_SHORT).show();
                             applyBtn.setVisibility(View.GONE);
                             promoDescriptionTv.setVisibility(View.GONE);
                             promoDescriptionTv.setText("");
@@ -517,13 +517,12 @@ private RatingBar ratingBar;
         hashMap.put("orderCost","" + cost);
         hashMap.put("orderBy",firebaseAuth.getUid());
         hashMap.put("orderTo",uid);
-        hashMap.put("deliveryFee", ""+deliveryFee);
         hashMap.put("discount", ""+ promoPrice);
         if(isPromoCodeApplied){
             hashMap.put("discount", ""+promoPrice);
         }
         else {
-            hashMap.put("discount", ""+ promoPrice);
+            hashMap.put("discount", "0");
         }
 
 
@@ -563,10 +562,10 @@ private RatingBar ratingBar;
 
 
 
-                       // Intent intent = new Intent(ShopdetailsActivity.this, OrderdetailsRetailerActivity.class);
-                        //intent.putExtra("orderTo",uid);
-                        //intent.putExtra("orderId", timestamp);
-                        //startActivity(intent);
+                        Intent intent = new Intent(ShopdetailsActivity.this, OrderdetailsRetailerActivity.class);
+                        intent.putExtra("orderTo",uid);
+                        intent.putExtra("orderId", timestamp);
+                        startActivity(intent);
 
                     }
                 })
