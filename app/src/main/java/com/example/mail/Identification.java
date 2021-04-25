@@ -16,6 +16,7 @@ public class Identification extends AppCompatActivity {
     Button register;
 
     CountryCodePicker ccp;
+
     ProgressBar progressbar;
 
     @Override

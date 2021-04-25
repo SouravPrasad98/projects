@@ -49,8 +49,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:text="Signin via Phone"
-            app:backgroundTint="#F40F0F" />
+            android:text="Lets GO"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/tomatored" />
 
         <Button
             android:id="@+id/Next"

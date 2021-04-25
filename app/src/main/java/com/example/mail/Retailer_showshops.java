@@ -162,45 +162,25 @@ public class Retailer_showshops extends AppCompatActivity {
     private void loadOrders() {
 
         orderList = new ArrayList<>();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("RetailerOnlineOrders");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                orderList.clear();
-                for(DataSnapshot ds : dataSnapshot.getChildren())
-                {
-                    String uid = "" + ds.getRef().getKey();
-                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("RetailerOnlineOrders");
-                    ref.orderByChild("orderBy").equalTo(firebaseAuth.getUid())
-                            .addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if(dataSnapshot.exists())
-                                    {
-                                        for(DataSnapshot ds: dataSnapshot.getChildren())
-                                        {
-                                            ModelOrderRetailer modelOrderRetailer = ds.getValue(ModelOrderRetailer.class);
-                                            orderList.add(modelOrderRetailer);
-                                        }
-                                        adapterOrderRetailer = new AdapterOrderRetailer(Retailer_showshops.this,orderList);
-                                        orderRv.setAdapter(adapterOrderRetailer);
-                                    }
-                                }
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("RetailerOnlineOrders");
+        ref.orderByChild("orderBy").equalTo(firebaseAuth.getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for(DataSnapshot ds: snapshot.getChildren())
+                            {
+                                ModelOrderRetailer modelOrderRetailer = ds.getValue(ModelOrderRetailer.class);
+                                orderList.add(modelOrderRetailer);
+                            }
+                            adapterOrderRetailer = new AdapterOrderRetailer(Retailer_showshops.this,orderList);
+                            orderRv.setAdapter(adapterOrderRetailer);
+                    }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                                }
-                            });
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+                    }
+                });
 
     }
 

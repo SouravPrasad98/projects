@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -55,7 +56,7 @@ public class Customer_RetailerShopdetailsActivity extends AppCompatActivity {
 private String uid;
 private String myLatitude,myLongitude,myPhone;
 private String shopLatitude,shopLongitude,shopName,shopPhone,shopAddress,shopEmail;
-private AdapterProductShopDetails adapterProductShopDetails;
+private Customer_AdapterProductShopDetails adapterProductShopDetails;
 private ArrayList<ModelCartItem> cartItemList;
 private Customer_AdaptercartItem adaptercartItem;
 public String deliveryFee;
@@ -270,7 +271,7 @@ private RatingBar ratingBar;
             String cost = res.getString(5);
             String quantity = res.getString(6);
 
-            allTotalPrice = allTotalPrice + Double.parseDouble(cost);
+            allTotalPrice = allTotalPrice + Double.parseDouble(price);
 
             ModelCartItem modelCartItem = new ModelCartItem(""+id,
                     ""+ pId,
@@ -365,6 +366,11 @@ private RatingBar ratingBar;
                                progressDialog.dismiss();
                                Toast.makeText(Customer_RetailerShopdetailsActivity.this,"Order Placed Successfully ...",Toast.LENGTH_LONG).show();
 
+                        String phoneNumber = shopPhone;
+                        String message = new String("Dear Retailer " +  shopName + ", You have a new order with orderId " + timestamp);
+                        SmsManager smsManager = SmsManager.getDefault();
+                        smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+
                         Intent intent = new Intent(Customer_RetailerShopdetailsActivity.this, Customer_OrderdetailsActivity.class);
                         intent.putExtra("orderTo",uid);
                         intent.putExtra("orderId", timestamp);
@@ -446,7 +452,7 @@ private RatingBar ratingBar;
                             }
 
                         }
-                        adapterProductShopDetails = new AdapterProductShopDetails(Customer_RetailerShopdetailsActivity.this, productList);
+                        adapterProductShopDetails = new Customer_AdapterProductShopDetails(Customer_RetailerShopdetailsActivity.this, productList);
                         productsRv.setAdapter(adapterProductShopDetails);
                     }
 
@@ -469,7 +475,7 @@ private RatingBar ratingBar;
                             ModelProduct modelProduct = ds.getValue(ModelProduct.class);
                             productList.add(modelProduct);
                         }
-                        adapterProductShopDetails = new AdapterProductShopDetails(Customer_RetailerShopdetailsActivity.this, productList);
+                        adapterProductShopDetails = new Customer_AdapterProductShopDetails(Customer_RetailerShopdetailsActivity.this, productList);
                         productsRv.setAdapter(adapterProductShopDetails);
                     }
 

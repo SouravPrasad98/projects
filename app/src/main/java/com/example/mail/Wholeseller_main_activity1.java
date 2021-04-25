@@ -35,8 +35,10 @@ import java.util.HashMap;
 
 public class Wholeseller_main_activity1 extends AppCompatActivity {
 
-    private TextView bussnm,profile_name,productstab,orderstab,filteredOrdersTv;
-    private ImageButton logoutbt, addproduct,settingsBtn,filterOrderBtn,reviewsBtn;
+
+    private TextView bussnm,profile_name,productstab,orderstab;
+    private ImageButton logoutbt, addproduct,settingsBtn, promoBtn, filterOrderBtn,reviewsBtn;
+
     private ImageView profileIv;
     private long backpressedTime;
     private EditText searchOrderEt;
@@ -56,7 +58,6 @@ public class Wholeseller_main_activity1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wholeseller_main_activity1);
         filterOrderBtn = findViewById(R.id.filterOrderBtn);
-        filteredOrdersTv = findViewById(R.id.filteredOrdersTv);
         reviewsBtn =  findViewById(R.id.reviewsBtn);
         searchOrderEt = findViewById(R.id.searchOrderEt);
         productstab= findViewById(R.id.productstab);
@@ -83,12 +84,20 @@ public class Wholeseller_main_activity1 extends AppCompatActivity {
         frozenfood =findViewById(R.id.frozenfood);
         fruitsandveg =findViewById(R.id.fruitsandveg);
         foodgrain =findViewById(R.id.foodgrain);
+        promoBtn = findViewById(R.id.promoBtn);
 
         checkuser();
         loadAllOrders();
         showOrdersUi();
         showProductsUi();
 
+        promoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Wholeseller_main_activity1.this,PromotionCodesActivity.class);
+                startActivity(intent);
+            }
+        });
 
         productstab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,28 +230,7 @@ public class Wholeseller_main_activity1 extends AppCompatActivity {
             }
         });
 
-        filterOrderBtn.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        String[] options = {"All","In Progress","Completed","Cancelled"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(Wholeseller_main_activity1.this);
-        builder.setTitle("Filter Orders:")
-                .setItems(options, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if(which == 0){
-                            filteredOrdersTv.setText("Showing All");
-                            adapterOrderWholeseller.getFilter().filter("");
-                        }
-                        else{
-                            String optionClicked = options[which];
-                            filteredOrdersTv.setText("Showing" + optionClicked+ "orders");
-                            adapterOrderWholeseller.getFilter().filter(optionClicked);
-                        }
-                    }
-                });
-    }
-});
+
 
     }
 

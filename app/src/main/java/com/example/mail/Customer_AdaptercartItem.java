@@ -42,9 +42,9 @@ public class Customer_AdaptercartItem extends RecyclerView.Adapter<Customer_Adap
         String quantity = modelCartItem.getQuantity();
 
         holder.itemQuatiTv.setText("["+quantity+"]");
-        holder.itemPriceTv.setText(""+cost);
+        holder.itemPriceTv.setText(""+price);
         holder.itemTitleTv.setText(""+title);
-        holder.itemPriceEachTv.setText(""+price);
+        holder.itemPriceEachTv.setText(""+cost);
 
         holder.itemRemoveTv.setOnClickListener(new View.OnClickListener() {
             @Override
