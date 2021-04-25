@@ -26,7 +26,7 @@ private String shopUid;
     private TextView ratingsTv;
    private ImageView profileIv;
    private FirebaseAuth firebaseAuth;
-   private AdapterReview adapterReview;
+   private Customer_AdapterReview customer_adapterReview;
    private ArrayList<ModelReview> reviewArrayList;
    private ImageButton reviewsBtn,addproduct;
    private RatingBar ratingBar;
@@ -69,8 +69,8 @@ private String shopUid;
                             reviewArrayList.add(modelReview);
                         }
 
-                        adapterReview = new AdapterReview(Customer_ShopReviewsActivity.this, reviewArrayList);
-                        reviewsRv.setAdapter(adapterReview);
+                        customer_adapterReview = new Customer_AdapterReview(Customer_ShopReviewsActivity.this, reviewArrayList);
+                        reviewsRv.setAdapter(customer_adapterReview);
 
                         long numberOfReviews = snapshot.getChildrenCount();
                         float avgRating = ratingSum/numberOfReviews;
