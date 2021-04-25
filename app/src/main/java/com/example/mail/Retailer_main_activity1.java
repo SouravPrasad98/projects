@@ -34,12 +34,10 @@ public class Retailer_main_activity1 extends AppCompatActivity {
     private long backpressedTime;
     private Button showproducts;
     private RelativeLayout productsRl, ordersRl;
-//    private RecyclerView orderRv;
-//    private ArrayList<ModelOrderRetailer> orderList;
-//    private AdapterOrderRetailer adapterOrderRetailer;
-
+    private RecyclerView orderRv;
+    private ArrayList<ModelOrderWholeseller> modelOrderWholesellers;
+    private AdapterOrderCustomer2 adapterOrderCustomer2;
     private FirebaseAuth firebaseAuth;
-
     private TextView others,Biscuits,beverages,breakfastdairy,eggmeat,frozenfood,
             fruitsandveg,foodgrain;
 
@@ -54,9 +52,8 @@ public class Retailer_main_activity1 extends AppCompatActivity {
         logoutbt = findViewById(R.id.logoutbt);
         productsRl = findViewById(R.id.productsRl);
         ordersRl = findViewById(R.id.ordersRl);
-
-        settingsBtn = findViewById(R.id.settingsBtn);
-        //orderRv = findViewById(R.id.orderRv);
+        orderRv = findViewById(R.id.orderRv);
+    settingsBtn = findViewById(R.id.settingsBtn);
         addproduct = findViewById(R.id.addproduct);
         profile_name = findViewById(R.id.profile_name);
         profileIv = findViewById(R.id.profileIv);
@@ -72,7 +69,9 @@ public class Retailer_main_activity1 extends AppCompatActivity {
         foodgrain =findViewById(R.id.foodgrain);
 
         checkuser();
-
+        loadAllOrders();
+        showOrdersUi();
+        showProductsUi();
 
         productstab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,6 +192,31 @@ public class Retailer_main_activity1 extends AppCompatActivity {
                     startActivity(new Intent(Retailer_main_activity1.this,SettingsActivity.class));
                 }
             });
+
+    }
+
+    private void loadAllOrders() {
+        modelOrderWholesellers = new ArrayList<>();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("CustomerOnlineOrders");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                modelOrderWholesellers.clear();
+                for (DataSnapshot ds: snapshot.getChildren()){
+                    ModelOrderWholeseller modelOrderWholeseller = ds.getValue(ModelOrderWholeseller.class);
+                    if(modelOrderWholeseller.getOrderTo().equals(Constants.wuid)) {
+                        modelOrderWholesellers.add(modelOrderWholeseller);
+                    }
+                }
+                adapterOrderCustomer2 = new AdapterOrderCustomer2(Retailer_main_activity1.this, modelOrderWholesellers);
+                orderRv.setAdapter(adapterOrderCustomer2);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 

@@ -46,6 +46,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-inappmessaging-display:19.1.5'
     implementation 'com.google.firebase:firebase-storage:19.2.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.karumi:dexter:5.0.0'
+    implementation 'com.karumi:dexter:6.1.0'
     implementation 'androidx.wear:wear:1.1.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

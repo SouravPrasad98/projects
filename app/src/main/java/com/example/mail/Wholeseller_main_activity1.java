@@ -57,9 +57,9 @@ public class Wholeseller_main_activity1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wholeseller_main_activity1);
-        filterOrderBtn = findViewById(R.id.filterOrderBtn);
+
         reviewsBtn =  findViewById(R.id.reviewsBtn);
-        searchOrderEt = findViewById(R.id.searchOrderEt);
+
         productstab= findViewById(R.id.productstab);
         showproducts = findViewById(R.id.showproducts);
         bussnm = findViewById(R.id.bussnm);

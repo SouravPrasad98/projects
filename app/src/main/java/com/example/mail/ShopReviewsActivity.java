@@ -22,17 +22,17 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class ShopReviewsActivity extends AppCompatActivity {
-private String shopUid;
+    private String shopUid;
 
     private TextView ratingsTv;
-   private ImageView profileIv;
-   private FirebaseAuth firebaseAuth;
-   private AdapterReview adapterReview;
-   private ArrayList<ModelReview> reviewArrayList;
-   private ImageButton reviewsBtn,addproduct;
-   private RatingBar ratingBar;
-   private TextView shopNameTv;
-   private RecyclerView reviewsRv;
+    private ImageView profileIv;
+    private FirebaseAuth firebaseAuth;
+    private AdapterReview adapterReview;
+    private ArrayList<ModelReview> reviewArrayList;
+    private ImageButton reviewsBtn,addproduct;
+    private RatingBar ratingBar;
+    private TextView shopNameTv;
+    private RecyclerView reviewsRv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
