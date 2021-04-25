@@ -94,13 +94,6 @@ public class Retailer_activity extends AppCompatActivity {
             }
         });
 
-        orderstab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showOrdersUi();
-
-            }
-        });
 
 
         filterProductbtn.setOnClickListener(new View.OnClickListener() {
@@ -202,20 +195,9 @@ public class Retailer_activity extends AppCompatActivity {
     private void showProductsUi() {
         productsRl.setVisibility(View.VISIBLE);
         ordersRl.setVisibility(View.GONE);
-        productstab.setTextColor(getResources().getColor(R.color.black));
-        productstab.setBackgroundResource(R.drawable.shaperec01);
-        orderstab.setTextColor(getResources().getColor(R.color.white));
-        orderstab.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-    }
-    private void showOrdersUi() {
 
-        ordersRl.setVisibility(View.VISIBLE);
-        productsRl.setVisibility(View.GONE);
-        orderstab.setTextColor(getResources().getColor(R.color.black));
-        orderstab.setBackgroundResource(R.drawable.shaperec01);
-        productstab.setTextColor(getResources().getColor(R.color.white));
-        productstab.setBackgroundColor(getResources().getColor(android.R.color.transparent));
     }
+
 
     private void checkuser(){
         FirebaseUser user = firebaseAuth.getCurrentUser();
