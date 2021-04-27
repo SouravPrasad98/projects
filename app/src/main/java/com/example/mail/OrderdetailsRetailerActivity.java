@@ -154,19 +154,7 @@ public class OrderdetailsRetailerActivity extends AppCompatActivity {
                 String orderId = "" + snapshot.child("orderId").getValue();
 
 
-//                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Retailer");
-//                reference.child(orderBy)
-//                        .addListenerForSingleValueEvent(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                address = ""+ snapshot.child("address").getValue();
-//                            }
-//
-//                            @Override
-//                            public void onCancelled(@NonNull DatabaseError error) {
-//
-//                            }
-//                        });
+
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(Long.parseLong(orderTime));
